@@ -1,0 +1,105 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Marquee from '../../../components/Marquee.astro';
+import { courses } from '../../../data/gym.js';
+import { langPaths, t, path } from '../../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const C = L.courses;
+
+const list = courses.map((c) => ({ ...c, ...L.courseData[c.slug] }));
+---
+
+<Base title={C.seoTitle} description={C.seoDesc} lang={lang}>
+  <PageHero kicker={C.kicker} ghost={C.ghost}>
+    <Fragment set:html={C.title} />
+  </PageHero>
+
+  <Marquee items={list.map((c) => c.name)} solid />
+
+  <section class="section">
+    <div class="container">
+      <p class="lead muted intro" data-reveal set:html={C.intro} />
+
+      <div class="courses-grid">
+        {list.map((c, i) => (
+          <a class="course-card card" href={path(lang, `/corsi/${c.slug}/`)} data-reveal data-reveal-delay={(i % 3) * 0.06} style={`--c-accent:${c.accent}`}>
+            <div class="course-card__top">
+              <span class="course-card__num tabular">0{i + 1}</span>
+              <span class="chip course-card__level">{c.level}</span>
+            </div>
+            <h2 class="display display--sm course-card__name">{c.name}</h2>
+            <p class="course-card__kicker">{c.kicker}</p>
+            <p class="muted course-card__tag">{c.tagline}</p>
+            <span class="course-card__go" aria-hidden="true">{C.discover}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .intro :global(strong) { color: var(--accent); }
+  .courses-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+  .course-card {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    text-decoration: none;
+    min-height: 17rem;
+    container-type: inline-size;
+  }
+  .course-card > * { min-width: 0; }
+  .course-card__name {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-size: clamp(1.2rem, 10cqi, 2rem);
+  }
+  .course-card::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 0.35rem;
+    background: var(--c-accent);
+    border-radius: 0 0 1.1rem 1.1rem;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-snap);
+  }
+  .course-card:hover::after { transform: scaleX(1); }
+  .course-card:hover { transform: translateY(-0.35rem); }
+  .course-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .course-card__num { font-weight: 700; color: var(--c-accent); }
+  .course-card__level { font-size: 0.68rem; }
+  .course-card__kicker {
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--c-accent);
+  }
+  .course-card__go {
+    margin-top: auto;
+    font-weight: 700;
+    font-size: 0.9rem;
+    opacity: 0.55;
+    transition: opacity 0.3s, translate 0.3s var(--ease-out);
+  }
+  .course-card:hover .course-card__go { opacity: 1; translate: 0.3em 0; color: var(--c-accent); }
+</style>

@@ -1,0 +1,183 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { gym } from '../../data/gym.js';
+import { langPaths, t } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const K = L.contact;
+
+const waHref = `https://wa.me/${gym.whatsapp}?text=${encodeURIComponent(L.common.whatsappMessage)}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gym.name} ${gym.address.street} ${gym.address.city}`)}`;
+const hoursJson = JSON.stringify(gym.hours.map(({ dayNums, opens, closes }) => ({ dayNums, opens, closes })));
+
+/* TODO SVILUPPO: creare il form gratuito su https://formspree.io con l'email
+   della palestra e sostituire TUO_ID_FORMSPREE con l'ID reale (es. xdoqklyz).
+   Fino ad allora il bottone WhatsApp e il telefono funzionano comunque. */
+const formAction = 'https://formspree.io/f/TUO_ID_FORMSPREE';
+---
+
+<Base title={K.seoTitle} description={K.seoDesc} lang={lang}>
+  <PageHero kicker={K.kicker} ghost={K.ghost}>
+    <Fragment set:html={K.title} />
+    <Fragment slot="extra">
+      <span
+        class="chip open-badge"
+        data-open-badge={hoursJson}
+        data-open-tpl={L.common.openNow('{{H}}')}
+        data-closed-tpl={L.common.closedNow}
+      >
+        <span class="dot" aria-hidden="true"></span>
+        <span data-open-label>{L.common.checkingHours}</span>
+      </span>
+    </Fragment>
+  </PageHero>
+
+  <section class="section">
+    <div class="container grid-2 grid-2--even">
+      <!-- Canali diretti -->
+      <div class="stack-lg">
+        <h2 class="display display--md" data-split set:html={K.fastest} />
+
+        <div class="channels">
+          <a class="card channel" href={waHref} target="_blank" rel="noopener" data-reveal>
+            <span class="channel__label">{K.waLabel}</span>
+            <span class="channel__value display display--sm">{K.waValue}</span>
+            <span class="channel__hint muted small">{K.waHint}</span>
+          </a>
+          <a class="card channel" href={`tel:${gym.phoneHref}`} data-reveal data-reveal-delay="0.06">
+            <span class="channel__label">{K.phoneLabel}</span>
+            <span class="channel__value display display--sm tabular">{gym.phone}</span>
+            <span class="channel__hint muted small">{K.phoneHint}</span>
+          </a>
+          <a class="card channel" href={`mailto:${gym.email}`} data-reveal data-reveal-delay="0.12">
+            <span class="channel__label">{K.emailLabel}</span>
+            <span class="channel__value channel__value--email display display--sm">{gym.email}</span>
+            <span class="channel__hint muted small">{K.emailHint}</span>
+          </a>
+        </div>
+
+        <div class="socials" data-reveal>
+          <p class="eyebrow">{K.followUs}</p>
+          <div class="socials__row">
+            <a class="btn btn--ghost" href={gym.social.instagram} target="_blank" rel="noopener">
+              <span class="btn-label">Instagram</span>
+            </a>
+            <a class="btn btn--ghost" href={gym.social.facebook} target="_blank" rel="noopener">
+              <span class="btn-label">Facebook</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="where card" data-reveal>
+          <p class="eyebrow">{K.whereWeAre}</p>
+          <p class="where__addr">
+            {gym.address.street}<br />
+            {gym.address.zip} {gym.address.city} ({gym.address.province})
+          </p>
+          <div class="hours-mini">
+            {gym.hours.map((h, i) => (
+              <div class="hours-row" data-days={JSON.stringify(h.dayNums)}>
+                <strong data-today-tpl={L.common.today}>{L.hours[i]}</strong>
+                <span class="time">{h.opens} – {h.closes}</span>
+              </div>
+            ))}
+          </div>
+          <a class="btn" href={mapsHref} target="_blank" rel="noopener">
+            <span class="btn-label">{L.common.ctaDirections}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-wrap" data-reveal="right">
+        <form class="contact-form card" action={formAction} method="POST">
+          <p class="eyebrow">{K.formKicker}</p>
+
+          <div class="field">
+            <label for="cf-name">{K.fName}</label>
+            <input id="cf-name" type="text" name="nome" required autocomplete="name" placeholder={K.fNamePh} />
+          </div>
+
+          <div class="field">
+            <label for="cf-contact">{K.fContact}</label>
+            <input id="cf-contact" type="text" name="contatto" required autocomplete="email" placeholder={K.fContactPh} />
+          </div>
+
+          <div class="field">
+            <label for="cf-topic">{K.fTopic}</label>
+            <select id="cf-topic" name="interesse">
+              {K.fTopics.map((o) => <option>{o}</option>)}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cf-msg">{K.fMsg}</label>
+            <textarea id="cf-msg" name="messaggio" required placeholder={K.fMsgPh}></textarea>
+          </div>
+
+          <!-- honeypot antispam: gli umani non lo vedono, i bot lo compilano -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-website">{K.fHoneypot}</label>
+            <input id="cf-website" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <input type="hidden" name="_subject" value={K.fSubject} />
+          <input type="hidden" name="_language" value={lang} />
+
+          <button class="btn btn--accent form-submit" type="submit">
+            <span class="btn-label">{K.fSubmit}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <p class="small muted">{K.fPrivacy}</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .channels { display: grid; gap: 1rem; }
+  .channel { display: grid; gap: 0.35rem; text-decoration: none; }
+  .channel:hover { transform: translateY(-0.25rem); }
+  .channel__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
+  .channel__value--email { font-size: clamp(1.1rem, 2.2vw, 1.6rem); text-transform: lowercase; word-break: break-all; }
+
+  .socials__row { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+
+  .where { display: grid; gap: 1.25rem; }
+  .where__addr { font-weight: 640; line-height: 1.6; }
+  .hours-mini .hours-row { padding-block: 0.7rem; }
+  .where .btn { justify-self: start; }
+
+  .contact-form {
+    display: grid;
+    gap: 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    --t-muted: rgb(242 238 229 / 0.55);
+    --line: rgb(242 238 229 / 0.2);
+  }
+  .form-wrap { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  .contact-form .field select { background: var(--ink); }
+  .contact-form .field option { color: var(--ink); background: var(--paper); }
+  .form-submit { justify-self: start; }
+
+  @media (max-width: 60rem) {
+    .form-wrap { position: static; }
+  }
+</style>

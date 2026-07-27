@@ -1,0 +1,153 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { gym } from '../data/gym.js';
+import { t, path, dict, stripLang, DEFAULT_LANG } from '../i18n/index.js';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  /** Pagina senza suffisso brand nel <title> (solo per la home) */
+  bareTitle?: boolean;
+  ogImage?: string;
+}
+
+const { title, description, lang = DEFAULT_LANG, bareTitle = false, ogImage = '/og.jpg' } = Astro.props;
+const L = t(lang);
+
+const fullTitle = bareTitle ? title : `${title} — ${gym.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+
+// Stessa pagina nell'altra lingua → hreflang
+const bare = stripLang(Astro.url.pathname);
+const alternates = Object.keys(dict).map((code) => ({
+  code,
+  href: new URL(path(code, bare), Astro.site).href,
+}));
+
+// giorni schema.org
+const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ExerciseGym',
+  '@id': new URL('/', Astro.site).href + '#palestra',
+  name: gym.name,
+  alternateName: gym.legalName,
+  description: L.schema.description,
+  url: new URL(path(lang, '/'), Astro.site).href,
+  telephone: gym.phone,
+  email: gym.email,
+  image: ogImageUrl.href,
+  priceRange: '€65 - €335',
+  foundingDate: String(gym.foundingYear),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: gym.address.street,
+    addressLocality: gym.address.city,
+    postalCode: gym.address.zip,
+    addressRegion: gym.address.province,
+    addressCountry: gym.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: gym.geo.lat, longitude: gym.geo.lng },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${gym.name} ${gym.address.street} ${gym.address.city}`
+  )}`,
+  openingHoursSpecification: gym.hours
+    .filter((h) => h.closes)
+    .map((h) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: h.dayNums.map((d) => dayNames[d]),
+      opens: h.opens,
+      closes: h.closes,
+    })),
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: gym.rating.value,
+    reviewCount: gym.rating.count,
+    bestRating: 5,
+  },
+  sameAs: [gym.social.instagram, gym.social.facebook],
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: L.schema.wheelchair, value: true },
+    { '@type': 'LocationFeatureSpecification', name: L.schema.parking, value: true },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={L.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+
+    <!-- Versioni in altre lingue -->
+    {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(path(DEFAULT_LANG, bare), Astro.site).href} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0d0d10" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={gym.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImageUrl.href} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'it_IT'} />
+    <meta property="og:locale:alternate" content={lang === 'en' ? 'it_IT' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl.href} />
+
+    <!-- Geo / local SEO -->
+    <meta name="geo.region" content="IT-RM" />
+    <meta name="geo.placename" content="Torvaianica, Pomezia" />
+    <meta name="geo.position" content={`${gym.geo.lat};${gym.geo.lng}`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+    <!-- Flag js attivo prima del primo paint: evita flash degli elementi animati -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{L.common.skipToContent}</a>
+    <Header lang={lang} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script src="../scripts/main.js"></script>
+  </body>
+</html>
+
+<style is:global>
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 3000;
+    background: var(--accent);
+    color: var(--paper);
+    font-weight: 700;
+    padding: 0.7em 1.2em;
+    border-radius: 999px;
+    text-decoration: none;
+    translate: 0 -200%;
+    transition: translate 0.3s;
+  }
+  .skip-link:focus-visible { translate: 0 0; }
+</style>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  items: string[];
+  solid?: boolean;
+  class?: string;
+}
+const { items, solid = false, class: className = '' } = Astro.props;
+/* Il contenuto è ripetuto 4 volte: copre anche gli schermi larghi e il loop
+   (-50% del track = 2 copie esatte) resta senza stacchi. Solo la prima copia
+   è letta dagli screen reader. */
+---
+
+<div class={`marquee ${solid ? 'marquee--solid' : ''} ${className}`}>
+  <div class="marquee__track">
+    {[0, 1, 2, 3].map((copy) => (
+      <span class="marquee__item" aria-hidden={copy > 0 ? 'true' : undefined}>
+        {items.map((item) => (
+          <>
+            <span>{item}</span>
+            <i class="star" aria-hidden="true">✱</i>
+          </>
+        ))}
+      </span>
+    ))}
+  </div>
+</div>

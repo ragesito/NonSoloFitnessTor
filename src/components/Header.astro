@@ -1,0 +1,234 @@
+---
+import { gym } from '../data/gym.js';
+import { t, path, stripLang, DEFAULT_LANG } from '../i18n/index.js';
+
+interface Props { lang?: string; }
+const { lang = DEFAULT_LANG } = Astro.props;
+const L = t(lang);
+
+const nav = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((key) => ({
+  href: path(lang, `/${key}/`),
+  label: L.nav[key],
+}));
+const current = Astro.url.pathname;
+
+// stessa pagina nell'altra lingua
+const other = lang === 'en' ? 'it' : 'en';
+const otherHref = path(other, stripLang(current));
+---
+
+<header class="header" id="site-header">
+  <div class="header__inner">
+    <a class="wordmark" href={path(lang, '/')} aria-label={`${gym.name} — ${L.common.homeLabel}`}>
+      <span>NONSOLO<span class="wordmark__star">✱</span>FITNESS</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label={L.common.mainNav}>
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class="nav-link"
+          aria-current={current.startsWith(item.href) ? 'page' : undefined}
+        >{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="header__actions">
+      <a class="lang-switch" href={otherHref} hreflang={other} lang={other} aria-label={L.switchTo}>
+        <span class="lang-switch__on">{lang.toUpperCase()}</span>
+        <span class="lang-switch__off">{L.switchToShort}</span>
+      </a>
+      <a class="btn btn--accent header__cta" href={path(lang, '/contatti/')}>
+        <span class="btn-label">{L.common.ctaTry}</span>
+      </a>
+      <button
+        class="burger"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label={L.common.openMenu}
+        data-label-open={L.common.openMenu}
+        data-label-close={L.common.closeMenu}
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <nav aria-label={L.common.mobileNav}>
+      {nav.map((item, i) => (
+        <a href={item.href} class="mobile-nav__link" style={`--i:${i}`}>
+          <span class="mobile-nav__num">0{i + 1}</span>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="mobile-nav__foot">
+      <a href={`tel:${gym.phoneHref}`} class="link-underline">{gym.phone}</a>
+      <div class="mobile-nav__social">
+        <a href={otherHref} hreflang={other} lang={other}>{L.switchTo}</a>
+        <a href={gym.social.instagram} target="_blank" rel="noopener">Instagram</a>
+        <a href={gym.social.facebook} target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 1000;
+    color: var(--paper);
+    transition: translate 0.45s var(--ease-out);
+  }
+  .header.is-hidden { translate: 0 -100%; }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: var(--header-h);
+    padding-inline: var(--gutter);
+    transition: background-color 0.35s, box-shadow 0.35s, color 0.35s;
+  }
+  .header.is-scrolled .header__inner {
+    background: rgb(13 13 16 / 0.82);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    font-stretch: 118%;
+    font-weight: 860;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .wordmark__star {
+    color: var(--accent);
+    display: inline-block;
+    margin-inline: 0.06em;
+  }
+
+  .nav-desktop { display: none; gap: 2rem; }
+  .nav-link {
+    font-size: 0.85rem;
+    font-weight: 640;
+    font-stretch: 88%;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.25s, color 0.25s;
+  }
+  .nav-link:hover { opacity: 1; color: var(--accent); }
+  .nav-link[aria-current='page'] {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .header__actions { display: flex; align-items: center; gap: 1rem; }
+  .header__cta { padding: 0.75em 1.4em; font-size: 0.8rem; }
+
+  /* Selettore lingua: pillola con lingua attiva + quella alternativa */
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.4em 0.75em;
+    border: 1.5px solid rgb(242 238 229 / 0.28);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  .lang-switch:hover, .lang-switch:focus-visible {
+    border-color: var(--accent);
+    background: rgb(217 4 41 / 0.16);
+  }
+  .lang-switch__on { color: var(--paper); }
+  .lang-switch__off { color: rgb(242 238 229 / 0.5); }
+  .lang-switch:hover .lang-switch__off { color: var(--accent); }
+
+  .burger {
+    display: grid;
+    gap: 0.42rem;
+    padding: 0.9rem 0.6rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .burger span {
+    width: 1.7rem;
+    height: 2px;
+    background: currentColor;
+    transition: rotate 0.35s var(--ease-out), translate 0.35s var(--ease-out);
+  }
+  .burger[aria-expanded='true'] span:first-child { rotate: 45deg; translate: 0 0.28rem; }
+  .burger[aria-expanded='true'] span:last-child { rotate: -45deg; translate: 0 -0.28rem; }
+
+  .mobile-nav[hidden] { display: none; }
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: calc(var(--header-h) + 2rem) var(--gutter) 2.5rem;
+    background: var(--ink);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
+  }
+  .mobile-nav.is-open { opacity: 1; }
+  .mobile-nav__link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 0.35em;
+    font-stretch: 118%;
+    font-weight: 860;
+    font-size: clamp(2rem, 8vw, 3.6rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-decoration: none;
+    translate: 0 1.2em;
+    opacity: 0;
+    transition: translate 0.6s var(--ease-out), opacity 0.6s var(--ease-out), color 0.25s;
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .mobile-nav.is-open .mobile-nav__link { translate: 0 0; opacity: 1; }
+  .mobile-nav__link:hover { color: var(--accent); }
+  .mobile-nav__num {
+    font-size: 0.9rem;
+    font-stretch: 85%;
+    font-weight: 640;
+    color: var(--accent);
+  }
+  .mobile-nav__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .mobile-nav__social { display: flex; gap: 1.5rem; }
+  .mobile-nav__social a { text-decoration: none; opacity: 0.8; }
+  .mobile-nav__social a:hover { opacity: 1; color: var(--accent); }
+
+  @media (min-width: 68rem) {
+    .nav-desktop { display: flex; }
+    .burger { display: none; }
+  }
+  @media (max-width: 44rem) {
+    .header__cta { display: none; }
+  }
+</style>

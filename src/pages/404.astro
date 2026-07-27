@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, path, DEFAULT_LANG } from '../i18n/index.js';
+
+// Il 404 è unico (il server non sa la lingua): mostra italiano + inglese.
+const IT = t('it');
+const EN = t('en');
+---
+
+<Base title={IT.notFound.seoTitle} description={IT.notFound.seoDesc} lang={DEFAULT_LANG}>
+  <section class="nf theme-dark">
+    <div class="container nf__inner">
+      <p class="nf__code display display--xl" aria-hidden="true">4<span class="ac">✱</span>4</p>
+
+      <h1 class="display display--md">{IT.notFound.title}</h1>
+      <p class="lead muted">{IT.notFound.body}</p>
+      <div class="nf__actions">
+        <a class="btn btn--accent" href={path('it', '/')}>
+          <span class="btn-label">{IT.notFound.seoTitle ? IT.common.ctaHome : 'Home'}</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--ghost" href={path('it', '/contatti/')}>
+          <span class="btn-label">{IT.common.ctaContact}</span>
+        </a>
+      </div>
+
+      <div class="nf__en" lang="en">
+        <p class="lead muted">{EN.notFound.body}</p>
+        <div class="nf__actions">
+          <a class="btn btn--accent" href={path('en', '/')}>
+            <span class="btn-label">{EN.common.ctaHome}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href={path('en', '/contatti/')}>
+            <span class="btn-label">{EN.common.ctaContact}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    padding-block: calc(var(--header-h) + 3rem) 3rem;
+  }
+  .nf__inner { display: grid; gap: 1.25rem; justify-items: start; }
+  .nf__code { line-height: 1; }
+  .nf__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .nf__en {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1.5px solid var(--line);
+  }
+</style>

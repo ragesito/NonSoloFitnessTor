@@ -1,0 +1,735 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import Stamp from '../../components/Stamp.astro';
+import { gym, courses, reviews } from '../../data/gym.js';
+import { langPaths, t, path } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const H = L.home;
+
+const waHref = `https://wa.me/${gym.whatsapp}?text=${encodeURIComponent(L.common.whatsappMessage)}`;
+const hoursJson = JSON.stringify(gym.hours.map(({ dayNums, opens, closes }) => ({ dayNums, opens, closes })));
+const locale = lang === 'en' ? 'en-GB' : 'it-IT';
+const ratingStr = gym.rating.value.toLocaleString(locale);
+const courseList = courses.map((c) => ({ ...c, ...L.courseData[c.slug] }));
+const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gym.name} ${gym.address.street} ${gym.address.city}`)}`;
+---
+
+<Base title={H.seoTitle} description={H.seoDesc} lang={lang} bareTitle>
+  <!-- ============ INTRO (una sola volta per sessione) ============
+       Il fulmine È la finestra: la sua sagoma si apre e rivela la pagina. -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <svg class="intro__veil" width="100%" height="100%">
+      <defs>
+        <mask id="intro-hole" maskUnits="userSpaceOnUse">
+          <rect width="100%" height="100%" fill="white" />
+          <!-- il buco a forma di fulmine (path centrato sull'origine) -->
+          <path
+            id="intro-hole-path"
+            d="M2 -20 L-11 3 h8 L-6 20 L11 -5 h-9 L2 -20 Z"
+            fill="black"
+            transform="scale(0)"
+          />
+        </mask>
+      </defs>
+      <rect class="intro__veil-rect" width="100%" height="100%" mask="url(#intro-hole)" />
+      <!-- bordo incandescente dell'apertura (spessore costante durante lo zoom) -->
+      <path
+        class="intro__hole-ring"
+        d="M2 -20 L-11 3 h8 L-6 20 L11 -5 h-9 L2 -20 Z"
+        transform="scale(0)"
+        vector-effect="non-scaling-stroke"
+      />
+    </svg>
+
+    <div class="intro__center">
+      <svg class="intro__bolt" viewBox="0 0 24 40" fill="none" aria-hidden="true">
+        <path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" />
+      </svg>
+      <p class="intro__tag">
+        NONSOLO<span class="intro__tag-star">✱</span>FITNESS
+        <span class="intro__tag-place">TORVAIANICA</span>
+      </p>
+    </div>
+  </div>
+  <script is:inline>
+    // niente flash: se l'intro è già stata vista in questa sessione, via subito.
+    // MODALITÀ SVILUPPO: disattivato per rivedere l'intro ad ogni ricarica —
+    // riattivare (togliere il commento) prima del lancio, insieme a
+    // INTRO_OGNI_VOLTA=false in main.js
+    // if (sessionStorage.getItem('nsf-intro')) {
+    //   document.getElementById('intro').style.display = 'none';
+    // }
+  </script>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero theme-dark">
+    <div class="hero__bg" aria-hidden="true">
+      <video
+        src="/media/hero.mp4"
+        poster="/media/hero-poster.jpg"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        data-ambient-video
+        data-playback="0.85"
+      ></video>
+    </div>
+    <p class="hero__ghost" aria-hidden="true">TORVAIANICA</p>
+
+    <div class="container hero__inner">
+      <p class="hero__eyebrow eyebrow" data-hero-fade>{H.heroEyebrow}</p>
+
+      <h1 class="hero__title display display--xl">
+        <span class="hero__mask"><span class="hero__line">Non</span></span>
+        <span class="hero__mask"><span class="hero__line"><em class="it o">solo</em><span class="ac">✱</span></span></span>
+        <span class="hero__mask"><span class="hero__line">Fitness<span class="ac">.</span></span></span>
+        <span class="sr-only">{H.heroSrOnly}</span>
+      </h1>
+
+      <div class="hero__foot">
+        <p class="hero__sub lead" data-hero-fade>
+          {H.heroSub} <strong>{H.heroSubStrong}</strong>.
+        </p>
+
+        <div class="hero__meta" data-hero-fade>
+          <span
+            class="chip open-badge"
+            data-open-badge={hoursJson}
+            data-open-tpl={L.common.openNow('{{H}}')}
+            data-closed-tpl={L.common.closedNow}
+          >
+            <span class="dot" aria-hidden="true"></span>
+            <span data-open-label>{L.common.checkingHours}</span>
+          </span>
+          <span class="chip">
+            <span class="star-gold" aria-hidden="true">★</span>
+            {L.common.ratingChip(ratingStr, gym.rating.count)}
+          </span>
+        </div>
+
+        <div class="hero__cta" data-hero-fade>
+          <a class="btn btn--accent" href={path(lang, '/contatti/')}>
+            <span class="btn-label">{L.common.ctaTry}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href={path(lang, '/corsi/')}>
+            <span class="btn-label">{L.common.ctaCourses}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__media-frame" data-hero-fade>
+          <video
+            src="/media/hero.mp4"
+            poster="/media/hero-poster.jpg"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            data-ambient-video
+          ></video>
+        </div>
+        <div class="hero__media-stamp" data-hero-fade>
+          <Stamp text={H.stampText} core="✱" />
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__marquee">
+      <Marquee items={H.marquee} solid />
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO + NUMERI ============ -->
+  <section class="section" id="manifesto">
+    <div class="container">
+      <div class="manifesto-grid">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">01</span> {H.s1Kicker}</p>
+        <div class="stack-lg manifesto-body">
+          <h2 class="display display--lg" data-split set:html={H.s1Title} />
+          <p class="lead muted" data-reveal>{H.s1Body}</p>
+          <a class="link-underline" href={path(lang, '/chi-siamo/')} data-reveal>{H.s1Link}</a>
+        </div>
+        <figure class="manifesto-photo" data-reveal="scale">
+          <img
+            src="/media/sala-neon.jpg"
+            width="1100"
+            height="1467"
+            loading="lazy"
+            decoding="async"
+            alt={H.s1PhotoAlt}
+          />
+        </figure>
+      </div>
+
+      <dl class="stats" data-reveal="fade">
+        {gym.stats.map((s) => (
+          <div class="stats__item">
+            <dt class="stats__label">{L.stats[s.id].label}</dt>
+            <dd class="stats__value display">
+              <span data-count={s.value} data-decimals={s.decimals ?? 0}>0</span><span class="stats__suffix">{L.stats[s.id].suffix}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ INDICE CORSI ============ -->
+  <section class="section theme-dark" id="corsi">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">02</span> {H.s2Kicker}</p>
+        <h2 class="display display--lg" data-split set:html={H.s2Title} />
+      </div>
+
+      <div class="course-index" role="list">
+        {courseList.map((c, i) => (
+          <a class="course-row" role="listitem" href={path(lang, `/corsi/${c.slug}/`)} data-reveal data-reveal-delay={i * 0.04} style={`--row-accent:${c.accent}`}>
+            <span class="course-row__num tabular">0{i + 1}</span>
+            <span class="course-row__name display display--sm">{c.name}</span>
+            <span class="course-row__kicker">{c.kicker}</span>
+            <span class="course-row__arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+
+      <p class="small muted course-note" data-reveal="fade">
+        {H.s2Note} <a class="link-underline" href={path(lang, '/prezzi/')}>{H.s2NoteLink}</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SALA PESI FEATURE ============ -->
+  <section class="section" id="sala-pesi">
+    <div class="container grid-2 grid-2--rev">
+      <div class="stack-lg">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">03</span> {H.s3Kicker}</p>
+        <h2 class="display display--md" data-split set:html={H.s3Title} />
+        <p class="muted" data-reveal>{H.s3Body}</p>
+        <ul class="check-list" role="list" data-reveal>
+          {H.s3List.map((li) => <li>{li}</li>)}
+        </ul>
+        <div data-reveal>
+          <a class="btn" href={path(lang, '/corsi/sala-pesi/')}>
+            <span class="btn-label">{H.s3Cta}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <figure class="ph ph--real media-tall" data-reveal="scale">
+        <video
+          src="/media/hero.mp4"
+          poster="/media/hero-poster.jpg"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+          data-ambient-video
+          aria-label={H.s3VideoAlt}
+        ></video>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ RECENSIONI ============ -->
+  <section class="section section--reviews" id="recensioni">
+    <div class="container">
+      <div class="section-head reviews-head">
+        <div>
+          <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">04</span> {H.s4Kicker}</p>
+          <h2 class="display display--lg" data-split set:html={H.s4Title} />
+        </div>
+        <p class="reviews-score display" data-reveal="fade">
+          <span data-count={gym.rating.value} data-decimals="1">0</span><span class="reviews-score__of">/5</span>
+          <span class="reviews-score__sub">{H.s4Sub(gym.rating.count)}</span>
+        </p>
+      </div>
+
+      <div class="reviews-grid">
+        {reviews.map((r, i) => {
+          const meta = r.guide ? H.reviewGuide(r.guide) : r.lang === 'en' && lang !== 'en' ? H.reviewEn : H.reviewPlain;
+          return (
+            <blockquote class="card review" data-reveal data-reveal-delay={i * 0.05}>
+              <p class="review__stars" aria-label={H.starsLabel(r.stars)}>
+                {'★'.repeat(r.stars)}<span class="review__stars-off">{'★'.repeat(5 - r.stars)}</span>
+              </p>
+              <p class="review__text" lang={r.lang}>“{r.text}”</p>
+              <footer class="review__name">
+                — {r.name}
+                <span class="review__meta">{meta}</span>
+              </footer>
+            </blockquote>
+          );
+        })}
+      </div>
+
+      <p class="small muted" data-reveal="fade" style="margin-top:2rem">
+        {H.s4Note} <a class="link-underline" href={mapsSearch} target="_blank" rel="noopener">{H.s4NoteLink}</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ ORARI + DOVE ============ -->
+  <section class="section theme-dark" id="orari">
+    <div class="container grid-2 grid-2--even">
+      <div class="stack-lg">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">05</span> {H.s5Kicker}</p>
+        <h2 class="display display--md" data-split set:html={H.s5Title} />
+        <div data-reveal>
+          {gym.hours.map((h, i) => (
+            <div class="hours-row" data-days={JSON.stringify(h.dayNums)}>
+              <strong data-today-tpl={L.common.today}>{L.hours[i]}</strong>
+              <span class="time">{h.opens} – {h.closes}</span>
+            </div>
+          ))}
+          <p class="small muted" style="margin-top:1rem">{H.s5Note}</p>
+        </div>
+      </div>
+
+      <div class="stack-lg">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">06</span> {H.s6Kicker}</p>
+        <h2 class="display display--md" data-split set:html={H.s6Title} />
+        <p class="muted" data-reveal>
+          {gym.address.street}, {gym.address.city} ({gym.address.province}) {H.s6Body}
+        </p>
+        {/* La mappa NON si carica da sola: Google installerebbe cookie senza consenso.
+            Si carica solo dopo un clic esplicito → nessun banner cookie necessario. */}
+        <div
+          class="map-card"
+          data-reveal="scale"
+          data-map-consent
+          data-map-src={`https://maps.google.com/maps?q=${encodeURIComponent(`${gym.name} ${gym.address.street} ${gym.address.city}`)}&z=16&hl=${lang}&output=embed`}
+          data-map-title={`${H.mapTitle}: ${gym.name}, ${gym.address.street}, ${gym.address.city}`}
+        >
+          <div class="map-card__consent">
+            <p class="map-card__addr">{gym.address.street}<br />{gym.address.zip} {gym.address.city} ({gym.address.province})</p>
+            <button class="btn btn--paper" type="button" data-map-load>
+              <span class="btn-label">{H.mapLoad}</span>
+            </button>
+            <p class="map-card__note small">
+              {H.mapNote}
+              <a class="link-underline" href={path(lang, '/privacy/')}>{H.mapPrivacy}</a>
+            </p>
+          </div>
+          <a class="btn btn--accent map-card__btn" href={mapsSearch} target="_blank" rel="noopener">
+            <span class="btn-label">{L.common.ctaDirections}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE DI CHIUSURA ============ -->
+  <Marquee items={H.marqueeEnd} solid />
+</Base>
+
+<style>
+  /* ---------- INTRO ---------- */
+  .intro {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: none;
+    place-items: center;
+  }
+  html.js .intro { display: grid; }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .intro { display: none; }
+  }
+  .intro__veil {
+    position: absolute;
+    inset: 0;
+  }
+  .intro__veil-rect { fill: var(--ink); }
+  .intro__hole-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 10px rgb(217 4 41 / 0.85));
+  }
+  .intro__center {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 1.4rem;
+  }
+  .intro__bolt {
+    width: clamp(64px, 8vw, 110px);
+    height: auto;
+    transform: scale(0);
+    filter: drop-shadow(0 0 18px rgb(217 4 41 / 0.6));
+  }
+  .intro__tag {
+    margin-left: -3px; /* micro-correzione ottica di centraggio */
+    color: var(--paper);
+    font-stretch: 88%;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em; /* bilancia lo spazio fantasma dopo l'ultima lettera */
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .intro__tag-star { color: var(--accent); }
+  .intro__tag-place {
+    display: block;
+    margin-top: 0.5em;
+    font-size: 0.72em;
+    letter-spacing: 0.52em;
+    text-indent: 0.52em; /* stessa tecnica di bilanciamento */
+    color: rgb(242 238 229 / 0.55); /* muted chiaro: l'intro è sempre scura */
+    text-align: center;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: clip;
+    background:
+      radial-gradient(60rem 40rem at 85% -10%, rgb(217 4 41 / 0.32), transparent 60%),
+      radial-gradient(50rem 35rem at -10% 110%, rgb(232 182 32 / 0.14), transparent 55%),
+      var(--ink);
+  }
+  /* Video di sfondo a schermo pieno (solo mobile/tablet: 9:16 nativo).
+     Il poster fa da sfondo: il video ci sfuma sopra quando parte. */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0; /* crea uno stacking context: le pseudo-capes con z-index restano QUI dentro */
+    isolation: isolate; /* e il blend soft-light non "vede" fuori dal contenitore */
+    overflow: clip;
+    background: url('/media/hero-poster.jpg') center / cover no-repeat;
+  }
+  .hero__bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.85) brightness(0.72) contrast(1.05);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .hero__bg video.is-playing { opacity: 1; }
+  /* color grade: ombre fredde, luci calde (stile pellicola) */
+  .hero__bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(165deg, rgb(217 4 41 / 0.38) 0%, rgb(24 20 46 / 0.5) 72%);
+    mix-blend-mode: soft-light;
+  }
+  /* scrim + bagliori di marca + vignettatura */
+  .hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      radial-gradient(40rem 26rem at 88% -8%, rgb(217 4 41 / 0.42), transparent 62%),
+      radial-gradient(34rem 24rem at -12% 108%, rgb(232 182 32 / 0.22), transparent 58%),
+      radial-gradient(130% 95% at 50% 42%, transparent 52%, rgb(13 13 16 / 0.6) 100%),
+      linear-gradient(180deg, rgb(13 13 16 / 0.92) 0%, rgb(13 13 16 / 0.42) 45%, rgb(13 13 16 / 0.95) 88%);
+  }
+  @media (min-width: 72rem) {
+    .hero__bg { display: none; } /* su desktop c'è la card video */
+  }
+
+  .hero__ghost {
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    translate: -50% 0;
+    font-stretch: 122%;
+    font-weight: 860;
+    font-size: clamp(6rem, 22vw, 20rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(242 238 229 / 0.07);
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+  }
+  .hero__inner {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centra il blocco tra header e marquee */
+    padding-top: calc(var(--header-h) + 1rem);
+    padding-bottom: clamp(1.25rem, 3.5vh, 3rem);
+  }
+  .hero__eyebrow { margin-bottom: clamp(1rem, 2.5vh, 2rem); }
+  .hero__foot {
+    display: grid;
+    gap: clamp(1rem, 2.2vh, 1.5rem);
+    margin-top: clamp(1.25rem, 3vh, 2.5rem);
+    max-width: 46rem;
+  }
+  .hero__sub strong { color: var(--accent); }
+  .hero__meta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+  /* Video verticale 9:16 stile reel, a destra del titolo (solo desktop) */
+  .hero__media {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    translate: 0 -50%;
+    height: min(56vh, 34rem);
+    aspect-ratio: 9 / 16;
+    rotate: 1.5deg;
+    display: none;
+  }
+  .hero__media-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.45);
+    background: var(--ink-2);
+  }
+  .hero__media-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__media-stamp {
+    position: absolute;
+    left: -3.5rem;
+    bottom: -2rem;
+    color: var(--paper);
+    rotate: -1.5deg; /* compensa l'inclinazione della card */
+  }
+  .hero__media-stamp :global(.stamp__core) { color: var(--accent); }
+  @media (min-width: 72rem) { .hero__media { display: block; } }
+  .hero__marquee { position: relative; }
+
+  /* Schermi bassi (laptop 13"): il hero si compatta per tenere il marquee visibile */
+  @media (max-height: 47.5rem) and (min-width: 40rem) {
+    .hero__title { font-size: clamp(2.6rem, 13.5vh, 7rem); }
+    .hero__sub { font-size: 1.05rem; }
+    .hero__eyebrow { margin-bottom: 0.75rem; }
+    .hero__cta .btn { padding: 0.85em 1.6em; font-size: 0.85rem; }
+  }
+
+  /* ---------- MANIFESTO ---------- */
+  .manifesto-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .manifesto-photo {
+    margin: 0;
+    border-radius: 1.25rem;
+    overflow: clip;
+    background: var(--ink-2);
+  }
+  .manifesto-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* il neon rosso della sala è già in palette: solo un filo di contrasto */
+    filter: saturate(1.05) contrast(1.04);
+  }
+  @media (min-width: 60rem) {
+    .manifesto-grid { grid-template-columns: 5fr 7fr; }
+    .manifesto-grid > .eyebrow { grid-column: 1; grid-row: 1; }
+    .manifesto-body { grid-column: 2; grid-row: 1 / 3; }
+    /* la foto riempie la colonna vuota accanto al titolo */
+    .manifesto-photo { grid-column: 1; grid-row: 2; margin-top: 1.5rem; }
+  }
+
+  /* ---------- STATS ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 2rem;
+    margin-top: clamp(3.5rem, 8vw, 6rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1.5px solid var(--line);
+  }
+  .stats__item { display: grid; gap: 0.4rem; }
+  .stats__label {
+    order: 2;
+    font-size: 0.82rem;
+    color: var(--t-muted);
+    max-width: 12em;
+  }
+  .stats__value { font-size: clamp(2.6rem, 5vw, 4rem); }
+  .stats__suffix { color: var(--accent); font-size: 0.55em; font-stretch: 95%; }
+
+  /* ---------- COURSE INDEX ---------- */
+  .course-index { display: grid; border-top: 1.5px solid var(--line); }
+  .course-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    padding: clamp(1.1rem, 2.5vw, 1.75rem) 0.5rem;
+    border-bottom: 1.5px solid var(--line);
+    text-decoration: none;
+    transition: padding-left 0.4s var(--ease-out), color 0.3s;
+    overflow: clip;
+  }
+  .course-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--row-accent, var(--accent));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.45s var(--ease-snap);
+    z-index: -1;
+  }
+  .course-row:hover::before, .course-row:focus-visible::before { transform: scaleY(1); }
+  .course-row:hover, .course-row:focus-visible { color: var(--ink); padding-left: 1.25rem; }
+  .course-row__num { font-weight: 640; font-size: 0.85rem; opacity: 0.5; }
+  .course-row__kicker {
+    display: none;
+    font-size: 0.82rem;
+    font-weight: 640;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.65;
+  }
+  .course-row__arrow {
+    font-size: 1.5rem;
+    translate: -0.4em 0;
+    opacity: 0;
+    transition: translate 0.35s var(--ease-out), opacity 0.35s;
+  }
+  .course-row:hover .course-row__arrow, .course-row:focus-visible .course-row__arrow { translate: 0 0; opacity: 1; }
+  @media (min-width: 50rem) {
+    .course-row { grid-template-columns: 3rem 1fr auto 3rem; }
+    .course-row__kicker { display: block; }
+  }
+  .course-note { margin-top: 1.5rem; }
+
+  /* ---------- SALA PESI ---------- */
+  .media-tall { aspect-ratio: 4 / 5; }
+  .check-list {
+    padding: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .check-list li {
+    list-style: none;
+    padding-left: 1.9em;
+    position: relative;
+  }
+  .check-list li::before {
+    content: '✱';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .section--reviews { background: var(--paper-2); }
+  .reviews-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .reviews-score {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    display: grid;
+    line-height: 1;
+  }
+  .reviews-score__of { font-size: 0.35em; color: var(--accent); }
+  .reviews-score__sub {
+    font-size: 0.9rem;
+    font-weight: 480;
+    font-stretch: 100%;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--t-muted);
+  }
+  .reviews-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  }
+  .review { display: grid; gap: 1rem; align-content: start; background: var(--paper); }
+  .review__stars { color: var(--accent); letter-spacing: 0.15em; }
+  .review__stars-off { opacity: 0.25; }
+  .review__text { line-height: 1.55; text-wrap: pretty; }
+  .review__name { font-weight: 700; font-stretch: 90%; font-size: 0.9rem; }
+  .review__meta {
+    display: block;
+    margin-top: 0.2rem;
+    font-weight: 480;
+    font-size: 0.75rem;
+    color: var(--t-muted);
+  }
+
+  /* ---------- MAP ---------- */
+  .map-card {
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: clip;
+    border: 1.5px solid var(--line);
+    aspect-ratio: 16 / 10;
+  }
+  .map-card :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    /* Google Maps in tema scuro: inverte la luminosità mantenendo i colori */
+    filter: invert(0.9) hue-rotate(180deg) saturate(0.8) contrast(0.92);
+  }
+  /* schermata prima del consenso: reticolo stradale stilizzato */
+  .map-card__consent {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 1.5rem;
+    background:
+      repeating-linear-gradient(68deg, transparent 0 46px, rgb(242 238 229 / 0.05) 46px 48px),
+      repeating-linear-gradient(158deg, transparent 0 62px, rgb(242 238 229 / 0.05) 62px 64px),
+      radial-gradient(60% 60% at 50% 45%, rgb(217 4 41 / 0.14), transparent 70%),
+      var(--ink-2);
+  }
+  .map-card__addr { font-weight: 640; line-height: 1.6; }
+  .map-card__note { color: var(--t-muted); max-width: 24em; }
+  .map-card__btn {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.75em 1.4em;
+    font-size: 0.8rem;
+  }
+
+</style>

@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { langPaths, t } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const R = L.rules;
+---
+
+<Base title={R.seoTitle} description={R.seoDesc} lang={lang}>
+  <PageHero kicker={R.kicker} ghost={R.ghost}>
+    <Fragment set:html={R.title} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <p class="lead muted rules-intro" data-reveal>{R.intro}</p>
+
+      <ol class="rules" role="list">
+        {R.list.map((r, i) => (
+          <li class="rule" data-reveal data-reveal-delay={(i % 2) * 0.06}>
+            <span class="rule__num display">{String(i + 1).padStart(2, '0')}</span>
+            <div class="rule__body">
+              <h2 class="rule__title display display--sm">{r.title}</h2>
+              <p class="muted">{r.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="rules-foot card" data-reveal>
+        <p set:html={R.foot} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .rules-intro { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .rules {
+    padding: 0;
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+    border-top: 1.5px solid var(--line);
+  }
+  @media (min-width: 55rem) {
+    .rules { grid-template-columns: 1fr 1fr; column-gap: 4rem; }
+  }
+  .rule {
+    list-style: none;
+    display: flex;
+    gap: 1.75rem;
+    padding-block: 2rem;
+    border-bottom: 1.5px solid var(--line);
+  }
+  .rule__num {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .rule__body { display: grid; gap: 0.5rem; align-content: start; }
+  .rule__body > * { min-width: 0; }
+  .rules-foot { margin-top: clamp(2.5rem, 5vw, 4rem); font-size: 1.1rem; }
+  .rules-foot :global(strong) { color: var(--accent); }
+</style>

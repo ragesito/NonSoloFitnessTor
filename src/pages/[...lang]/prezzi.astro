@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { gym, pricing } from '../../data/gym.js';
+import { langPaths, t, path } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const P = L.prices;
+
+const waHref = `https://wa.me/${gym.whatsapp}?text=${encodeURIComponent(L.common.whatsappMessage)}`;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: P.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+// Listino reale marcato per Google: può mostrare i prezzi nei risultati
+const offerSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: `${P.seoTitle} — ${gym.name}`,
+  itemListElement: pricing.map((p, i) => ({
+    '@type': 'Offer',
+    position: i + 1,
+    name: P.plans[p.id].name,
+    description: P.plans[p.id].features.join(' · '),
+    price: p.price,
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'ExerciseGym', name: gym.name },
+  })),
+};
+---
+
+<Base title={P.seoTitle} description={P.seoDesc} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(offerSchema)} is:inline />
+
+  <PageHero kicker={P.kicker} ghost={P.ghost}>
+    <Fragment set:html={P.title} />
+  </PageHero>
+
+  <section class="section theme-dark section--pricing">
+    <div class="container">
+      <div class="tickets">
+        {pricing.map((p, i) => {
+          const plan = P.plans[p.id];
+          return (
+            <article class={`ticket ${p.featured ? 'ticket--featured' : ''}`} data-reveal data-reveal-delay={i * 0.07}>
+              {plan.badge && <span class="ticket__badge">{plan.badge}</span>}
+              <h2 class="ticket__name">{plan.name}</h2>
+              <p class="ticket__price"><sup>€</sup>{p.price}</p>
+              <p class="ticket__period">{plan.period}</p>
+              <ul class="ticket__features" role="list">
+                {plan.features.map((f) => <li>{f}</li>)}
+              </ul>
+              <a class={`btn ${p.featured ? 'btn--accent' : ''}`} href={path(lang, '/contatti/')}>
+                <span class="btn-label">{L.common.ctaSignup}</span>
+                <span class="btn-arrow" aria-hidden="true">→</span>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+      <p class="small muted pricing-note" data-reveal="fade">
+        {P.note} <a class="link-underline" href={gym.social.instagram} target="_blank" rel="noopener">{P.noteLink}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow" data-reveal="fade">{P.faqKicker}</p>
+        <h2 class="display display--md" data-split set:html={P.faqTitle} />
+      </div>
+      <div class="faqs">
+        {P.faqs.map((f, i) => (
+          <details class="faq" data-reveal data-reveal-delay={i * 0.05}>
+            <summary class="faq__q">
+              {f.q}
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </summary>
+            <p class="faq__a muted">{f.a}</p>
+          </details>
+        ))}
+        <div class="faq-cta" data-reveal>
+          <p class="muted">{P.faqCta}</p>
+          <a class="btn btn--accent" href={waHref} target="_blank" rel="noopener">
+            <span class="btn-label">{P.faqCtaBtn}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tickets {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    align-items: stretch;
+  }
+  .ticket__name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .ticket__period { margin-top: -1rem; font-size: 0.9rem; opacity: 0.6; }
+  .ticket__features {
+    padding: 1.25rem 0 0;
+    display: grid;
+    gap: 0.65rem;
+    border-top: 1.5px dashed var(--line);
+    font-size: 0.95rem;
+  }
+  .ticket__features li { list-style: none; padding-left: 1.5em; position: relative; }
+  .ticket__features li::before {
+    content: '✱';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8em;
+  }
+  .ticket .btn { margin-top: auto; justify-content: center; }
+  .pricing-note { margin-top: 2.5rem; }
+
+  .faqs { display: grid; gap: 0; border-top: 1.5px solid var(--line); }
+  .faq { border-bottom: 1.5px solid var(--line); }
+  .faq__q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1.4rem;
+    font-weight: 700;
+    font-stretch: 95%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.3s;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q:hover { color: var(--accent); }
+  .faq__icon {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid var(--line);
+    border-radius: 50%;
+    font-weight: 600;
+    transition: rotate 0.35s var(--ease-out), background-color 0.3s, color 0.3s;
+  }
+  .faq[open] .faq__icon { rotate: 45deg; background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .faq__a { padding-bottom: 1.5rem; max-width: 55ch; }
+  .faq-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+</style>

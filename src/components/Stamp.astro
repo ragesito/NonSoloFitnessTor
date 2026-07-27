@@ -1,0 +1,21 @@
+---
+interface Props {
+  text: string;
+  core?: string;
+  class?: string;
+}
+const { text, core = '✱', class: className = '' } = Astro.props;
+const id = `stamp-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class={`stamp ${className}`} aria-hidden="true">
+  <svg viewBox="0 0 120 120">
+    <defs>
+      <path id={id} d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" fill="none" />
+    </defs>
+    <text>
+      <textPath href={`#${id}`}>{text}</textPath>
+    </text>
+  </svg>
+  <span class="stamp__core">{core}</span>
+</div>

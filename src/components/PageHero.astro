@@ -1,0 +1,49 @@
+---
+/** Testata editoriale scura per le pagine interne. */
+interface Props {
+  kicker: string;
+  ghost?: string;
+}
+const { kicker, ghost } = Astro.props;
+---
+
+<section class="page-hero theme-dark">
+  {ghost && <p class="page-hero__ghost" aria-hidden="true">{ghost}</p>}
+  <div class="container page-hero__inner">
+    <p class="eyebrow" data-hero-fade>{kicker}</p>
+    <h1 class="display display--xl page-hero__title">
+      <span class="hero__mask"><span class="hero__line"><slot /></span></span>
+    </h1>
+    <div class="page-hero__extra" data-hero-fade><slot name="extra" /></div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: clip;
+    padding-top: calc(var(--header-h) + clamp(3rem, 8vh, 6rem));
+    padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+    background:
+      radial-gradient(55rem 30rem at 90% -20%, rgb(217 4 41 / 0.28), transparent 60%),
+      var(--ink);
+  }
+  .page-hero__ghost {
+    position: absolute;
+    right: -0.1em;
+    bottom: -0.18em;
+    font-stretch: 122%;
+    font-weight: 860;
+    font-size: clamp(5rem, 16vw, 13rem);
+    line-height: 1;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(242 238 229 / 0.07);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .page-hero__inner { position: relative; display: grid; gap: 1.5rem; }
+  .page-hero__title { max-width: 12ch; }
+  .page-hero__extra:empty { display: none; }
+</style>

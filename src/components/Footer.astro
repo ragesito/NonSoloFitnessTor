@@ -1,0 +1,218 @@
+---
+import { gym } from '../data/gym.js';
+import { t, path, DEFAULT_LANG } from '../i18n/index.js';
+
+interface Props { lang?: string; }
+const { lang = DEFAULT_LANG } = Astro.props;
+const L = t(lang);
+
+const year = new Date().getFullYear();
+const waHref = `https://wa.me/${gym.whatsapp}?text=${encodeURIComponent(L.common.whatsappMessage)}`;
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gym.name} ${gym.address.street} ${gym.address.city}`)}`;
+const hoursJson = JSON.stringify(gym.hours.map(({ dayNums, opens, closes }) => ({ dayNums, opens, closes })));
+
+const pages = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((key) => ({
+  href: path(lang, `/${key}/`),
+  label: L.nav[key],
+}));
+---
+
+<footer class="footer theme-dark">
+  <div class="container">
+    <!-- CTA + orari -->
+    <div class="footer__top">
+      <div class="footer__cta">
+        <p class="eyebrow">{L.footer.kicker}</p>
+        <p class="footer__headline display display--lg" set:html={L.footer.headline} />
+        <p class="footer__sub muted">
+          {gym.address.street}, {gym.address.city} {L.footer.sub}
+        </p>
+        <div class="footer__actions">
+          <a class="btn btn--accent" href={waHref} target="_blank" rel="noopener">
+            <span class="btn-label">{L.common.ctaWhatsapp}</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href={`tel:${gym.phoneHref}`}>
+            <span class="btn-label">{gym.phone}</span>
+          </a>
+          <span
+            class="chip open-badge"
+            data-open-badge={hoursJson}
+            data-open-tpl={L.common.openNow('{{H}}')}
+            data-closed-tpl={L.common.closedNow}
+          >
+            <span class="dot" aria-hidden="true"></span>
+            <span data-open-label>{L.common.checkingHours}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="footer__hours">
+        <h2 class="footer__title">{L.footer.hours}</h2>
+        {gym.hours.map((h, i) => (
+          <div class="hours-row" data-days={JSON.stringify(h.dayNums)}>
+            <strong data-today-tpl={L.common.today}>{L.hours[i]}</strong>
+            <span class="time">{h.opens} – {h.closes}</span>
+          </div>
+        ))}
+        <p class="small muted footer__hours-note">{L.footer.hoursNote}</p>
+      </div>
+    </div>
+
+    <!-- Colonne info -->
+    <div class="footer__grid">
+      <div class="footer__col">
+        <h2 class="footer__title">{L.footer.where}</h2>
+        <address class="footer__address">
+          {gym.address.street}<br />
+          {gym.address.zip} {gym.address.city} ({gym.address.province})
+        </address>
+        <a class="link-underline" href={mapsHref} target="_blank" rel="noopener">{L.footer.maps}</a>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">{L.footer.contacts}</h2>
+        <ul class="footer__list" role="list">
+          <li><a class="link-underline" href={`tel:${gym.phoneHref}`}>{gym.phone}</a></li>
+          <li><a class="link-underline" href={`mailto:${gym.email}`}>{gym.email}</a></li>
+          <li><a class="link-underline" href={waHref} target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">{L.footer.pages}</h2>
+        <ul class="footer__list" role="list">
+          {pages.map((p) => (
+            <li><a class="link-underline" href={p.href}>{p.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">{L.footer.follow}</h2>
+        <div class="footer__social">
+          <a class="social-pill" href={gym.social.instagram} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a class="social-pill" href={gym.social.facebook} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.3 0-1.1-.1-2-.1-2.1 0-3.5 1.3-3.5 3.6V11H8.5v3h2.4v7h2.6Z"/></svg>
+            Facebook
+          </a>
+        </div>
+        <p class="small muted footer__social-note">{L.footer.socialNote}</p>
+      </div>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer__legal">
+      <p>
+        © {year} {gym.name} · P.IVA [da inserire] ·
+        <a class="footer__legal-link" href={path(lang, '/privacy/')}>{L.footer.privacy}</a>
+      </p>
+      <a class="footer__top-link" href="#" aria-label={L.footer.backTopLabel}>{L.footer.backTop}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-top: var(--section);
+    padding-bottom: 1rem;
+    border-top: 1.5px solid var(--line);
+    overflow: clip;
+  }
+
+  /* ---- CTA + orari ---- */
+  .footer__top {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 60rem) {
+    .footer__top { grid-template-columns: 7fr 5fr; align-items: end; }
+  }
+  .footer__cta { display: grid; gap: 1.4rem; justify-items: start; }
+  .footer__headline { max-width: 12ch; }
+  .footer__sub { max-width: 34em; }
+  .footer__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer__hours .hours-row { padding-block: 0.9rem; }
+  .footer__hours .hours-row:first-of-type { border-top: 1.5px solid var(--line); }
+  .footer__hours-note { margin-top: 1rem; }
+
+  /* ---- Colonne ---- */
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem 0;
+    grid-template-columns: 1fr;
+    border-top: 1.5px solid var(--line);
+    padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  @media (min-width: 55rem) {
+    .footer__grid { grid-template-columns: repeat(4, 1fr); }
+    .footer__col { padding-inline: 2rem; border-left: 1.5px solid var(--line); }
+    .footer__col:first-child { padding-left: 0; border-left: 0; }
+  }
+  .footer__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .footer__address { font-style: normal; line-height: 1.7; margin-bottom: 0.8rem; }
+  .footer__list { padding: 0; display: grid; gap: 0.7rem; }
+  .footer__list li { list-style: none; }
+
+  .footer__social { display: grid; gap: 0.7rem; justify-items: start; }
+  .social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.55em 1.1em;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 640;
+    font-stretch: 90%;
+    font-size: 0.9rem;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s, transform 0.3s var(--ease-out);
+  }
+  .social-pill:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+    transform: translateY(-2px);
+  }
+  .footer__social-note { margin-top: 0.9rem; max-width: 18em; }
+
+  /* ---- Legal ---- */
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem 2rem;
+    border-top: 1.5px solid var(--line);
+    padding-block: 1.4rem;
+    font-size: 0.8rem;
+    color: var(--t-muted);
+  }
+  .footer__top-link {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--t-ink);
+    transition: color 0.3s;
+  }
+  .footer__top-link:hover { color: var(--accent); }
+  .footer__legal-link { color: inherit; }
+  .footer__legal-link:hover { color: var(--accent); }
+</style>

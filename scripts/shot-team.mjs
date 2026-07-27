@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const out = process.argv[2] ?? 'team-fixed.png';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const page = await (await browser.newContext({ viewport: { width: 1671, height: 900 } })).newPage();
+await page.goto('http://localhost:4321/chi-siamo/', { waitUntil: 'networkidle' });
+await page.waitForTimeout(1500);
+await page.evaluate(() => document.querySelector('.team-grid').scrollIntoView({ block: 'center' }));
+await page.waitForTimeout(1500);
+await page.screenshot({ path: out });
+console.log('saved:', out);
+await browser.close();

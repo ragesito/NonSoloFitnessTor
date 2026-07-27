@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { gym } from '../../data/gym.js';
+import { langPaths, t } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const P = L.privacy;
+
+/*
+  BOZZA LEGALE — da far validare al titolare prima del lancio.
+  I punti [DA COMPLETARE] / [TO BE COMPLETED] stanno nei file i18n.
+*/
+const addr = `${gym.address.street}, ${gym.address.zip} ${gym.address.city} (${gym.address.province})`;
+const fill = (s) =>
+  s
+    .replaceAll('{{LEGAL}}', gym.legalName)
+    .replaceAll('{{ADDRESS}}', addr)
+    .replaceAll('{{EMAIL}}', gym.email)
+    .replaceAll('{{PHONE}}', gym.phone);
+---
+
+<Base title={P.seoTitle} description={P.seoDesc} lang={lang}>
+  <PageHero kicker={`${P.updatedLabel}: ${P.updated}`} ghost={P.ghost}>
+    <Fragment set:html={P.title} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container legal">
+      <nav class="legal__index" aria-label={P.index}>
+        <p class="eyebrow">{P.index}</p>
+        <ol>
+          {P.sections.map((s, i) => (
+            <li><a class="link-underline" href={`#${s.id}`}>{String(i + 1).padStart(2, '0')} · {s.title}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      <div class="legal__body">
+        <p class="lead muted" data-reveal>{P.intro}</p>
+
+        {P.sections.map((s, i) => (
+          <article class="legal__section" id={s.id} data-reveal>
+            <h2 class="legal__title display display--sm">
+              <span class="legal__num">{String(i + 1).padStart(2, '0')}</span>
+              {s.title}
+            </h2>
+            {s.body.map((p) => <p class="legal__p" set:html={fill(p)} />)}
+            {s.list && (
+              <ul class="legal__list" role="list">
+                {s.list.map((li) => <li set:html={fill(li)} />)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 62rem) {
+    .legal { grid-template-columns: 16rem 1fr; align-items: start; }
+    .legal__index { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+  .legal__index ol {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.2rem;
+    display: grid;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .legal__index a { text-decoration: none; }
+
+  .legal__body { max-width: 42rem; }
+  .legal__section {
+    padding-top: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1.5px solid var(--line);
+  }
+  .legal__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  }
+  .legal__num { font-size: 0.75rem; font-weight: 800; color: var(--accent); }
+  .legal__p { margin-bottom: 1rem; text-wrap: pretty; }
+  .legal__list {
+    display: grid;
+    gap: 0.9rem;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+  .legal__list li {
+    list-style: none;
+    position: relative;
+    padding-left: 1.8em;
+  }
+  .legal__list li::before {
+    content: '✱';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+  }
+</style>

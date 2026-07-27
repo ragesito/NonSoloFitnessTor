@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { gym } from '../../data/gym.js';
+import { langPaths, t } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const A = L.about;
+
+// titolari (nome reale) + staff segnaposto (nome tradotto)
+const people = [
+  ...gym.owners.map((o) => ({ ...o, ...A.team[o.id], name: o.name })),
+  ...gym.staff.map((s) => ({ ...s, ...A.team[s.id] })),
+];
+---
+
+<Base title={A.seoTitle} description={A.seoDesc} lang={lang}>
+  <PageHero kicker={A.kicker} ghost={A.ghost}>
+    <Fragment set:html={A.title} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container grid-2">
+      <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">01</span> {A.s1Kicker}</p>
+      <div class="stack-lg">
+        <h2 class="display display--md" data-split set:html={A.s1Title} />
+        <p class="lead muted" data-reveal>{A.s1Body}</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <ol class="timeline" role="list">
+        {A.timeline.map((t2, i) => (
+          <li class="timeline__item" data-reveal data-reveal-delay={i * 0.08}>
+            <span class="timeline__num tabular">0{i + 1}</span>
+            <h3 class="timeline__year display display--sm">{t2.year}</h3>
+            <p class="muted">{t2.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section theme-dark">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">02</span> {A.s2Kicker}</p>
+        <h2 class="display display--lg" data-split set:html={A.s2Title} />
+      </div>
+
+      <div class="team-grid">
+        {people.map((person, i) => (
+          <article class="card team-card" data-reveal data-reveal-delay={(i % 3) * 0.06}>
+            <div class:list={['team-card__photo', 'ph', { 'is-placeholder': person.placeholder }]} data-photo-label={L.common.photoComing}>
+              <svg viewBox="0 0 400 440" role="img" aria-label={person.name}>
+                <rect width="400" height="440" fill="#1f1f26" />
+                <circle cx="200" cy="165" r="70" fill="#f2eee5" opacity="0.1" />
+                <path d="M80 440 Q200 290 320 440 Z" fill="#f2eee5" opacity="0.1" />
+              </svg>
+            </div>
+            <h3 class="team-card__name display display--sm">{person.name}</h3>
+            <p class="team-card__role">{person.role}</p>
+            <p class="muted small">{person.bio}</p>
+          </article>
+        ))}
+      </div>
+
+      <p class="small muted" style="margin-top:2rem" data-reveal="fade">
+        {A.s2Note(gym.address.street, gym.address.city)}
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">03</span> {A.s3Kicker}</p>
+      <div class="values">
+        {A.values.map(([title, text], i) => (
+          <div class="value" data-reveal data-reveal-delay={i * 0.07}>
+            <h3 class="value__title display display--sm"><span class="ac">✱</span> {title}</h3>
+            <p class="muted">{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    padding: 0;
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+  .timeline__item {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: 1.75rem 0 0;
+    border-top: 3px solid var(--ink);
+    position: relative;
+  }
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 3rem;
+    height: 3px;
+    background: var(--accent);
+  }
+  .timeline__num { font-size: 0.8rem; font-weight: 700; color: var(--accent); }
+
+  .team-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  .team-card { display: grid; gap: 0.6rem; align-content: start; container-type: inline-size; }
+  .team-card > :global(*) { min-width: 0; }
+  .team-card__name {
+    font-size: clamp(1.3rem, 1.5vw, 1.6rem);
+    font-size: clamp(1.05rem, 11.5cqi, 1.6rem);
+  }
+  .team-card__photo {
+    aspect-ratio: 10 / 11;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .team-card__photo svg { width: 100%; height: 100%; }
+  .team-card__role {
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+
+  .values { display: grid; gap: 2.5rem; }
+  .value { display: grid; gap: 0.75rem; }
+</style>
