@@ -321,7 +321,14 @@ function initMagnetic() {
    (Riproduci anteprime video off, Risparmio energetico, Risparmio dati).
    Se dopo un attimo il video non è partito, mostriamo un pulsante play:
    il tocco dell'utente è un gesto valido e sblocca sempre la riproduzione. */
-function initAmbientVideos() {
+function initAmbientVideos(deferSeconds = 0) {
+  // Il video pesa quanto tutto il resto della pagina: se parte subito ritarda
+  // l'evento load e quindi l'inizio dell'intro. Lo avviamo dopo l'intro,
+  // quando la banda è libera (nel frattempo si vede il poster).
+  if (deferSeconds > 0) {
+    setTimeout(() => initAmbientVideos(0), deferSeconds * 1000);
+    return;
+  }
   const playBtn = document.querySelector('[data-video-play]');
   const bgVideo = document.querySelector('.hero__bg video');
 
@@ -332,6 +339,10 @@ function initAmbientVideos() {
     playBtn.dataset.bound = 'true';
     playBtn.addEventListener('click', () => {
       bgVideo.muted = true;
+      if (!bgVideo.dataset.srcSet && bgVideo.dataset.src) {
+        bgVideo.dataset.srcSet = '1';
+        bgVideo.src = bgVideo.dataset.src;
+      }
       if (bgVideo.error || !bgVideo.currentSrc) bgVideo.load();
       const p = bgVideo.play();
       if (p) {
@@ -350,7 +361,40 @@ function initAmbientVideos() {
     });
   };
 
+  /* La sorgente NON è nell'HTML: i browser scaricano il file anche per i
+     video nascosti da display:none, e la stessa clip finiva scaricata 3 volte
+     (12 MB per aprire la home). La assegniamo solo al video davvero visibile. */
+  const isHidden = (el) => el.offsetParent === null;
+  const attachSource = (v) => {
+    if (v.dataset.srcSet || !v.dataset.src) return false;
+    v.dataset.srcSet = '1';
+    v.src = v.dataset.src;
+    v.load();
+    return true;
+  };
+
   document.querySelectorAll('video[data-ambient-video]').forEach((v) => {
+    if (isHidden(v)) return; // card desktop su mobile, sfondo mobile su desktop
+
+    // fuori dalla prima schermata: carica solo quando ci si avvicina
+    const belowFold = v.getBoundingClientRect().top > window.innerHeight * 1.2;
+    if (belowFold && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        obs.disconnect();
+        attachSource(v);
+        if (!reducedMotion) {
+          v.muted = true;
+          const p = v.play();
+          if (p) p.catch(() => {});
+        }
+      }, { rootMargin: '300px' });
+      io.observe(v);
+      return;
+    }
+
+    attachSource(v);
+
     if (reducedMotion) {
       // rispettiamo la preferenza: non parte da solo, ma resta consultabile
       v.removeAttribute('autoplay');
@@ -369,7 +413,7 @@ function initAmbientVideos() {
     if (!v.paused && v.currentTime > 0) v.classList.add('is-playing');
     // Dopo lo swap delle View Transitions Chromium scarta la sorgente del video
     // ("Media load rejected by URL safety check"): va ricaricata nel documento vivo.
-    if (v.error || !v.currentSrc) v.load();
+    if (v.error) v.load();
     if (v.paused) {
       v.muted = true; // l'attributo HTML può perdersi nello swap: senza muted niente autoplay
       const p = v.play();
@@ -405,8 +449,9 @@ function init() {
   initOpenBadge();
   initTodayRow();
   initMapConsent();
-  initAmbientVideos();
-  initHero(playIntro());
+  const introDelay = playIntro();
+  initAmbientVideos(introDelay);
+  initHero(introDelay);
   initReveals();
   initSplitHeadings();
   initCounters();
@@ -415,7 +460,24 @@ function init() {
   ScrollTrigger.refresh();
 }
 
-document.addEventListener('astro:page-load', init);
+/* Alla PRIMA visita 'astro:page-load' scatta solo dopo window.load, cioè dopo
+   il download di font e immagini: l'intro restava ferma per secondi. Partiamo
+   appena il DOM è pronto e usiamo 'astro:page-load' per le navigazioni dopo. */
+let booted = false;
+function boot() {
+  if (booted) return;
+  booted = true;
+  init();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot, { once: true });
+} else {
+  boot();
+}
+
+document.addEventListener('astro:after-swap', () => { booted = false; });
+document.addEventListener('astro:page-load', boot);
 document.addEventListener('astro:before-swap', () => {
   ScrollTrigger.getAll().forEach((st) => st.kill());
 });
