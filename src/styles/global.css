@@ -73,11 +73,16 @@ body {
   font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
   line-height: 1.55;
   font-stretch: 100%;
-  background: var(--paper);
+  /* Fondo scuro sul body: Safari iOS ignora <meta theme-color> e tinge le
+     barre di sistema (in alto e in basso) col colore di sfondo della pagina.
+     Il colore chiaro del contenuto vive su <main>, non qui. */
+  background: var(--ink);
   color: var(--t-ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
+/* superficie chiara del contenuto: le sezioni .theme-dark la coprono da sole */
+main { background: var(--paper); }
 img, svg, video { display: block; max-width: 100%; }
 button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
