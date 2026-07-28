@@ -149,7 +149,7 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
         .hero__inner: così resta cliccabile sopra testo e marquee.
         Compare solo se il browser blocca l'autoplay (iOS: anteprime video off,
         risparmio energetico o dati). Il tocco è un gesto valido: sblocca sempre. */}
-    <button class="hero__playbtn" type="button" data-video-play hidden aria-label={H.playVideo}>
+    <button class="hero__playbtn" type="button" data-video-play hidden aria-label={H.playVideo} data-label-fail={H.playVideoFail}>
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
       <span>{H.playVideo}</span>
     </button>

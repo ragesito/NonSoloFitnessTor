@@ -338,7 +338,14 @@ function initAmbientVideos() {
         p.then(() => {
           playBtn.hidden = true;
           bgVideo.classList.add('is-playing');
-        }).catch(() => {});
+        }).catch((err) => {
+          // se nemmeno il tocco basta, il problema è il file/decoder:
+          // lo diciamo invece di lasciare un pulsante che non fa nulla
+          playBtn.classList.add('is-failed');
+          const label = playBtn.querySelector('span');
+          if (label) label.textContent = playBtn.dataset.labelFail || 'Video non disponibile';
+          console.warn('[video] play() rifiutato:', err?.name, err?.message, '| mediaError:', bgVideo.error?.code);
+        });
       }
     });
   };

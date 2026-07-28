@@ -67,6 +67,7 @@ export default {
     s1Link: 'La nostra storia →',
     s1PhotoAlt: 'La sala pesi di Nonsolofitness Torvaianica illuminata dai neon rossi, con macchinari isotonici e panche',
     playVideo: 'Guarda il video',
+    playVideoFail: 'Video non disponibile',
 
     s2Kicker: 'Corsi & sala',
     s2Title: 'Scegli il tuo <em class="it ac">round</em>',

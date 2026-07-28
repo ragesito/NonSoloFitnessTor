@@ -67,6 +67,7 @@ export default {
     s1Link: 'Our story →',
     s1PhotoAlt: 'The weight room at Nonsolofitness Torvaianica lit by red neon, with resistance machines and benches',
     playVideo: 'Play the video',
+    playVideoFail: 'Video unavailable',
 
     s2Kicker: 'Classes & floor',
     s2Title: 'Pick your <em class="it ac">round</em>',
