@@ -66,6 +66,7 @@ export default {
       'Niente catene anonime, niente abbonamenti-trappola. Una sala ampia e pulita, macchinari di ultima generazione e due titolari che ti chiamano per nome dal secondo giorno. A Torvaianica, dove dopo l’allenamento c’è il mare.',
     s1Link: 'La nostra storia →',
     s1PhotoAlt: 'La sala pesi di Nonsolofitness Torvaianica illuminata dai neon rossi, con macchinari isotonici e panche',
+    playVideo: 'Guarda il video',
 
     s2Kicker: 'Corsi & sala',
     s2Title: 'Scegli il tuo <em class="it ac">round</em>',

@@ -316,12 +316,39 @@ function initMagnetic() {
   });
 }
 
-/* ---------- Video ambientali: velocità custom + stop con reduced motion ---------- */
+/* ---------- Video ambientali ----------
+   iOS blocca l'autoplay in diversi casi che NON possiamo rilevare
+   (Riproduci anteprime video off, Risparmio energetico, Risparmio dati).
+   Se dopo un attimo il video non è partito, mostriamo un pulsante play:
+   il tocco dell'utente è un gesto valido e sblocca sempre la riproduzione. */
 function initAmbientVideos() {
+  const playBtn = document.querySelector('[data-video-play]');
+  const bgVideo = document.querySelector('.hero__bg video');
+
+  const offerManualPlay = () => {
+    if (!playBtn || !bgVideo) return;
+    playBtn.hidden = false;
+    if (playBtn.dataset.bound) return;
+    playBtn.dataset.bound = 'true';
+    playBtn.addEventListener('click', () => {
+      bgVideo.muted = true;
+      if (bgVideo.error || !bgVideo.currentSrc) bgVideo.load();
+      const p = bgVideo.play();
+      if (p) {
+        p.then(() => {
+          playBtn.hidden = true;
+          bgVideo.classList.add('is-playing');
+        }).catch(() => {});
+      }
+    });
+  };
+
   document.querySelectorAll('video[data-ambient-video]').forEach((v) => {
     if (reducedMotion) {
+      // rispettiamo la preferenza: non parte da solo, ma resta consultabile
       v.removeAttribute('autoplay');
       v.pause();
+      if (v === bgVideo) offerManualPlay();
       return;
     }
     const rate = parseFloat(v.dataset.playback || '1');
@@ -339,9 +366,19 @@ function initAmbientVideos() {
     if (v.paused) {
       v.muted = true; // l'attributo HTML può perdersi nello swap: senza muted niente autoplay
       const p = v.play();
-      if (p) p.catch(() => {});
+      // se il browser rifiuta (iOS: anteprime video off, risparmio energetico/dati)
+      // offriamo il tocco manuale invece di lasciare un poster muto senza spiegazione
+      if (p) p.catch(() => { if (v === bgVideo) offerManualPlay(); });
     }
   });
+
+  // rete di sicurezza: alcuni browser non rifiutano la promise, semplicemente
+  // non partono. Se dopo 1,5 s siamo ancora fermi, mostriamo il pulsante.
+  if (bgVideo && !reducedMotion) {
+    setTimeout(() => {
+      if (bgVideo.isConnected && bgVideo.paused) offerManualPlay();
+    }, 1500);
+  }
 }
 
 /* Back/forward cache: al ripristino della pagina i video restano in pausa */
