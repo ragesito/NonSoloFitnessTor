@@ -76,16 +76,13 @@ const otherHref = path(other, stripLang(current));
 </header>
 
 <style>
+  /* Sempre visibile: non si nasconde mai, né scendendo né salendo. */
   .header {
     position: fixed;
     inset: 0 0 auto;
     z-index: 1000;
     color: var(--paper);
-    /* scende sotto la barra di stato di iOS (0 su desktop e Android) */
-    padding-top: env(safe-area-inset-top, 0px);
-    transition: translate 0.45s var(--ease-out);
   }
-  .header.is-hidden { translate: 0 -100%; }
   .header__inner {
     display: flex;
     align-items: center;
@@ -185,8 +182,7 @@ const otherHref = path(other, stripLang(current));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 2rem) var(--gutter)
-      calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
+    padding: calc(var(--header-h) + 2rem) var(--gutter) 2.5rem;
     background: var(--ink);
     opacity: 0;
     transition: opacity 0.4s var(--ease-out);

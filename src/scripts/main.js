@@ -18,14 +18,9 @@ function initHeader() {
   if (!header || header.dataset.bound) return;
   header.dataset.bound = 'true';
 
-  let lastY = window.scrollY;
+  // L'header resta sempre visibile: cambia solo lo sfondo quando si scrolla.
   const onScroll = () => {
-    const y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 24);
-    // nasconde solo a scroll deciso verso il basso, mai vicino alla cima
-    if (y > 300 && y - lastY > 6) header.classList.add('is-hidden');
-    else if (lastY - y > 4 || y < 300) header.classList.remove('is-hidden');
-    lastY = y;
+    header.classList.toggle('is-scrolled', window.scrollY > 24);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
