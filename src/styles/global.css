@@ -83,6 +83,19 @@ body {
 }
 /* superficie chiara del contenuto: le sezioni .theme-dark la coprono da sole */
 main { background: var(--paper); }
+
+/* Barra di stato iOS (orologio, batteria): il video del hero le scorreva
+   sotto. Questa fascia opaca la copre. Su desktop e Android l'inset è 0,
+   quindi l'elemento ha altezza zero e non si vede. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--ink);
+  z-index: 2100;
+  pointer-events: none;
+}
 img, svg, video { display: block; max-width: 100%; }
 button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
