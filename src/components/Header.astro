@@ -82,7 +82,25 @@ const otherHref = path(other, stripLang(current));
     inset: 0 0 auto;
     z-index: 1000;
     color: var(--paper);
+    /* con viewport-fit=cover la pagina sale sotto la barra di stato:
+       questo rimette l'header al suo posto visivo */
+    padding-top: env(safe-area-inset-top, 0px);
   }
+  /* Fascia sopra l'header, all'altezza della barra di stato iOS.
+     Invisibile in cima (il hero arriva fino al bordo, come prima) e si accende
+     insieme allo sfondo dell'header appena si scrolla: una barra sola. */
+  .header::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    background: rgb(13 13 16 / 0.82);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .header.is-scrolled::before { opacity: 1; }
   .header__inner {
     display: flex;
     align-items: center;
@@ -182,7 +200,8 @@ const otherHref = path(other, stripLang(current));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: calc(var(--header-h) + 2rem) var(--gutter) 2.5rem;
+    padding: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 2rem) var(--gutter)
+      calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
     background: var(--ink);
     opacity: 0;
     transition: opacity 0.4s var(--ease-out);

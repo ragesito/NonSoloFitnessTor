@@ -83,7 +83,9 @@ const jsonLd = {
 <html lang={L.htmlLang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- viewport-fit=cover: senza, env(safe-area-inset-top) vale 0 e non
+         possiamo sapere quanto è alta la barra di stato di iOS da coprire -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.href} />
