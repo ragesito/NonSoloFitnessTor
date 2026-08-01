@@ -67,6 +67,11 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--header-h) + 1rem);
+  /* Colore della "tela" della pagina: è questo che Safari su iOS usa per
+     tingere la barra di stato (theme-color viene ignorato). Va su html,
+     perché il fondo di html vince sulla propagazione rispetto a body. */
+  background: var(--ink);
+  color-scheme: dark;
 }
 body {
   font-family: var(--font);
