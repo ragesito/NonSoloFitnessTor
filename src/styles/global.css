@@ -86,8 +86,9 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
-/* superficie chiara del contenuto: le sezioni .theme-dark la coprono da sole */
-main { background: var(--paper); }
+/* NIENTE fondo su <main>: coprirebbe la tela scura e Safari su iOS
+   tingerebbe la barra di stato di chiaro. Il crema lo dipinge ogni sezione,
+   come nei progetti dove la barra resta scura. */
 img, svg, video { display: block; max-width: 100%; }
 button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
@@ -173,7 +174,12 @@ body::after {
   width: min(100% - 2 * var(--gutter), 82rem);
   margin-inline: auto;
 }
-.section { padding-block: var(--section); }
+.section {
+  padding-block: var(--section);
+  background: var(--paper);
+}
+/* riafferma il fondo scuro: stessa specificità di .section non basterebbe */
+.section.theme-dark { background: var(--ink); }
 .section--flush { padding-block: 0; }
 
 .grid-2 {
