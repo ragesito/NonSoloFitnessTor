@@ -98,7 +98,10 @@ a { color: inherit; }
 body::after {
   content: '';
   position: fixed;
-  inset: -50%;
+  /* inset: 0, non -50%: sconfinando oltre il bordo superiore questa velatura
+     finiva dentro la barra di stato di iOS e ci portava dentro la pagina.
+     Il rumore è una texture ripetuta, quindi copre lo stesso senza sbordare. */
+  inset: 0;
   z-index: 2000;
   pointer-events: none;
   opacity: 0.055;
