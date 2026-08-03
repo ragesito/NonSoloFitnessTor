@@ -82,6 +82,14 @@ const otherHref = path(other, stripLang(current));
     inset: 0 0 auto;
     z-index: 1000;
     color: var(--paper);
+    transition: background-color 0.35s, box-shadow 0.35s;
+  }
+  /* Il fondo va sull'ELEMENTO FISSO, non sul figlio: Safari su iOS estende
+     alla barra di stato solo il fondo dell'elemento fisso in cima. Con lo
+     sfondo sul div interno la fascia dell'orologio restava scoperta. */
+  .header.is-scrolled {
+    background: var(--ink);
+    box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   .header__inner {
     display: flex;
@@ -90,14 +98,6 @@ const otherHref = path(other, stripLang(current));
     gap: 1.5rem;
     height: var(--header-h);
     padding-inline: var(--gutter);
-    transition: background-color 0.35s, box-shadow 0.35s, color 0.35s;
-  }
-  /* Fondo PIENO, non traslucido: Safari su iOS tinge la barra di stato con
-     ciò che sta dietro l'header, e con un fondo semitrasparente ci passava
-     il contenuto chiaro della pagina. */
-  .header.is-scrolled .header__inner {
-    background: var(--ink);
-    box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
 
   .wordmark {
