@@ -43,6 +43,11 @@ const R = L.review;
           <span class="btn-label">{R.cta}</span>
         </a>
         <p class="small muted">{R.ctaNote}</p>
+        {/* ripiego per chi nel browser non ha la sessione Google:
+            questo link apre l'app di Maps, dove è sempre loggato */}
+        <a class="link-underline review-cta__alt small" href={gym.googleMapsPlaceUrl} target="_blank" rel="noopener">
+          {R.ctaApp}
+        </a>
       </div>
 
       <p class="review-honest small" data-reveal="fade">{R.honest}</p>
@@ -131,6 +136,7 @@ const R = L.review;
 
   .review-cta { display: grid; gap: 0.75rem; justify-items: start; width: 100%; }
   .review-cta__btn { font-size: 1rem; padding: 1.1em 2rem; }
+  .review-cta__alt { color: var(--t-muted); }
 
   .review-honest {
     border-left: 3px solid var(--accent);

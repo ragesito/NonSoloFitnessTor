@@ -435,6 +435,7 @@ export default {
     newPrompt: 'Un altro spunto',
     cta: 'Scrivi la recensione su Google',
     ctaNote: 'Si apre Google: metti le stelle e scrivi con parole tue.',
+    ctaApp: 'Non si apre? Vai con l’app Google Maps',
     honest: 'Scrivi quello che pensi davvero — anche se hai un consiglio da darci, ci serve più di un complimento.',
     backHome: 'Torna al sito',
   },

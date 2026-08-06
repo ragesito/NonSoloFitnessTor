@@ -435,6 +435,7 @@ export default {
     newPrompt: 'Another prompt',
     cta: 'Write the review on Google',
     ctaNote: 'Google opens: pick your stars and write in your own words.',
+    ctaApp: 'Not opening? Use the Google Maps app',
     honest: 'Write what you genuinely think — if you have a suggestion for us, that’s worth more than a compliment.',
     backHome: 'Back to the site',
   },
