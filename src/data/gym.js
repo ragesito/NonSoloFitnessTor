@@ -45,9 +45,11 @@ export const gym = {
   // l'utente è sempre loggato: chiederlo a Davide e sostituirlo qui.
   // I QR puntano al sito, quindi cambiarlo NON richiede di ristampare nulla.
   googleReviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJhZZNW6WVJRMRULKd7VBp62s',
-  // Ripiego: apre la scheda nell'app di Google Maps (o sul web se non c'è
-  // l'app). Utile a chi nel browser non ha la sessione Google attiva.
-  googleMapsPlaceUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJhZZNW6WVJRMRULKd7VBp62s',
+  // Apre la scheda nell'app di Google Maps (o sul web se l'app non c'è).
+  // ATTENZIONE: va usato il formato ?cid=, NON ?q=place_id:… — quest'ultimo
+  // funziona sul web ma l'app iOS lo cerca come se fosse testo e non trova
+  // nulla (verificato su iPhone).
+  googleMapsPlaceUrl: 'https://www.google.com/maps?cid=7776424977890128464',
 
   // [DA CONFERMARE] due fonti pubbliche discordano (8–23 tutti i giorni vs
   // orari ridotti nel weekend). Formato 24h "HH:MM". closes null = chiuso.
