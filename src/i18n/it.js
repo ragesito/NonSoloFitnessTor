@@ -408,6 +408,37 @@ export default {
     ],
   },
 
+  review: {
+    seoTitle: 'Lascia una recensione',
+    seoDesc:
+      'Racconta com’è allenarsi da Nonsolofitness Torvaianica. Bastano due righe: la tua recensione su Google aiuta chi cerca una palestra in zona.',
+    kicker: 'Due minuti, non di più',
+    ghost: 'GRAZIE',
+    title: 'Com’è andata<span class="ac">?</span>',
+    intro:
+      'La tua opinione è la cosa che aiuta di più chi sta cercando una palestra a Torvaianica. Non serve scrivere un tema: due righe sincere valgono più di mille parole.',
+    promptLabel: 'Uno spunto, se non sai da dove partire',
+    // Spunti che ruotano a ogni visita: NON sono testi da copiare (Google
+    // vieta le recensioni preconfezionate), sono domande per far partire l'idea.
+    prompts: [
+      'Cosa ti ha colpito la prima volta che sei entrato?',
+      'Come ti trovi con i macchinari e con la sala?',
+      'C’è un corso che ti ha conquistato più degli altri?',
+      'Com’è l’atmosfera quando ti alleni qui?',
+      'Cosa diresti a un amico che cerca una palestra in zona?',
+      'Come ti sei trovato con Davide e Dominica?',
+      'Cosa ti fa tornare, invece di cambiare palestra?',
+      'C’è un momento della tua settimana in palestra che aspetti?',
+      'Cosa è cambiato da quando ti alleni qui?',
+      'Cosa apprezzi degli orari e della pulizia?',
+    ],
+    newPrompt: 'Un altro spunto',
+    cta: 'Scrivi la recensione su Google',
+    ctaNote: 'Si apre Google: metti le stelle e scrivi con parole tue.',
+    honest: 'Scrivi quello che pensi davvero — anche se hai un consiglio da darci, ci serve più di un complimento.',
+    backHome: 'Torna al sito',
+  },
+
   schema: {
     description:
       'Palestra a Torvaianica (Pomezia): sala pesi con macchinari di ultima generazione, corsi di boxe, pilates e allenamento funzionale. Aperta 7 giorni su 7 in Viale Spagna 62.',

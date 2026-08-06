@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { gym } from '../../data/gym.js';
+import { langPaths, t, path } from '../../i18n/index.js';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const { lang } = Astro.props;
+const L = t(lang);
+const R = L.review;
+---
+
+{/* pagina di servizio: non deve competere col sito nei risultati */}
+<Base title={R.seoTitle} description={R.seoDesc} lang={lang} noindex>
+  <PageHero kicker={R.kicker} ghost={R.ghost}>
+    <Fragment set:html={R.title} />
+  </PageHero>
+
+  <section class="section review-page">
+    <div class="container review-wrap">
+      <p class="lead muted" data-reveal>{R.intro}</p>
+
+      <!-- Spunto casuale: NON un testo da copiare (Google vieta le recensioni
+           preconfezionate), ma una domanda per far partire l'idea. -->
+      <div class="prompt card" data-reveal="scale">
+        <p class="prompt__label eyebrow">{R.promptLabel}</p>
+        <p class="prompt__text display display--sm" data-prompt data-prompts={JSON.stringify(R.prompts)}>
+          {R.prompts[0]}
+        </p>
+        <button class="prompt__more" type="button" data-prompt-next>
+          <span class="prompt__more-icon" aria-hidden="true">↻</span>
+          {R.newPrompt}
+        </button>
+      </div>
+
+      <div class="review-cta" data-reveal>
+        <a class="btn btn--accent review-cta__btn" href={gym.googleReviewUrl} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path fill="currentColor" d="M12 2 14.9 8.6 22 9.3l-5.3 4.8 1.5 7-6.2-3.6-6.2 3.6 1.5-7L2 9.3l7.1-.7z"/>
+          </svg>
+          <span class="btn-label">{R.cta}</span>
+        </a>
+        <p class="small muted">{R.ctaNote}</p>
+      </div>
+
+      <p class="review-honest small" data-reveal="fade">{R.honest}</p>
+
+      <a class="link-underline" href={path(lang, '/')} data-reveal="fade">{R.backHome}</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Uno spunto diverso a ogni scansione del QR, e uno nuovo a ogni tocco.
+  function initPrompt() {
+    const el = document.querySelector('[data-prompt]');
+    if (!el) return;
+    let list;
+    try { list = JSON.parse(el.dataset.prompts); } catch { return; }
+    if (!Array.isArray(list) || !list.length) return;
+
+    let last = -1;
+    const show = () => {
+      let i = Math.floor(Math.random() * list.length);
+      if (list.length > 1 && i === last) i = (i + 1) % list.length; // mai due volte di fila
+      last = i;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = list[i];
+        el.style.opacity = '1';
+      }, 180);
+    };
+
+    show();
+    document.querySelector('[data-prompt-next]')?.addEventListener('click', show);
+  }
+
+  document.addEventListener('astro:page-load', initPrompt);
+  if (document.readyState !== 'loading') initPrompt();
+  else document.addEventListener('DOMContentLoaded', initPrompt, { once: true });
+</script>
+
+<style>
+  .review-wrap {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+    justify-items: start;
+    max-width: 44rem;
+  }
+
+  .prompt {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    --t-muted: rgb(242 238 229 / 0.55);
+    --line: rgb(242 238 229 / 0.2);
+  }
+  .prompt__label { color: rgb(242 238 229 / 0.55); }
+  .prompt__text {
+    font-size: clamp(1.15rem, 3.6vw, 1.6rem);
+    line-height: 1.25;
+    text-wrap: balance;
+    min-height: 2.6em;
+    transition: opacity 0.18s ease;
+  }
+  .prompt__more {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 1.1em;
+    border: 1.5px solid rgb(242 238 229 / 0.28);
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-stretch: 85%;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  .prompt__more:hover { border-color: var(--accent); background: rgb(217 4 41 / 0.16); }
+  .prompt__more-icon { font-size: 1.05em; }
+
+  .review-cta { display: grid; gap: 0.75rem; justify-items: start; width: 100%; }
+  .review-cta__btn { font-size: 1rem; padding: 1.1em 2rem; }
+
+  .review-honest {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--t-muted);
+    max-width: 38em;
+  }
+</style>

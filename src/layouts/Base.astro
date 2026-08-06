@@ -13,9 +13,11 @@ interface Props {
   /** Pagina senza suffisso brand nel <title> (solo per la home) */
   bareTitle?: boolean;
   ogImage?: string;
+  /** Pagine di servizio (es. recensioni): fuori dai risultati di ricerca */
+  noindex?: boolean;
 }
 
-const { title, description, lang = DEFAULT_LANG, bareTitle = false, ogImage = '/og.jpg' } = Astro.props;
+const { title, description, lang = DEFAULT_LANG, bareTitle = false, ogImage = '/og.jpg', noindex = false } = Astro.props;
 const L = t(lang);
 
 const fullTitle = bareTitle ? title : `${title} — ${gym.name}`;
@@ -87,6 +89,7 @@ const jsonLd = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.href} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <!-- Versioni in altre lingue -->
     {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}

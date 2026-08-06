@@ -35,6 +35,12 @@ export const gym = {
     facebook: 'https://www.facebook.com/nonsolofitnesstorvaianica/',
   },
 
+  // Scheda Google della palestra. Il Place ID è stato verificato: il CID
+  // corrispondente (7776424977890128464) è lo stesso delle directory pubbliche.
+  googlePlaceId: 'ChIJhZZNW6WVJRMRULKd7VBp62s',
+  // Apre direttamente il riquadro "scrivi una recensione".
+  googleReviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJhZZNW6WVJRMRULKd7VBp62s',
+
   // [DA CONFERMARE] due fonti pubbliche discordano (8–23 tutti i giorni vs
   // orari ridotti nel weekend). Formato 24h "HH:MM". closes null = chiuso.
   // L'etichetta dei giorni è tradotta (i18n → hours[i]).

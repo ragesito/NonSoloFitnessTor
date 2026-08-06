@@ -1,0 +1,74 @@
+---
+/**
+ * /r/ — scorciatoia del QR "diretto": porta subito al riquadro recensioni
+ * di Google. Passa da qui e non da un link Google stampato, così se un
+ * domani l'indirizzo di Google cambia si aggiorna il sito e i cartelli
+ * già stampati continuano a funzionare.
+ */
+import { gym } from '../../data/gym.js';
+import '../../styles/global.css';
+
+const target = gym.googleReviewUrl;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lascia una recensione — {gym.name}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0d0d10" />
+    <script is:inline define:vars={{ target }}>
+      // più rapido del meta refresh; replace() evita di intrappolare
+      // l'utente nel tasto "indietro"
+      window.location.replace(target);
+    </script>
+  </head>
+  <body class="redirect">
+    <main class="redirect__inner">
+      <svg class="redirect__bolt" viewBox="0 0 24 40" fill="none" aria-hidden="true">
+        <path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" />
+      </svg>
+      <p class="redirect__brand">NONSOLO<span class="ac">✱</span>FITNESS</p>
+      <p class="redirect__msg">Ti stiamo portando su Google…</p>
+      <a class="btn btn--accent" href={target}>
+        <span class="btn-label">Continua</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    </main>
+  </body>
+</html>
+
+<style>
+  .redirect {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+  }
+  .redirect__inner {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    padding: var(--gutter);
+  }
+  .redirect__bolt {
+    width: 56px;
+    height: auto;
+    filter: drop-shadow(0 0 16px rgb(217 4 41 / 0.55));
+  }
+  .redirect__brand {
+    font-stretch: 118%;
+    font-weight: 860;
+    font-size: 1rem;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
+  }
+  .redirect__msg { color: rgb(242 238 229 / 0.6); font-size: 0.95rem; }
+</style>

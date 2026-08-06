@@ -408,6 +408,37 @@ export default {
     ],
   },
 
+  review: {
+    seoTitle: 'Leave a review',
+    seoDesc:
+      'Tell people what training at Nonsolofitness Torvaianica is like. Two lines are enough: your Google review helps anyone looking for a gym nearby.',
+    kicker: 'Two minutes, no more',
+    ghost: 'THANKS',
+    title: 'How was it<span class="ac">?</span>',
+    intro:
+      'Your opinion is the single most useful thing for someone looking for a gym in Torvaianica. No essay needed: two honest lines are worth more than a thousand words.',
+    promptLabel: 'A prompt, if you’re not sure where to start',
+    // Prompts rotate on every visit: they are NOT texts to copy (Google bans
+    // pre-written reviews), they are questions to get the idea flowing.
+    prompts: [
+      'What struck you the first time you walked in?',
+      'How do you get on with the equipment and the floor?',
+      'Is there a class that won you over more than the others?',
+      'What’s the atmosphere like when you train here?',
+      'What would you tell a friend looking for a gym nearby?',
+      'How has it been with Davide and Dominica?',
+      'What keeps you coming back instead of switching gyms?',
+      'Is there a moment of your gym week you look forward to?',
+      'What has changed since you started training here?',
+      'What do you make of the opening hours and the cleanliness?',
+    ],
+    newPrompt: 'Another prompt',
+    cta: 'Write the review on Google',
+    ctaNote: 'Google opens: pick your stars and write in your own words.',
+    honest: 'Write what you genuinely think — if you have a suggestion for us, that’s worth more than a compliment.',
+    backHome: 'Back to the site',
+  },
+
   schema: {
     description:
       'Gym in Torvaianica (Pomezia): weight room with latest-generation equipment, boxing, pilates and functional training classes. Open 7 days a week at Viale Spagna 62.',
