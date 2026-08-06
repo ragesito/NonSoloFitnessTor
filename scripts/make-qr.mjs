@@ -5,12 +5,15 @@
  * Entrambi puntano al SITO, non a Google: se un domani il link Google
  * cambia si aggiorna il sito e i cartelli stampati restano validi.
  *
- * Uso: node scripts/make-qr.mjs [dominio]
+ * Uso: node scripts/make-qr.mjs [dominio] [suffisso]
+ *   node scripts/make-qr.mjs                                  -> definitivi
+ *   node scripts/make-qr.mjs https://…vercel.app -test        -> di prova
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import QRCode from 'qrcode';
 
 const site = (process.argv[2] || 'https://www.nonsolofitnesstorvaianica.com').replace(/\/$/, '');
+const suffix = process.argv[3] || '';
 const outDir = 'public/qr';
 mkdirSync(outDir, { recursive: true });
 
@@ -26,9 +29,10 @@ const codes = [
 const opts = { errorCorrectionLevel: 'H', margin: 2, color: { dark: INK, light: '#ffffff' } };
 
 for (const c of codes) {
+  const name = `qr-${c.id}${suffix}`;
   const svg = await QRCode.toString(c.url, { ...opts, type: 'svg' });
-  writeFileSync(`${outDir}/qr-${c.id}.svg`, svg);
-  await QRCode.toFile(`${outDir}/qr-${c.id}.png`, c.url, { ...opts, width: 2000 });
+  writeFileSync(`${outDir}/${name}.svg`, svg);
+  await QRCode.toFile(`${outDir}/${name}.png`, c.url, { ...opts, width: 1200 });
   console.log(`${c.label.padEnd(26)} ${c.url}`);
-  console.log(`  ${outDir}/qr-${c.id}.svg  +  .png (2000px)`);
+  console.log(`  ${outDir}/${name}.svg  +  .png`);
 }
