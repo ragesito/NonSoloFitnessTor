@@ -28,11 +28,17 @@ const after = await page.textContent('[data-prompt]');
 console.log(`tocco "un altro spunto": ${before !== after ? '✓ cambia' : '✗ identico'}`);
 if (before === after) fails++;
 
-// 3. il pulsante porta al riquadro recensioni di Google
+// 3. il pulsante principale porta all'app di Maps (mai un vicolo cieco),
+//    il link secondario al riquadro recensione per chi ha la sessione
 const href = await page.getAttribute('.review-cta__btn', 'href');
-const okHref = href?.includes('search.google.com/local/writereview') && href.includes('ChIJhZZNW6WVJRMRULKd7VBp62s');
-console.log(`link Google: ${okHref ? '✓' : '✗'} ${href}`);
+const okHref = href?.includes('google.com/maps/place') && href.includes('ChIJhZZNW6WVJRMRULKd7VBp62s');
+console.log(`pulsante -> Maps: ${okHref ? '✓' : '✗'} ${href}`);
 if (!okHref) fails++;
+
+const alt = await page.getAttribute('.review-cta__alt', 'href');
+const okAlt = alt?.includes('writereview') && alt.includes('ChIJhZZNW6WVJRMRULKd7VBp62s');
+console.log(`link alt -> recensione: ${okAlt ? '✓' : '✗'} ${alt}`);
+if (!okAlt) fails++;
 
 // 4. la pagina è fuori dai risultati di ricerca
 const robots = await page.getAttribute('meta[name="robots"]', 'content');

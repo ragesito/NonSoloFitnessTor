@@ -8,7 +8,10 @@
 import { gym } from '../../data/gym.js';
 import '../../styles/global.css';
 
-const target = gym.googleReviewUrl;
+/* Manda all'app di Google Maps, non al link diretto del riquadro recensione:
+   qui non c'è interfaccia, quindi chi non ha la sessione Google nel browser
+   resterebbe bloccato sulla schermata di accesso senza via d'uscita. */
+const target = gym.googleMapsPlaceUrl;
 ---
 
 <!doctype html>
@@ -34,7 +37,7 @@ const target = gym.googleReviewUrl;
         <path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" />
       </svg>
       <p class="redirect__brand">NONSOLO<span class="ac">✱</span>FITNESS</p>
-      <p class="redirect__msg">Ti stiamo portando su Google…</p>
+      <p class="redirect__msg">Ti stiamo portando su Google Maps…</p>
       <a class="btn btn--accent" href={target}>
         <span class="btn-label">Continua</span>
         <span class="btn-arrow" aria-hidden="true">→</span>

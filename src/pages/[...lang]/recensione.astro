@@ -36,16 +36,19 @@ const R = L.review;
       </div>
 
       <div class="review-cta" data-reveal>
-        <a class="btn btn--accent review-cta__btn" href={gym.googleReviewUrl} target="_blank" rel="noopener">
+        {/* Prima l'app di Maps: l'utente vi è sempre loggato. Il link diretto
+            al riquadro recensione è più veloce, ma senza sessione Google nel
+            browser sbatte contro una schermata di accesso e la recensione si
+            perde: meglio due tocchi in più che un vicolo cieco. */}
+        <a class="btn btn--accent review-cta__btn" href={gym.googleMapsPlaceUrl} target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <path fill="currentColor" d="M12 2 14.9 8.6 22 9.3l-5.3 4.8 1.5 7-6.2-3.6-6.2 3.6 1.5-7L2 9.3l7.1-.7z"/>
           </svg>
           <span class="btn-label">{R.cta}</span>
         </a>
         <p class="small muted">{R.ctaNote}</p>
-        {/* ripiego per chi nel browser non ha la sessione Google:
-            questo link apre l'app di Maps, dove è sempre loggato */}
-        <a class="link-underline review-cta__alt small" href={gym.googleMapsPlaceUrl} target="_blank" rel="noopener">
+        {/* scorciatoia per chi la sessione Google nel browser ce l'ha */}
+        <a class="link-underline review-cta__alt small" href={gym.googleReviewUrl} target="_blank" rel="noopener">
           {R.ctaApp}
         </a>
       </div>
