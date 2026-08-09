@@ -103,29 +103,26 @@ button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: var(--paper); }
 
-/* Copri-fascia per la barra di stato di iOS. Sul dispositivo è provato che:
-   (a) il documento viene disegnato fino al bordo fisico dello schermo,
-   (b) gli elementi FISSI restano ancorati sotto la barra di stato e il loro
-       overflow verso l'alto viene ritagliato (la visiera sull'header non
-       compariva), ma
-   (c) un elemento fisso con la PROPRIA scatola posizionata oltre il bordo
-       viene disegnato dentro la fascia (la grana con inset -50% ci finiva).
-   Quindi: scatola fissa sopra il bordo, visibile solo da scrollato.
-   Fuori da iOS resta oltre il bordo dello schermo: invisibile. */
-body::before {
-  content: '';
-  position: fixed;
+/* Copri-fascia per la barra di stato di Safari 26 (vedi Base.astro).
+   Sticky con top negativo: la scatola parte a inizio documento (il margine
+   negativo sotto evita di spostare il contenuto) e da scrollato resta
+   INCOLLATA appena sopra il bordo del viewport — esattamente la zona di
+   documento che Safari disegna dietro l'orologio. È un elemento vero della
+   capa che scorre, quindi non viene ritagliato come i fixed; e ha un
+   background-color reale, quindi il campionatore di tinta lo può leggere.
+   Sotto l'header (z 500 < 1000): nella transizione iniziale ci passa dietro. */
+.ios-strip {
+  position: sticky;
   top: -120px;
-  left: 0;
-  right: 0;
   height: 120px;
-  z-index: 1500;
+  margin-bottom: -120px;
+  z-index: 500;
   background: var(--ink);
   opacity: 0;
   transition: opacity 0.35s;
   pointer-events: none;
 }
-body.is-scrolled::before { opacity: 1; }
+body.is-scrolled .ios-strip { opacity: 1; }
 
 /* Grana pellicola su tutto il sito */
 body::after {
