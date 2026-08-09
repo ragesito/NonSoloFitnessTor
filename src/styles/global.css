@@ -103,6 +103,30 @@ button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: var(--paper); }
 
+/* Copri-fascia per la barra di stato di iOS. Sul dispositivo è provato che:
+   (a) il documento viene disegnato fino al bordo fisico dello schermo,
+   (b) gli elementi FISSI restano ancorati sotto la barra di stato e il loro
+       overflow verso l'alto viene ritagliato (la visiera sull'header non
+       compariva), ma
+   (c) un elemento fisso con la PROPRIA scatola posizionata oltre il bordo
+       viene disegnato dentro la fascia (la grana con inset -50% ci finiva).
+   Quindi: scatola fissa sopra il bordo, visibile solo da scrollato.
+   Fuori da iOS resta oltre il bordo dello schermo: invisibile. */
+body::before {
+  content: '';
+  position: fixed;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 1500;
+  background: var(--ink);
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+body.is-scrolled::before { opacity: 1; }
+
 /* Grana pellicola su tutto il sito */
 body::after {
   content: '';

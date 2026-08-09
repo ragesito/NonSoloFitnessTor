@@ -20,7 +20,10 @@ function initHeader() {
 
   // L'header resta sempre visibile: cambia solo lo sfondo quando si scrolla.
   const onScroll = () => {
-    header.classList.toggle('is-scrolled', window.scrollY > 24);
+    const scrolled = window.scrollY > 24;
+    header.classList.toggle('is-scrolled', scrolled);
+    // Serve anche al copri-fascia della barra di stato iOS (body::before)
+    document.body.classList.toggle('is-scrolled', scrolled);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
