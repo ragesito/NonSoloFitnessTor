@@ -104,25 +104,25 @@ a { color: inherit; }
 ::selection { background: var(--accent); color: var(--paper); }
 
 /* Copri-fascia per la barra di stato di Safari 26 (vedi Base.astro).
-   Sticky con top negativo: la scatola parte a inizio documento (il margine
-   negativo sotto evita di spostare il contenuto) e da scrollato resta
-   INCOLLATA appena sopra il bordo del viewport — esattamente la zona di
-   documento che Safari disegna dietro l'orologio. È un elemento vero della
-   capa che scorre, quindi non viene ritagliato come i fixed; e ha un
-   background-color reale, quindi il campionatore di tinta lo può leggere.
-   Sotto l'header (z 500 < 1000): nella transizione iniziale ci passa dietro. */
+   Safari compone dietro l'orologio SOLO i pixel semplici del documento:
+   esclude fixed, sticky e ogni capa composta a parte (tutti provati sul
+   dispositivo). Quindi: elemento ASSOLUTO qualunque — pixel di documento
+   puro — riposizionato dal JS a ogni scroll perché resti sempre nella
+   zona sopra il bordo del viewport. Niente transform/will-change/opacity
+   animata: qualsiasi promozione a capa propria lo farebbe sparire dalla
+   fascia. Sborda 40px dentro il viewport per assorbire il ritardo del JS
+   durante lo scroll d'inerzia: quei 40px restano dietro il navbar opaco. */
 .ios-strip {
-  position: sticky;
-  top: -120px;
-  height: 120px;
-  margin-bottom: -120px;
+  position: absolute;
+  top: -480px; /* il JS lo tiene a (scrollY - 440): fascia [scrollY-440, scrollY+40] */
+  left: 0;
+  right: 0;
+  height: 480px;
   z-index: 500;
   background: var(--ink);
-  opacity: 0;
-  transition: opacity 0.35s;
   pointer-events: none;
 }
-body.is-scrolled .ios-strip { opacity: 1; }
+body:not(.is-scrolled) .ios-strip { display: none; }
 
 /* Grana pellicola su tutto il sito */
 body::after {

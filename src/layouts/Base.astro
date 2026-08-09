@@ -128,12 +128,10 @@ const jsonLd = {
   </head>
   <body>
     {/* Copri-fascia per la barra di stato di Safari 26 (Liquid Glass).
-        Dietro l'orologio Safari compone i PIXEL REALI del documento
-        (la fascia mostra il contenuto appena scorso sopra il viewport)
-        e il suo campionatore di tinta ignora theme-color, gli
-        pseudo-elementi e i figli assoluti degli elementi fissi: serve
-        un elemento VERO nel flusso, sticky, agganciato appena sopra il
-        bordo del viewport. Dev'essere il primo figlio di body. */}
+        Dietro l'orologio Safari compone solo i pixel SEMPLICI del
+        documento (fixed, sticky e pseudo-elementi sono esclusi — tutti
+        provati sul dispositivo): questo div assoluto viene inseguito
+        dallo scroll via JS in main.js. Dettagli in global.css. */}
     <div class="ios-strip" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{L.common.skipToContent}</a>
     <Header lang={lang} />
