@@ -91,6 +91,24 @@ const otherHref = path(other, stripLang(current));
     background: var(--ink);
     box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
+  /* Visiera per la barra di stato di iOS. Safari disegna dentro la fascia
+     dell'orologio tutto ciò che, in un elemento fisso, SPORGE sopra il bordo
+     del viewport (provato: la grana, quando sbordava, ci finiva dentro).
+     Il fondo del navbar parte da 0 in giù e non la tocca mai: serve questa
+     lingua che sborda in su. Fuori da iOS resta oltre il bordo: invisibile. */
+  .header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 120px;
+    background: var(--ink);
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+  .header.is-scrolled::before { opacity: 1; }
   .header__inner {
     display: flex;
     align-items: center;
