@@ -127,12 +127,6 @@ const jsonLd = {
     <ClientRouter />
   </head>
   <body>
-    {/* Copri-fascia per la barra di stato di Safari 26 (Liquid Glass).
-        Dietro l'orologio Safari compone solo i pixel SEMPLICI del
-        documento (fixed, sticky e pseudo-elementi sono esclusi — tutti
-        provati sul dispositivo): questo div assoluto viene inseguito
-        dallo scroll via JS in main.js. Dettagli in global.css. */}
-    <div class="ios-strip" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{L.common.skipToContent}</a>
     <Header lang={lang} />
     <main id="main">

@@ -103,26 +103,13 @@ button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: var(--paper); }
 
-/* Copri-fascia per la barra di stato di Safari 26 (vedi Base.astro).
-   Safari compone dietro l'orologio SOLO i pixel semplici del documento:
-   esclude fixed, sticky e ogni capa composta a parte (tutti provati sul
-   dispositivo). Quindi: elemento ASSOLUTO qualunque — pixel di documento
-   puro — riposizionato dal JS a ogni scroll perché resti sempre nella
-   zona sopra il bordo del viewport. Niente transform/will-change/opacity
-   animata: qualsiasi promozione a capa propria lo farebbe sparire dalla
-   fascia. Sborda 40px dentro il viewport per assorbire il ritardo del JS
-   durante lo scroll d'inerzia: quei 40px restano dietro il navbar opaco. */
-.ios-strip {
-  position: absolute;
-  top: -480px; /* il JS lo tiene a (scrollY - 440): fascia [scrollY-440, scrollY+40] */
-  left: 0;
-  right: 0;
-  height: 480px;
-  z-index: 500;
-  background: var(--ink);
-  pointer-events: none;
-}
-body:not(.is-scrolled) .ios-strip { display: none; }
+/* NOTA sulla barra di stato di iOS (Safari 26 "Liquid Glass"): dietro
+   l'orologio Safari compone i pixel del contenuto che scorre, e ignora
+   theme-color, viewport-fit (in verticale), gli elementi fixed/sticky e
+   gli pseudo-elementi. NON ESISTE un modo pulito per dipingerla: la banda
+   inseguita via JS (provata) arrivava in ritardo e creava artefatti
+   peggiori del problema. È il comportamento di sistema, visibile su
+   qualunque sito con contenuto chiaro. Rif: 1ar.io/updates/safari-26-liquid-glass-web */
 
 /* Grana pellicola su tutto il sito */
 body::after {

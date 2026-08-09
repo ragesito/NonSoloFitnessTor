@@ -19,15 +19,8 @@ function initHeader() {
   header.dataset.bound = 'true';
 
   // L'header resta sempre visibile: cambia solo lo sfondo quando si scrolla.
-  // Copri-fascia per Safari 26: pixel di documento puro, inseguono lo scroll
-  // via JS (vedi .ios-strip in global.css per il perché di questa via).
-  const strip = document.querySelector('.ios-strip');
   const onScroll = () => {
-    const y = window.scrollY;
-    const scrolled = y > 24;
-    header.classList.toggle('is-scrolled', scrolled);
-    document.body.classList.toggle('is-scrolled', scrolled);
-    if (strip && scrolled) strip.style.top = `${y - 440}px`;
+    header.classList.toggle('is-scrolled', window.scrollY > 24);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
