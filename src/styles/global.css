@@ -31,7 +31,16 @@
 
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section: clamp(5rem, 12vw, 10rem);
-  --header-h: 4.5rem;
+  /* Fascia della barra di stato di iOS: con viewport-fit=cover la pagina
+     arriva al bordo fisico dello schermo e env() misura quanto ne resta
+     coperto dall'orologio. Doppia dichiarazione: la prima è il ripiego per
+     i browser che non conoscono env(). */
+  --safe-top: 0px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  /* --header-bar è l'altezza visiva della barra; --header-h è l'ingombro
+     totale (barra + fascia di stato) usato da tutti gli offset del layout. */
+  --header-bar: 4.5rem;
+  --header-h: calc(var(--header-bar) + var(--safe-top));
 }
 
 /* Sezioni scure invertono i token, non i componenti */

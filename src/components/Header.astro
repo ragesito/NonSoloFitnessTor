@@ -81,6 +81,10 @@ const otherHref = path(other, stripLang(current));
     position: fixed;
     inset: 0 0 auto;
     z-index: 1000;
+    /* Con viewport-fit=cover il bordo del viewport È il bordo fisico dello
+       schermo: questo padding tiene il contenuto sotto l'orologio e fa sì
+       che il fondo .is-scrolled dipinga anche la barra di stato. */
+    padding-top: var(--safe-top);
     color: var(--paper);
     transition: background-color 0.35s, box-shadow 0.35s;
   }
@@ -114,7 +118,7 @@ const otherHref = path(other, stripLang(current));
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    height: var(--header-h);
+    height: var(--header-bar);
     padding-inline: var(--gutter);
   }
 
