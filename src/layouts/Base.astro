@@ -134,6 +134,13 @@ const jsonLd = {
         qui l'intro viene rimossa dal DOM, quindi serve questo elemento
         permanente. MAI display:none: quello sì viene ignorato. */}
     <div class="tinta-ios" aria-hidden="true"></div>
+    {/* Copri-fascia da scrollato: binario alto quanto il RANGE di scroll,
+        traslato 0→100% da un'animazione guidata dallo scroll (compositor,
+        zero ritardo — il JS arrivava tardi). La banda scura al suo bordo
+        superiore resta così sempre appena sopra il viewport, cioè nella
+        zona di documento che Safari compone dietro l'orologio. Dettagli
+        in global.css (.ios-runway). */}
+    <div class="ios-clip" aria-hidden="true"><div class="ios-runway"><div class="ios-runway__band"></div></div></div>
     <a class="skip-link" href="#main">{L.common.skipToContent}</a>
     <Header lang={lang} />
     <main id="main">
