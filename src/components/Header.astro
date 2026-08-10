@@ -96,10 +96,10 @@ const otherHref = path(other, stripLang(current));
     transition: background-color 0.35s, box-shadow 0.35s;
   }
   /* Il fondo va sull'elemento incollato in cima, non sul figlio (il
-     campionatore di Safari legge solo l'elemento stesso). Alpha 0.95 come
-     nel navbar di Cuocimi, l'altro progetto dove la fascia si tinge. */
+     campionatore di Safari legge solo l'elemento stesso). Opaco: con
+     l'alpha 0.95 il contenuto si intravedeva attraverso la barra. */
   .header.is-scrolled {
-    background: rgb(13 13 16 / 0.95);
+    background: var(--ink);
     box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
