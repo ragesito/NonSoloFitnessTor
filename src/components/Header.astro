@@ -93,13 +93,17 @@ const otherHref = path(other, stripLang(current));
     /* Se viewport-fit=cover ha effetto, tiene il contenuto sotto l'orologio */
     padding-top: var(--safe-top);
     color: var(--paper);
-    transition: background-color 0.35s, box-shadow 0.35s;
-  }
-  /* Il fondo va sull'elemento incollato in cima, non sul figlio (il
-     campionatore di Safari legge solo l'elemento stesso). Opaco: con
-     l'alpha 0.95 il contenuto si intravedeva attraverso la barra. */
-  .header.is-scrolled {
+    /* SEMPRE opaco, fin dal primo pixel del primo caricamento: è il tratto
+       comune dei progetti dove Safari 26 non mostra mai la fascia
+       trasparente (Happiness: cabecera panna sempre solida; Cuocimi:
+       preloader scuro a schermo pieno ad ogni load). Safari decide il
+       comportamento della fascia da ciò che campiona al caricamento: un
+       navbar che nasce trasparente la condanna al vetro. La trasparenza
+       in cima era solo un vezzo di design: sacrificata. */
     background: var(--ink);
+    transition: box-shadow 0.35s;
+  }
+  .header.is-scrolled {
     box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
