@@ -93,18 +93,23 @@ const otherHref = path(other, stripLang(current));
     /* Se viewport-fit=cover ha effetto, tiene il contenuto sotto l'orologio */
     padding-top: var(--safe-top);
     color: var(--paper);
-    /* SEMPRE opaco, fin dal primo pixel del primo caricamento: è il tratto
-       comune dei progetti dove Safari 26 non mostra mai la fascia
-       trasparente (Happiness: cabecera panna sempre solida; Cuocimi:
-       preloader scuro a schermo pieno ad ogni load). Safari decide il
-       comportamento della fascia da ciò che campiona al caricamento: un
-       navbar che nasce trasparente la condanna al vetro. La trasparenza
-       in cima era solo un vezzo di design: sacrificata. */
+    /* SEMPRE opaco e dello STESSO colore della sezione che passa sotto
+       (data-tone, aggiornato in main.js). È la regola di tutti gli altri
+       progetti (talea: nav carta su body carta; Osteria: intonaco su
+       intonaco; Cuocimi: carbone su carbone): la fascia della barra di
+       stato di iOS mostra i pixel del contenuto, e se nav e contenuto
+       coincidono si legge come un'unica barra piena. Un nav scuro su
+       sezioni crema era l'unico caso in tutto il parco progetti — e
+       l'unico dove la fascia "staccava". */
     background: var(--ink);
-    transition: box-shadow 0.35s;
+    transition: background-color 0.35s, color 0.35s, box-shadow 0.35s;
+  }
+  .header[data-tone='light'] {
+    background: var(--paper);
+    color: var(--ink);
   }
   .header.is-scrolled {
-    box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
+    box-shadow: 0 1px 0 color-mix(in srgb, currentColor 14%, transparent);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
      l'overflow degli elementi fissi e il suo campionatore di tinta ignora
@@ -160,7 +165,7 @@ const otherHref = path(other, stripLang(current));
     align-items: center;
     gap: 0.45em;
     padding: 0.4em 0.75em;
-    border: 1.5px solid rgb(242 238 229 / 0.28);
+    border: 1.5px solid color-mix(in srgb, currentColor 30%, transparent);
     border-radius: 999px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -173,8 +178,8 @@ const otherHref = path(other, stripLang(current));
     border-color: var(--accent);
     background: rgb(217 4 41 / 0.16);
   }
-  .lang-switch__on { color: var(--paper); }
-  .lang-switch__off { color: rgb(242 238 229 / 0.5); }
+  .lang-switch__on { color: currentColor; }
+  .lang-switch__off { color: color-mix(in srgb, currentColor 50%, transparent); }
   .lang-switch:hover .lang-switch__off { color: var(--accent); }
 
   .burger {
@@ -199,6 +204,7 @@ const otherHref = path(other, stripLang(current));
     position: fixed;
     inset: 0;
     z-index: -1;
+    color: var(--paper); /* il menu è sempre scuro, anche con header chiaro */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

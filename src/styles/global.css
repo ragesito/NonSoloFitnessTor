@@ -94,9 +94,6 @@ body {
   color: var(--t-ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  /* Blocco di contenimento per .ios-runway: il suo bottom:100svh deve
-     risolvere contro l'altezza del DOCUMENTO, non del viewport. */
-  position: relative;
 }
 /* NIENTE fondo su <main>: coprirebbe la tela scura e Safari su iOS
    tingerebbe la barra di stato di chiaro. Il crema lo dipinge ogni sezione,
@@ -124,53 +121,6 @@ a { color: inherit; }
   background: var(--ink);
   opacity: 0;
   pointer-events: none;
-}
-
-/* Copri-fascia da scrollato (vedi Base.astro). Il binario è ancorato al
-   documento (assoluto: Safari lo INCLUDE nei pixel composti dietro
-   l'orologio, a differenza di fixed/sticky — verificato sul dispositivo) ed
-   è alto esattamente il range di scroll: top 0, bottom 100svh, con body
-   position:relative come blocco di contenimento. L'animazione guidata dallo
-   scroll lo trasla 0→100%: a progresso p il suo bordo superiore sta a
-   p·(H−V) = scrollY, sempre al bordo del viewport, SENZA JavaScript e senza
-   ritardo (gira sul compositor). La banda scura sporge 120px sopra quel
-   bordo (la fascia dell'orologio) e 24px sotto (dietro il navbar/scrim).
-   Fuori da Safari 26 resta invisibile: sopra il viewport e dietro il navbar. */
-@supports (animation-timeline: scroll()) {
-  /* Il recinto NON si muove e ritaglia il binario traslato: senza questo,
-     il binario spinto oltre il fondo del body ALLUNGAVA l'area scrollabile
-     e il range cresceva mentre si scorreva (inseguimento senza fine). */
-  .ios-clip {
-    position: absolute;
-    inset: 0;
-    overflow: clip;
-    z-index: 500;
-    pointer-events: none;
-  }
-  .ios-runway {
-    position: absolute;
-    top: 0;
-    bottom: 100svh;
-    left: 0;
-    right: 0;
-    animation-name: ios-runway-follow;
-    animation-duration: auto;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: scroll(root);
-  }
-  .ios-runway__band {
-    position: absolute;
-    top: -120px;
-    left: 0;
-    right: 0;
-    height: 144px;
-    background: var(--ink);
-  }
-  @keyframes ios-runway-follow {
-    from { transform: translateY(0); }
-    to { transform: translateY(100%); }
-  }
 }
 
 /* Grana pellicola su tutto il sito */
