@@ -111,6 +111,18 @@ a { color: inherit; }
    peggiori del problema. È il comportamento di sistema, visibile su
    qualunque sito con contenuto chiaro. Rif: 1ar.io/updates/safari-26-liquid-glass-web */
 
+/* Donatore di tinta per Safari 26 (vedi Base.astro): fisso, schermo pieno,
+   scuro, invisibile ma MAI display:none. Il campionatore della barra di
+   stato lo legge lo stesso; pointer-events: none = zero impatto sull'uso. */
+.tinta-ios {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Grana pellicola su tutto il sito */
 body::after {
   content: '';
