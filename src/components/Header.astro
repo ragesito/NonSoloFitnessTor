@@ -76,23 +76,30 @@ const otherHref = path(other, stripLang(current));
 </header>
 
 <style>
-  /* Sempre visibile: non si nasconde mai, né scendendo né salendo. */
+  /* Sempre visibile: non si nasconde mai, né scendendo né salendo.
+     STICKY, non fixed — è il pattern dei progetti dove la barra di stato
+     di iOS si comporta bene (Happiness La Casetta): gli sticky vivono
+     nella capa che scorre, quella che Safari 26 compone anche dietro
+     l'orologio, mentre i fixed restano ancorati sotto la barra di stato.
+     Il margine negativo lo toglie dal flusso: il hero parte da y=0 come
+     prima. NON creare contenitori di scroll sugli antenati (overflow
+     hidden/auto): romperebbero lo sticky — body usa overflow-x: clip
+     apposta. */
   .header {
-    position: fixed;
-    inset: 0 0 auto;
+    position: sticky;
+    top: 0;
+    margin-bottom: calc(-1 * var(--header-h));
     z-index: 1000;
-    /* Con viewport-fit=cover il bordo del viewport È il bordo fisico dello
-       schermo: questo padding tiene il contenuto sotto l'orologio e fa sì
-       che il fondo .is-scrolled dipinga anche la barra di stato. */
+    /* Se viewport-fit=cover ha effetto, tiene il contenuto sotto l'orologio */
     padding-top: var(--safe-top);
     color: var(--paper);
     transition: background-color 0.35s, box-shadow 0.35s;
   }
-  /* Il fondo va sull'ELEMENTO FISSO, non sul figlio: Safari su iOS estende
-     alla barra di stato solo il fondo dell'elemento fisso in cima. Con lo
-     sfondo sul div interno la fascia dell'orologio restava scoperta. */
+  /* Il fondo va sull'elemento incollato in cima, non sul figlio (il
+     campionatore di Safari legge solo l'elemento stesso). Alpha 0.95 come
+     nel navbar di Cuocimi, l'altro progetto dove la fascia si tinge. */
   .header.is-scrolled {
-    background: var(--ink);
+    background: rgb(13 13 16 / 0.95);
     box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
