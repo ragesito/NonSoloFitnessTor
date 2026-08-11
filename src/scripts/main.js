@@ -18,37 +18,10 @@ function initHeader() {
   if (!header || header.dataset.bound) return;
   header.dataset.bound = 'true';
 
-  // L'header resta sempre visibile e SEMPRE opaco, e si adegua al colore
-  // della sezione che passa sotto: è la regola comune a tutti gli altri
-  // progetti (talea: nav carta su body carta; Osteria: intonaco su
-  // intonaco; Cuocimi: carbone su carbone). La fascia della barra di stato
-  // di iOS mostra i pixel del contenuto: se nav e contenuto sono dello
-  // stesso colore, la fascia si legge come una barra continua.
-  const isDarkArea = (el) =>
-    el.classList.contains('theme-dark') ||
-    el.classList.contains('hero') ||
-    el.classList.contains('page-hero') ||
-    el.classList.contains('marquee');
-  const updateTone = () => {
-    if (header.dataset.menuOpen === 'true') {
-      header.dataset.tone = 'dark'; // il menu a schermo pieno è sempre scuro
-      return;
-    }
-    let tone = 'dark'; // fuori dalle sezioni (canvas del body) si resta scuri
-    for (const el of document.querySelectorAll('.hero, .page-hero, .section, .marquee')) {
-      const r = el.getBoundingClientRect();
-      // la sezione che tocca il bordo superiore del viewport = i pixel
-      // che iOS disegna dietro l'orologio
-      if (r.top <= 1 && r.bottom > 1) {
-        tone = isDarkArea(el) ? 'dark' : 'light';
-        break;
-      }
-    }
-    header.dataset.tone = tone;
-  };
+  // L'header resta sempre visibile e sempre scuro; .is-scrolled governa
+  // solo l'ombra sottile.
   const onScroll = () => {
     header.classList.toggle('is-scrolled', window.scrollY > 24);
-    updateTone();
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -62,8 +35,6 @@ function initHeader() {
     toggle.setAttribute('aria-label', toggle.dataset.labelOpen || 'Menu');
     nav.classList.remove('is-open');
     document.body.style.overflow = '';
-    header.dataset.menuOpen = 'false';
-    updateTone();
     setTimeout(() => { if (!nav.classList.contains('is-open')) nav.hidden = true; }, 400);
   };
   toggle.addEventListener('click', () => {
@@ -74,8 +45,6 @@ function initHeader() {
     toggle.setAttribute('aria-expanded', 'true');
     toggle.setAttribute('aria-label', toggle.dataset.labelClose || 'Menu');
     document.body.style.overflow = 'hidden';
-    header.dataset.menuOpen = 'true';
-    updateTone();
   });
   nav.addEventListener('click', (e) => {
     if (e.target.closest('a')) close();

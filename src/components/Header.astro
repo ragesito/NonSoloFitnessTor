@@ -93,23 +93,12 @@ const otherHref = path(other, stripLang(current));
     /* Se viewport-fit=cover ha effetto, tiene il contenuto sotto l'orologio */
     padding-top: var(--safe-top);
     color: var(--paper);
-    /* SEMPRE opaco e dello STESSO colore della sezione che passa sotto
-       (data-tone, aggiornato in main.js). È la regola di tutti gli altri
-       progetti (talea: nav carta su body carta; Osteria: intonaco su
-       intonaco; Cuocimi: carbone su carbone): la fascia della barra di
-       stato di iOS mostra i pixel del contenuto, e se nav e contenuto
-       coincidono si legge come un'unica barra piena. Un nav scuro su
-       sezioni crema era l'unico caso in tutto il parco progetti — e
-       l'unico dove la fascia "staccava". */
+    /* Sempre opaco e scuro, fin dal primo pixel del primo caricamento. */
     background: var(--ink);
-    transition: background-color 0.35s, color 0.35s, box-shadow 0.35s;
-  }
-  .header[data-tone='light'] {
-    background: var(--paper);
-    color: var(--ink);
+    transition: box-shadow 0.35s;
   }
   .header.is-scrolled {
-    box-shadow: 0 1px 0 color-mix(in srgb, currentColor 14%, transparent);
+    box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
      l'overflow degli elementi fissi e il suo campionatore di tinta ignora
@@ -165,7 +154,7 @@ const otherHref = path(other, stripLang(current));
     align-items: center;
     gap: 0.45em;
     padding: 0.4em 0.75em;
-    border: 1.5px solid color-mix(in srgb, currentColor 30%, transparent);
+    border: 1.5px solid rgb(242 238 229 / 0.28);
     border-radius: 999px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -178,8 +167,8 @@ const otherHref = path(other, stripLang(current));
     border-color: var(--accent);
     background: rgb(217 4 41 / 0.16);
   }
-  .lang-switch__on { color: currentColor; }
-  .lang-switch__off { color: color-mix(in srgb, currentColor 50%, transparent); }
+  .lang-switch__on { color: var(--paper); }
+  .lang-switch__off { color: rgb(242 238 229 / 0.5); }
   .lang-switch:hover .lang-switch__off { color: var(--accent); }
 
   .burger {
