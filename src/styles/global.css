@@ -78,9 +78,10 @@ html {
   scroll-padding-top: calc(var(--header-h) + 1rem);
   /* Colore della "tela" della pagina: è questo che Safari su iOS usa per
      tingere la barra di stato (theme-color viene ignorato). Va su html,
-     perché il fondo di html vince sulla propagazione rispetto a body. */
+     perché il fondo di html vince sulla propagazione rispetto a body.
+     NIENTE color-scheme: dark — nessuno dei progetti dove la fascia di
+     stato si comporta bene lo dichiara. */
   background: var(--ink);
-  color-scheme: dark;
 }
 body {
   font-family: var(--font);
@@ -94,6 +95,8 @@ body {
   color: var(--t-ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  /* blocco di contenimento della grana assoluta qui sotto */
+  position: relative;
 }
 /* NIENTE fondo su <main>: coprirebbe la tela scura e Safari su iOS
    tingerebbe la barra di stato di chiaro. Il crema lo dipinge ogni sezione,
@@ -103,33 +106,20 @@ button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: var(--paper); }
 
-/* NOTA sulla barra di stato di iOS (Safari 26 "Liquid Glass"): dietro
-   l'orologio Safari compone i pixel del contenuto che scorre, e ignora
-   theme-color, viewport-fit (in verticale), gli elementi fixed/sticky e
-   gli pseudo-elementi. NON ESISTE un modo pulito per dipingerla: la banda
-   inseguita via JS (provata) arrivava in ritardo e creava artefatti
-   peggiori del problema. È il comportamento di sistema, visibile su
-   qualunque sito con contenuto chiaro. Rif: 1ar.io/updates/safari-26-liquid-glass-web */
+/* BARRA DI STATO iOS — stato dell'arte: allineato in tutto e per tutto ai
+   progetti dove la fascia resta piena (Cuocimi in primis): niente
+   theme-color, niente color-scheme, niente velature FISSE a tutto viewport,
+   intro nascosta con display:none (non rimossa), nav fixed translucido.
+   Rif: 1ar.io/updates/safari-26-liquid-glass-web */
 
-/* Donatore di tinta per Safari 26 (vedi Base.astro): fisso, schermo pieno,
-   scuro, invisibile ma MAI display:none. Il campionatore della barra di
-   stato lo legge lo stesso; pointer-events: none = zero impatto sull'uso. */
-.tinta-ios {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: var(--ink);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Grana pellicola su tutto il sito */
+/* Grana pellicola su tutto il sito.
+   ASSOLUTA (copre tutto il body, scorre col contenuto), NON fissa: nessun
+   progetto dove la fascia di stato si comporta bene ha una velatura fissa
+   a tutto viewport. Il rumore è una texture uniforme ripetuta: che scorra
+   invece di restare incollata al viewport è impercettibile. */
 body::after {
   content: '';
-  position: fixed;
-  /* inset: 0, non -50%: sconfinando oltre il bordo superiore questa velatura
-     finiva dentro la barra di stato di iOS e ci portava dentro la pagina.
-     Il rumore è una texture ripetuta, quindi copre lo stesso senza sbordare. */
+  position: absolute;
   inset: 0;
   z-index: 2000;
   pointer-events: none;

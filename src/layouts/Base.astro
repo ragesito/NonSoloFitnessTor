@@ -99,7 +99,9 @@ const jsonLd = {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#0d0d10" />
+    {/* NIENTE theme-color: nessuno dei progetti dove la barra di stato si
+        comporta bene lo dichiara. iOS 26 lo ignora per la tinta, ma non è
+        escluso che dichiararlo cambi il TRATTAMENTO della fascia. */}
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph / social -->
@@ -129,13 +131,6 @@ const jsonLd = {
     <ClientRouter />
   </head>
   <body>
-    {/* Donatore di tinta per la barra di stato di Safari 26: il campionatore
-        legge il background-color degli elementi FISSI a schermo pieno anche
-        con opacity 0 ("invisible doesn't mean ignored" — 1ar.io). Cuocimi lo
-        ottiene gratis dal preloader fisso scuro presente ad ogni caricamento;
-        qui l'intro viene rimossa dal DOM, quindi serve questo elemento
-        permanente. MAI display:none: quello sì viene ignorato. */}
-    <div class="tinta-ios" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{L.common.skipToContent}</a>
     <Header lang={lang} />
     <main id="main">

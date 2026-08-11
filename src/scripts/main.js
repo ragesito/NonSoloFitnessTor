@@ -103,7 +103,7 @@ function playIntro() {
   const intro = document.getElementById('intro');
   if (!intro) return 0;
   if (reducedMotion || (!INTRO_OGNI_VOLTA && sessionStorage.getItem('nsf-intro'))) {
-    intro.remove();
+    intro.style.display = 'none'; // resta nel DOM, come il preloader di Cuocimi
     return 0;
   }
   sessionStorage.setItem('nsf-intro', '1');
@@ -112,7 +112,9 @@ function playIntro() {
   const tag = intro.querySelector('.intro__tag');
   const hole = intro.querySelector('#intro-hole-path');
   const ring = intro.querySelector('.intro__hole-ring');
-  const tl = gsap.timeline({ onComplete: () => intro.remove() });
+  // display:none, non remove(): il preloader di Cuocimi resta nel DOM e lì
+  // la fascia di stato si comporta bene — replichiamo anche questo.
+  const tl = gsap.timeline({ onComplete: () => { intro.style.display = 'none'; } });
 
   // il buco della maschera parte esattamente dov'è il fulmine rosso
   const cx = window.innerWidth / 2;
