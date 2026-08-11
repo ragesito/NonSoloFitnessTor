@@ -348,9 +348,13 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
 
 <style>
   /* ---------- INTRO ---------- */
+  /* La scatola SBORDA di 120px sopra e sotto il viewport: iOS disegna il
+     documento anche oltre i bordi (dietro l'orologio e dietro la barra di
+     Safari) e da lì la pagina "sbucava" durante l'intro (si vedeva il
+     marquee rosso in basso). Lo sbordo è simmetrico: il centro non cambia. */
   .intro {
     position: fixed;
-    inset: 0;
+    inset: -120px 0;
     z-index: 2500;
     display: none;
     place-items: center;
@@ -359,9 +363,23 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
   @media (prefers-reduced-motion: reduce) {
     html.js .intro { display: none; }
   }
+  /* Tende piene nelle zone di sbordo (oltre i bordi dello schermo) */
+  .intro::before,
+  .intro::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: var(--ink);
+  }
+  .intro::before { top: 0; }
+  .intro::after { bottom: 0; }
+  /* Il velo resta INCHIODATO al viewport (120px dentro la scatola sbordata):
+     il buco del fulmine è calcolato dal JS in coordinate del viewport. */
   .intro__veil {
     position: absolute;
-    inset: 0;
+    inset: 120px 0;
   }
   .intro__veil-rect { fill: var(--ink); }
   .intro__hole-ring {
