@@ -92,10 +92,16 @@ const otherHref = path(other, stripLang(current));
     z-index: 1000;
     padding-top: var(--safe-top);
     color: var(--paper);
-    background: rgb(13 13 16 / 0.95);
-    transition: box-shadow 0.35s;
+    background: transparent;
+    transition: background-color 0.35s, box-shadow 0.35s;
   }
+  /* Da scrollato: fondo TRANSLUCIDO (0.95), mai opaco — è il pattern esatto
+     del nav di Cuocimi (trasparente in cima, carbone/95 da scrollato), il
+     progetto di riferimento dove la barra di stato di iOS si comporta bene.
+     Non cambiare l'alpha in 1: le barre fisse translucide sono quelle che
+     Safari tratta come vetro di sistema. */
   .header.is-scrolled {
+    background: rgb(13 13 16 / 0.95);
     box-shadow: 0 1px 0 rgb(242 238 229 / 0.12);
   }
   /* NB: niente visiera ::before né altri trucchi qui — Safari 26 ritaglia
