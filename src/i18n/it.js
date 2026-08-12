@@ -371,7 +371,7 @@ export default {
         body: ['I dati non vengono diffusi. Possono essere trattati, per nostro conto e in qualità di responsabili del trattamento, dai fornitori tecnici che rendono possibile il funzionamento del sito:'],
         list: [
           '<strong>Formspree</strong> — servizio che riceve il modulo di contatto e ce lo recapita via email. I dati transitano su server negli Stati Uniti, con le garanzie previste dagli artt. 44 e seguenti del GDPR.',
-          '<strong>Fornitore di hosting</strong> — [DA COMPLETARE: Netlify / Cloudflare Pages], che ospita le pagine del sito e registra i normali log tecnici di accesso (indirizzo IP, data e ora, pagina richiesta) per finalità di sicurezza e diagnostica.',
+          '<strong>Cloudflare, Inc.</strong> — fornitore di hosting (Cloudflare Pages), che ospita le pagine del sito e registra i normali log tecnici di accesso (indirizzo IP, data e ora, pagina richiesta) per finalità di sicurezza e diagnostica. I dati possono transitare su server negli Stati Uniti, con le garanzie previste dagli artt. 44 e seguenti del GDPR.',
           '<strong>Google Ireland Ltd.</strong> — solo se scegli di caricare la mappa interattiva presente sul sito (vedi la sezione Cookie).',
         ],
       },
@@ -381,6 +381,7 @@ export default {
         body: [
           '<strong>Questo sito non installa cookie di profilazione, non usa strumenti di analytics e non traccia la tua navigazione.</strong> Non trovi banner di consenso perché, di base, non c’è nulla per cui chiedertelo.',
           'L’unica eccezione riguarda la <strong>mappa di Google Maps</strong> nella sezione “Dove siamo” della home: non viene caricata automaticamente. Al suo posto trovi un’anteprima statica e un pulsante “Carica la mappa”. Solo se decidi di premerlo, la mappa viene caricata e Google può installare cookie tecnici e di profilazione secondo la propria informativa. È una tua scelta libera: se non premi il pulsante, nessun dato viene inviato a Google.',
+          'Il sito usa inoltre la <strong>memoria di sessione del browser</strong> (sessionStorage) per una sola finalità tecnica: ricordare, finché la scheda resta aperta, che l’animazione di apertura è già stata mostrata. Non contiene identificatori, non traccia nulla e si cancella da sola alla chiusura della scheda.',
           'Puoi in ogni momento eliminare i cookie eventualmente installati dalle impostazioni del tuo browser.',
         ],
       },

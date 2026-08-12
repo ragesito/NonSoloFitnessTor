@@ -371,7 +371,7 @@ export default {
         body: ['Your data is never published. It may be processed on our behalf, as data processors, by the technical providers that make the site work:'],
         list: [
           '<strong>Formspree</strong> — the service that receives the contact form and forwards it to us by email. Data passes through servers in the United States, under the safeguards set out in art. 44 and following of the GDPR.',
-          '<strong>Hosting provider</strong> — [TO BE COMPLETED: Netlify / Cloudflare Pages], which hosts the site’s pages and records ordinary technical access logs (IP address, date and time, page requested) for security and diagnostic purposes.',
+          '<strong>Cloudflare, Inc.</strong> — hosting provider (Cloudflare Pages), which hosts the site’s pages and records ordinary technical access logs (IP address, date and time, page requested) for security and diagnostic purposes. Data may transit through servers in the United States, with the safeguards provided by Art. 44 et seq. of the GDPR.',
           '<strong>Google Ireland Ltd.</strong> — only if you choose to load the interactive map on the site (see the Cookies section).',
         ],
       },
@@ -381,6 +381,7 @@ export default {
         body: [
           '<strong>This site sets no profiling cookies, uses no analytics tools and does not track your browsing.</strong> There is no consent banner because, by default, there is nothing to ask you about.',
           'The one exception is the <strong>Google Maps map</strong> in the “Where we are” section of the home page: it does not load automatically. In its place you will find a static preview and a “Load the map” button. Only if you choose to press it does the map load, at which point Google may set technical and profiling cookies according to its own policy. The choice is entirely yours: if you do not press the button, no data is sent to Google.',
+          'The site also uses the browser’s <strong>session storage</strong> for a single technical purpose: remembering, for as long as the tab stays open, that the opening animation has already been shown. It contains no identifiers, tracks nothing, and clears itself when the tab is closed.',
           'You can delete any cookies that have been set at any time from your browser settings.',
         ],
       },
