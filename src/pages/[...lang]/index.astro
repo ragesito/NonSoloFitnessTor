@@ -89,7 +89,7 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
 
       <h1 class="hero__title display display--xl">
         <span class="hero__mask"><span class="hero__line">Non</span></span>
-        <span class="hero__mask"><span class="hero__line"><em class="it o">solo</em><span class="ac">✱</span></span></span>
+        <span class="hero__mask"><span class="hero__line"><em class="it o">solo</em><svg class="hero__bolt-ac" viewBox="0 0 24 40" aria-hidden="true"><path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" /></svg></span></span>
         <span class="hero__mask"><span class="hero__line">Fitness<span class="ac">.</span></span></span>
         <span class="sr-only">{H.heroSrOnly}</span>
       </h1>
@@ -475,6 +475,16 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
   }
   @media (min-width: 72rem) {
     .hero__bg { display: none; } /* su desktop c'è la card video */
+  }
+
+  /* Il fulmine rosso al posto dell'asterisco nel titolo */
+  .hero__bolt-ac {
+    display: inline-block;
+    height: 0.8em;
+    width: auto;
+    margin-left: 0.06em;
+    vertical-align: -0.04em;
+    filter: drop-shadow(0 0 16px rgb(217 4 41 / 0.5));
   }
 
   .hero__ghost {

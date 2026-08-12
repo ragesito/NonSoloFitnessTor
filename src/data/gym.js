@@ -88,8 +88,8 @@ export const pricing = [
 export const courses = [
   { slug: 'sala-pesi', accent: '#d90429' },
   { slug: 'boxe', accent: '#d90429' },
-  { slug: 'pilates-yoga', accent: '#E8B620' },
-  { slug: 'funzionale', accent: '#d90429' },
+  // l'oro passa al funzionale: era del pilates, rimosso (la palestra non lo fa)
+  { slug: 'funzionale', accent: '#E8B620' },
 ];
 
 /**

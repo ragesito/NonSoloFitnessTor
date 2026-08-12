@@ -20,7 +20,7 @@ const otherHref = path(other, stripLang(current));
 <header class="header" id="site-header">
   <div class="header__inner">
     <a class="wordmark" href={path(lang, '/')} aria-label={`${gym.name} — ${L.common.homeLabel}`}>
-      <span>NONSOLO<span class="wordmark__star">✱</span>FITNESS</span>
+      <span>NONSOLO<svg class="wordmark__bolt" viewBox="0 0 24 40" aria-hidden="true"><path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" /></svg>FITNESS</span>
     </a>
 
     <nav class="nav-desktop" aria-label={L.common.mainNav}>
@@ -64,12 +64,26 @@ const otherHref = path(other, stripLang(current));
         </a>
       ))}
     </nav>
+    {/* Piede del menu: CTA principale + telefono e social CON icone.
+        Niente link "English": il selettore IT/EN sta già in alto. */}
     <div class="mobile-nav__foot">
-      <a href={`tel:${gym.phoneHref}`} class="link-underline">{gym.phone}</a>
-      <div class="mobile-nav__social">
-        <a href={otherHref} hreflang={other} lang={other}>{L.switchTo}</a>
-        <a href={gym.social.instagram} target="_blank" rel="noopener">Instagram</a>
-        <a href={gym.social.facebook} target="_blank" rel="noopener">Facebook</a>
+      <a class="btn btn--accent mobile-nav__cta" href={path(lang, '/contatti/')}>
+        <span class="btn-label">{L.common.ctaTry}</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <div class="mobile-nav__row">
+        <a class="mobile-nav__phone" href={`tel:${gym.phoneHref}`}>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+          {gym.phone}
+        </a>
+        <div class="mobile-nav__social">
+          <a href={gym.social.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1Zm0 1.8c-3.1 0-3.5 0-4.8.1-1.1.1-1.5.2-1.9.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.4-.3.8-.3 1.9-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1.1.2 1.5.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.4.1.8.3 1.9.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1.1-.1 1.5-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.4.3-.8.3-1.9.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1.1-.2-1.5-.3-1.9-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.4-.1-.8-.3-1.9-.3-1.3-.1-1.7-.1-4.8-.1Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-2.1a1.1 1.1 0 1 1 0 2.3 1.1 1.1 0 0 1 0-2.3Z"/></svg>
+          </a>
+          <a href={gym.social.facebook} target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.9v3h2.4v7h2.2Z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -126,10 +140,12 @@ const otherHref = path(other, stripLang(current));
     text-decoration: none;
     white-space: nowrap;
   }
-  .wordmark__star {
-    color: var(--accent);
+  .wordmark__bolt {
     display: inline-block;
-    margin-inline: 0.06em;
+    height: 0.92em;
+    width: auto;
+    margin-inline: 0.1em;
+    vertical-align: -0.1em;
   }
 
   .nav-desktop { display: none; gap: 2rem; }
@@ -232,15 +248,45 @@ const otherHref = path(other, stripLang(current));
     color: var(--accent);
   }
   .mobile-nav__foot {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1rem;
+    display: grid;
+    gap: 1.4rem;
+  }
+  .mobile-nav__cta {
+    justify-content: center;
+    padding: 1.05em 2rem;
     font-size: 0.95rem;
   }
-  .mobile-nav__social { display: flex; gap: 1.5rem; }
-  .mobile-nav__social a { text-decoration: none; opacity: 0.8; }
-  .mobile-nav__social a:hover { opacity: 1; color: var(--accent); }
+  .mobile-nav__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .mobile-nav__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  .mobile-nav__phone svg { color: var(--accent); }
+  .mobile-nav__social { display: flex; gap: 0.75rem; }
+  .mobile-nav__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid rgb(242 238 229 / 0.28);
+    border-radius: 999px;
+    color: var(--paper);
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  .mobile-nav__social a:hover,
+  .mobile-nav__social a:focus-visible {
+    border-color: var(--accent);
+    background: rgb(217 4 41 / 0.16);
+  }
 
   @media (min-width: 68rem) {
     .nav-desktop { display: flex; }
