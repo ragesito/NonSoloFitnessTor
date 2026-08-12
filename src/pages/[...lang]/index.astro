@@ -52,7 +52,7 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
         <path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" />
       </svg>
       <p class="intro__tag">
-        NONSOLO<span class="intro__tag-star">✱</span>FITNESS
+        NONSOLO<svg class="intro__tag-bolt" viewBox="0 0 24 40" aria-hidden="true"><path d="M14 0 L1 23 h8 L6 40 L23 15 h-9 L14 0 Z" fill="var(--accent)" /></svg>FITNESS
         <span class="intro__tag-place">TORVAIANICA</span>
       </p>
     </div>
@@ -409,7 +409,14 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
     opacity: 0;
     transform: translateY(12px);
   }
-  .intro__tag-star { color: var(--accent); }
+  .intro__tag-bolt {
+    display: inline-block;
+    height: 1em;
+    width: auto;
+    margin-left: 0.1em;
+    margin-right: 0.34em; /* pareggia il letter-spacing del testo intorno */
+    vertical-align: -0.12em;
+  }
   .intro__tag-place {
     display: block;
     margin-top: 0.5em;
