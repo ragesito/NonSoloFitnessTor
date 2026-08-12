@@ -51,12 +51,12 @@ export const gym = {
   // nulla (verificato su iPhone).
   googleMapsPlaceUrl: 'https://www.google.com/maps?cid=7776424977890128464',
 
-  // [DA CONFERMARE] due fonti pubbliche discordano (8–23 tutti i giorni vs
-  // orari ridotti nel weekend). Formato 24h "HH:MM". closes null = chiuso.
+  // Orari CONFERMATI dal committente (agosto 2026).
+  // Formato 24h "HH:MM". closes null = chiuso.
   // L'etichetta dei giorni è tradotta (i18n → hours[i]).
   hours: [
-    { dayNums: [1, 2, 3, 4, 5], opens: '08:30', closes: '22:30' },
-    { dayNums: [6], opens: '09:00', closes: '18:30' },
+    { dayNums: [1, 2, 3, 4, 5], opens: '08:00', closes: '22:30' },
+    { dayNums: [6], opens: '09:00', closes: '19:00' },
     { dayNums: [0], opens: '09:00', closes: '13:00' },
   ],
 
