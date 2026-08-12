@@ -317,8 +317,7 @@ function initMagnetic() {
 /* ---------- Video ambientali ----------
    iOS blocca l'autoplay in diversi casi che NON possiamo rilevare
    (Riproduci anteprime video off, Risparmio energetico, Risparmio dati).
-   Se dopo un attimo il video non è partito, mostriamo un pulsante play:
-   il tocco dell'utente è un gesto valido e sblocca sempre la riproduzione. */
+   In quei casi il ripiego è silenzioso: resta il poster ottimizzato. */
 function initAmbientVideos(deferSeconds = 0) {
   // Il video pesa quanto tutto il resto della pagina: se parte subito ritarda
   // l'evento load e quindi l'inizio dell'intro. Lo avviamo dopo l'intro,
@@ -327,38 +326,6 @@ function initAmbientVideos(deferSeconds = 0) {
     setTimeout(() => initAmbientVideos(0), deferSeconds * 1000);
     return;
   }
-  const playBtn = document.querySelector('[data-video-play]');
-  const bgVideo = document.querySelector('.hero__bg video');
-
-  const offerManualPlay = () => {
-    if (!playBtn || !bgVideo) return;
-    playBtn.hidden = false;
-    if (playBtn.dataset.bound) return;
-    playBtn.dataset.bound = 'true';
-    playBtn.addEventListener('click', () => {
-      bgVideo.muted = true;
-      if (!bgVideo.dataset.srcSet && bgVideo.dataset.src) {
-        bgVideo.dataset.srcSet = '1';
-        bgVideo.src = bgVideo.dataset.src;
-      }
-      if (bgVideo.error || !bgVideo.currentSrc) bgVideo.load();
-      const p = bgVideo.play();
-      if (p) {
-        p.then(() => {
-          playBtn.hidden = true;
-          bgVideo.classList.add('is-playing');
-        }).catch((err) => {
-          // se nemmeno il tocco basta, il problema è il file/decoder:
-          // lo diciamo invece di lasciare un pulsante che non fa nulla
-          playBtn.classList.add('is-failed');
-          const label = playBtn.querySelector('span');
-          if (label) label.textContent = playBtn.dataset.labelFail || 'Video non disponibile';
-          console.warn('[video] play() rifiutato:', err?.name, err?.message, '| mediaError:', bgVideo.error?.code);
-        });
-      }
-    });
-  };
-
   /* La sorgente NON è nell'HTML: i browser scaricano il file anche per i
      video nascosti da display:none, e la stessa clip finiva scaricata 3 volte
      (12 MB per aprire la home). La assegniamo solo al video davvero visibile. */
@@ -394,10 +361,9 @@ function initAmbientVideos(deferSeconds = 0) {
     attachSource(v);
 
     if (reducedMotion) {
-      // rispettiamo la preferenza: non parte da solo, ma resta consultabile
+      // rispettiamo la preferenza: resta il poster, fermo
       v.removeAttribute('autoplay');
       v.pause();
-      if (v === bgVideo) offerManualPlay();
       return;
     }
     const rate = parseFloat(v.dataset.playback || '1');
@@ -415,19 +381,14 @@ function initAmbientVideos(deferSeconds = 0) {
     if (v.paused) {
       v.muted = true; // l'attributo HTML può perdersi nello swap: senza muted niente autoplay
       const p = v.play();
-      // se il browser rifiuta (iOS: anteprime video off, risparmio energetico/dati)
-      // offriamo il tocco manuale invece di lasciare un poster muto senza spiegazione
-      if (p) p.catch(() => { if (v === bgVideo) offerManualPlay(); });
+      // Se il browser rifiuta l'autoplay (iOS: anteprime video off, risparmio
+      // energetico o dati) il ripiego è SILENZIOSO: resta il poster ottimizzato
+      // già dipinto sotto il video. Niente pulsante "guarda il video" — su
+      // desktop compariva per errore (lì il video di sfondo è display:none e
+      // la rete di sicurezza scambiava il video mai partito per un blocco).
+      if (p) p.catch(() => {});
     }
   });
-
-  // rete di sicurezza: alcuni browser non rifiutano la promise, semplicemente
-  // non partono. Se dopo 1,5 s siamo ancora fermi, mostriamo il pulsante.
-  if (bgVideo && !reducedMotion) {
-    setTimeout(() => {
-      if (bgVideo.isConnected && bgVideo.paused) offerManualPlay();
-    }, 1500);
-  }
 }
 
 /* Back/forward cache: al ripristino della pagina i video restano in pausa */

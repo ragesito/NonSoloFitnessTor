@@ -66,8 +66,6 @@ export default {
       'No faceless chains, no fine-print contracts. A wide, spotless floor, latest-generation equipment and two owners who know your name by day two. In Torvaianica, where the sea is waiting right after your session.',
     s1Link: 'Our story →',
     s1PhotoAlt: 'The weight room at Nonsolofitness Torvaianica lit by red neon, with resistance machines and benches',
-    playVideo: 'Play the video',
-    playVideoFail: 'Video unavailable',
 
     s2Kicker: 'Classes & floor',
     s2Title: 'Pick your <em class="it ac">round</em>',
