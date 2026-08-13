@@ -69,7 +69,7 @@ export default {
 
     s2Kicker: 'Corsi & sala',
     s2Title: 'Scegli il tuo <em class="it ac">round</em>',
-    s2Note: 'Dai 3 mesi in su, tutti i corsi sono inclusi nella quota.',
+    s2Note: 'Tutti i corsi sono inclusi in ogni abbonamento.',
     s2NoteLink: 'Vedi i prezzi',
 
     s3Kicker: 'Sala pesi',
@@ -122,7 +122,7 @@ export default {
     labelWhen: 'Quando',
     labelWhere: 'Dove',
     labelIncluded: 'Incluso in',
-    includedIn: 'Abbonamento da 3 mesi',
+    includedIn: 'Ogni abbonamento',
     detailTitle: 'Com’è il corso',
     detailNote: 'Prima lezione su prenotazione: scrivici su WhatsApp o passa in reception.',
     related: 'Potrebbe piacerti anche',
@@ -176,16 +176,19 @@ export default {
     faqTitle: 'Prima di <span class="o">iscriverti</span>',
     faqCta: 'Altri dubbi?',
     faqCtaBtn: 'Chiedici su WhatsApp',
+    // Confermato dal committente: OGNI abbonamento include tutto.
+    // L'unica differenza è il prezzo al mese, che scende con la durata.
+    plansNote: 'Ogni abbonamento include tutto: sala, corsi, scheda. Cambia solo quanto paghi al mese.',
     plans: {
-      m1: { name: '1 Mese', period: 'al mese', features: ['Accesso sala pesi', 'Spogliatoi e docce', '1 corso a scelta'] },
-      m3: { name: '3 Mesi', period: 'ogni 3 mesi', badge: 'Il più scelto', features: ['Accesso illimitato', 'Tutti i corsi inclusi', 'Consulenza iniziale', 'Spogliatoi e docce'] },
-      m6: { name: '6 Mesi', period: 'ogni 6 mesi', features: ['Accesso illimitato', 'Tutti i corsi inclusi', 'Consulenza inclusa', 'Spogliatoi e docce', 'Priorità prenotazioni'] },
-      y1: { name: 'Annuale', period: 'all’anno · €27,90 al mese', features: ['Accesso illimitato', 'Tutti i corsi inclusi', 'Personal training incluso', 'Priorità prenotazioni', 'Miglior prezzo garantito'] },
+      m1: { name: '1 Mese', period: 'al mese', features: ['Accesso illimitato in sala', 'Tutti i corsi inclusi', 'Scheda personalizzata', 'Spogliatoi e docce'] },
+      m3: { name: '3 Mesi', period: 'ogni 3 mesi · ≈ €51,70/mese', badge: 'Il più scelto', features: ['Accesso illimitato in sala', 'Tutti i corsi inclusi', 'Scheda personalizzata', 'Spogliatoi e docce'] },
+      m6: { name: '6 Mesi', period: 'ogni 6 mesi · ≈ €41,30/mese', features: ['Accesso illimitato in sala', 'Tutti i corsi inclusi', 'Scheda personalizzata', 'Spogliatoi e docce'] },
+      y1: { name: 'Annuale', period: 'all’anno · ≈ €27,90/mese', badge: 'Miglior prezzo', features: ['Accesso illimitato in sala', 'Tutti i corsi inclusi', 'Scheda personalizzata', 'Spogliatoi e docce'] },
     },
     faqs: [
       {
         q: 'I corsi sono inclusi nell’abbonamento?',
-        a: 'Sì: dai 3 mesi in su la quota comprende tutti i servizi e tutti i corsi — boxe e allenamento funzionale — senza costi aggiuntivi. L’abbonamento da 1 mese include un corso a scelta.',
+        a: 'Sì, sempre: ogni abbonamento — 1, 3, 6 o 12 mesi — comprende tutti i servizi e tutti i corsi, senza costi aggiuntivi. Le formule più lunghe costano semplicemente meno al mese.',
       },
       {
         q: 'Posso sospendere l’abbonamento?',

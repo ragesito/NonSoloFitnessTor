@@ -69,7 +69,7 @@ export default {
 
     s2Kicker: 'Classes & floor',
     s2Title: 'Pick your <em class="it ac">round</em>',
-    s2Note: 'From the 3-month membership up, every class is included.',
+    s2Note: 'Every class is included in every membership.',
     s2NoteLink: 'See the prices',
 
     s3Kicker: 'Weight room',
@@ -122,7 +122,7 @@ export default {
     labelWhen: 'When',
     labelWhere: 'Where',
     labelIncluded: 'Included in',
-    includedIn: '3-month membership',
+    includedIn: 'Every membership',
     detailTitle: 'What the class is like',
     detailNote: 'First session by appointment: message us on WhatsApp or drop by the front desk.',
     related: 'You might also like',
@@ -176,16 +176,19 @@ export default {
     faqTitle: 'Before you <span class="o">join</span>',
     faqCta: 'Still unsure?',
     faqCtaBtn: 'Ask us on WhatsApp',
+    // Confirmed by the client: EVERY membership includes everything.
+    // The only difference is the monthly price, which drops with duration.
+    plansNote: 'Every membership includes everything: floor, classes, programme. The only thing that changes is what you pay per month.',
     plans: {
-      m1: { name: '1 Month', period: 'per month', features: ['Weight room access', 'Changing rooms and showers', 'One class of your choice'] },
-      m3: { name: '3 Months', period: 'every 3 months', badge: 'Most popular', features: ['Unlimited access', 'All classes included', 'Initial consultation', 'Changing rooms and showers'] },
-      m6: { name: '6 Months', period: 'every 6 months', features: ['Unlimited access', 'All classes included', 'Consultation included', 'Changing rooms and showers', 'Priority booking'] },
-      y1: { name: 'Annual', period: 'per year · €27.90 a month', features: ['Unlimited access', 'All classes included', 'Personal training included', 'Priority booking', 'Best price guaranteed'] },
+      m1: { name: '1 Month', period: 'per month', features: ['Unlimited floor access', 'All classes included', 'Personalised programme', 'Changing rooms and showers'] },
+      m3: { name: '3 Months', period: 'every 3 months · ≈ €51.70/month', badge: 'Most popular', features: ['Unlimited floor access', 'All classes included', 'Personalised programme', 'Changing rooms and showers'] },
+      m6: { name: '6 Months', period: 'every 6 months · ≈ €41.30/month', features: ['Unlimited floor access', 'All classes included', 'Personalised programme', 'Changing rooms and showers'] },
+      y1: { name: 'Annual', period: 'per year · ≈ €27.90/month', badge: 'Best price', features: ['Unlimited floor access', 'All classes included', 'Personalised programme', 'Changing rooms and showers'] },
     },
     faqs: [
       {
         q: 'Are classes included in the membership?',
-        a: 'Yes: from the 3-month membership up, your fee covers every service and every class — boxing and functional training — at no extra cost. The 1-month membership includes one class of your choice.',
+        a: 'Yes, always: every membership — 1, 3, 6 or 12 months — covers every service and every class, at no extra cost. The longer plans simply cost less per month.',
       },
       {
         q: 'Can I suspend my membership?',

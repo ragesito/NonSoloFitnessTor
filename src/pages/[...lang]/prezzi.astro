@@ -51,6 +51,8 @@ const offerSchema = {
 
   <section class="section theme-dark section--pricing">
     <div class="container">
+      {/* Ogni piano include tutto: l'unica leva è il prezzo al mese */}
+      <p class="lead muted tickets-intro" data-reveal>{P.plansNote}</p>
       <div class="tickets">
         {pricing.map((p, i) => {
           const plan = P.plans[p.id];
@@ -137,6 +139,7 @@ const offerSchema = {
   }
   .ticket .btn { margin-top: auto; justify-content: center; }
   .pricing-note { margin-top: 2.5rem; }
+  .tickets-intro { margin-bottom: 2.5rem; max-width: 44rem; }
 
   .faqs { display: grid; gap: 0; border-top: 1.5px solid var(--line); }
   .faq { border-bottom: 1.5px solid var(--line); }
