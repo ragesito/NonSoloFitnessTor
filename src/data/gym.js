@@ -63,7 +63,7 @@ export const gym = {
   rating: { value: 4.5, count: 57 }, // Google Business Profile, luglio 2026
 
   // Nomi reali; ruoli e bio sono tradotti (i18n → team)
-  owners: [{ id: 'davide', name: 'Davide' }, { id: 'dominica', name: 'Dominica' }],
+  owners: [{ id: 'davide', name: 'Davide' }, { id: 'dominica', name: 'Dominika' }],
   // [DA CONFERMARE] staff tecnico reale: nomi, qualifiche, foto
   staff: [{ id: 'sala', placeholder: true }, { id: 'boxe', placeholder: true }, { id: 'corsi', placeholder: true }],
 
@@ -71,7 +71,7 @@ export const gym = {
   stats: [
     { id: 'rating', value: 4.5, decimals: 1 },
     { id: 'days', value: 7 },
-    { id: 'sea', value: 300 }, // [DA CONFERMARE] distanza reale dal mare
+    { id: 'sea', value: 30 }, // confermato dal committente (agosto 2026)
     { id: 'gear', value: 100 },
   ],
 };

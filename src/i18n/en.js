@@ -52,8 +52,8 @@ export default {
     seoTitle: 'Nonsolofitness Torvaianica — Gym, boxing and classes steps from the sea',
     seoDesc:
       'Gym in Torvaianica (Pomezia), Viale Spagna 62: weight room with latest-generation equipment, boxing and functional training classes. Open 7 days a week. ⭐ 4.5 on Google.',
-    heroEyebrow: 'Viale Spagna 62 · Torvaianica · 300 m from the beach',
-    heroSub: 'A latest-generation weight room, boxing and classes that feel like a party. Davide and Dominica’s gym, open',
+    heroEyebrow: 'Viale Spagna 62 · Torvaianica · 30 m from the beach',
+    heroSub: 'A latest-generation weight room, boxing and classes that feel like a party. Davide and Dominika’s gym, open',
     heroSubStrong: '7 days a week',
     heroSrOnly: '— gym in Torvaianica, Pomezia',
     stampText: 'GYM IN TORVAIANICA · OPEN 7 DAYS A WEEK ·',
@@ -115,7 +115,7 @@ export default {
     ghost: 'CLASSES',
     title: 'A name that’s a <em class="it o">promise</em>',
     intro:
-      'It’s called <strong>Non solo fitness</strong> — “not only fitness” — for a reason: here the weight room is the starting point, not the finish line. Four classes, one membership, no extra costs.',
+      'It’s called <strong>Non solo fitness</strong> — “not only fitness” — for a reason: here the weight room is the starting point, not the finish line. Three classes, one membership, no extra costs.',
     discover: 'Discover →',
     labelBrief: 'At a glance',
     labelLevel: 'Level',
@@ -203,16 +203,16 @@ export default {
   },
 
   about: {
-    seoTitle: 'About us — the story of Davide and Dominica',
+    seoTitle: 'About us — the story of Davide and Dominika',
     seoDesc:
-      'The story of Nonsolofitness Torvaianica: Davide and Dominica’s gym in Viale Spagna 62, born to bring Torvaianica a serious training floor with a family feel. Open 7 days a week.',
+      'The story of Nonsolofitness Torvaianica: Davide and Dominika’s gym in Viale Spagna 62, born to bring Torvaianica a serious training floor with a family feel. Open 7 days a week.',
     kicker: 'Our story',
     ghost: 'FAMILY',
     title: 'Nobody here is a <em class="it o">number</em>',
     s1Kicker: 'Where we come from',
     s1Title: 'A gym run <span class="o">by a couple</span>, in the best sense',
     s1Body:
-      'Nonsolofitness grew out of one idea from Davide and Dominica: bring Torvaianica a gym with the equipment of the big chains and the welcome of a home. The result is a place where people call you by name, the floor is always in order, and Sunday morning has the same energy as Monday night.',
+      'Nonsolofitness grew out of one idea from Davide and Dominika: bring Torvaianica a gym with the equipment of the big chains and the welcome of a home. The result is a place where people call you by name, the floor is always in order, and Sunday morning has the same energy as Monday night.',
     s2Kicker: 'Who you’ll meet',
     s2Title: 'The <span class="o">team</span>',
     s2Note: (addr, city) => `Come and see us: ${addr}, ${city}. Open 7 days a week.`,
@@ -223,7 +223,7 @@ export default {
       ['Doors open, always', 'Seven days a week, non-stop hours. Consistency comes easier when the gym fits your life, not the other way round.'],
     ],
     timeline: [
-      { year: 'The idea', text: 'Davide and Dominica picture a different gym for Torvaianica: as serious as a city club, as welcoming as a home.' },
+      { year: 'The idea', text: 'Davide and Dominika picture a different gym for Torvaianica: as serious as a city club, as welcoming as a home.' },
       { year: 'The opening', text: 'Nonsolofitness opens at Viale Spagna 62, in a former restaurant transformed from top to bottom. [year to be confirmed]' },
       { year: 'Growing', text: 'The classes arrive: pre-boxing and functional training. The name becomes a statement.' },
       { year: 'Today', text: 'A community training 7 days a week, 4.5 stars on Google and the same rule as day one: nobody here is a number.' },
@@ -246,7 +246,7 @@ export default {
     title: 'The floor <em class="it o">agreement</em>',
     intro:
       'Ten rules in total. Not for the sake of bureaucracy: because a gym where everyone respects the space, the equipment and each other is a gym where everyone trains better.',
-    foot: '<strong>The rest comes down to one rule:</strong> treat the gym like your own home and the person training next to you like a guest. For anything else, Davide and Dominica are at the front desk.',
+    foot: '<strong>The rest comes down to one rule:</strong> treat the gym like your own home and the person training next to you like a guest. For anything else, Davide and Dominika are at the front desk.',
     list: [
       { title: 'Indoor-only shoes', text: 'You must wear shoes used exclusively inside the gym, never worn outdoors.' },
       { title: 'Towel required', text: 'You must lay a towel over the machines before using them.' },
@@ -415,7 +415,7 @@ export default {
       'Is there a class that won you over more than the others?',
       'What’s the atmosphere like when you train here?',
       'What would you tell a friend looking for a gym nearby?',
-      'How has it been with Davide and Dominica?',
+      'How has it been with Davide and Dominika?',
       'What keeps you coming back instead of switching gyms?',
       'Is there a moment of your gym week you look forward to?',
       'What has changed since you started training here?',

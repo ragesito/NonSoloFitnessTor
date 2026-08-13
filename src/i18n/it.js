@@ -52,8 +52,8 @@ export default {
     seoTitle: 'Nonsolofitness Torvaianica — Palestra, boxe e corsi a due passi dal mare',
     seoDesc:
       'Palestra a Torvaianica (Pomezia) in Viale Spagna 62: sala pesi con macchinari di ultima generazione, corsi di boxe e allenamento funzionale. Aperta 7 giorni su 7. ⭐ 4,5 su Google.',
-    heroEyebrow: 'Viale Spagna 62 · Torvaianica · a 300 m dal mare',
-    heroSub: 'Sala pesi di ultima generazione, boxe e corsi che sembrano una festa. La palestra di Davide e Dominica, aperta',
+    heroEyebrow: 'Viale Spagna 62 · Torvaianica · a 30 m dal mare',
+    heroSub: 'Sala pesi di ultima generazione, boxe e corsi che sembrano una festa. La palestra di Davide e Dominika, aperta',
     heroSubStrong: '7 giorni su 7',
     heroSrOnly: '— palestra a Torvaianica, Pomezia',
     stampText: 'PALESTRA A TORVAIANICA · APERTI 7 GIORNI SU 7 ·',
@@ -115,7 +115,7 @@ export default {
     ghost: 'CORSI',
     title: 'Un nome, un <em class="it o">programma</em>',
     intro:
-      'Si chiama <strong>Non solo fitness</strong> per un motivo: qui la sala pesi è il punto di partenza, non il punto di arrivo. Quattro corsi, un solo abbonamento, zero costi extra.',
+      'Si chiama <strong>Non solo fitness</strong> per un motivo: qui la sala pesi è il punto di partenza, non il punto di arrivo. Tre corsi, un solo abbonamento, zero costi extra.',
     discover: 'Scopri →',
     labelBrief: 'In breve',
     labelLevel: 'Livello',
@@ -203,16 +203,16 @@ export default {
   },
 
   about: {
-    seoTitle: 'Chi siamo — la storia di Davide e Dominica',
+    seoTitle: 'Chi siamo — la storia di Davide e Dominika',
     seoDesc:
-      'La storia di Nonsolofitness Torvaianica: la palestra di Davide e Dominica in Viale Spagna 62, nata per portare a Torvaianica una sala seria e un ambiente di famiglia. Aperta 7 giorni su 7.',
+      'La storia di Nonsolofitness Torvaianica: la palestra di Davide e Dominika in Viale Spagna 62, nata per portare a Torvaianica una sala seria e un ambiente di famiglia. Aperta 7 giorni su 7.',
     kicker: 'La nostra storia',
     ghost: 'FAMIGLIA',
     title: 'Qui nessuno è un <em class="it o">numero</em>',
     s1Kicker: 'Da dove veniamo',
     s1Title: 'Una palestra <span class="o">di coppia</span>, nel senso buono',
     s1Body:
-      'Nonsolofitness nasce dall’idea di Davide e Dominica: portare a Torvaianica una palestra con l’attrezzatura delle grandi catene e l’accoglienza di casa. Il risultato è un posto dove ti chiamano per nome, la sala è sempre in ordine e la domenica mattina trovi la stessa energia del lunedì sera.',
+      'Nonsolofitness nasce dall’idea di Davide e Dominika: portare a Torvaianica una palestra con l’attrezzatura delle grandi catene e l’accoglienza di casa. Il risultato è un posto dove ti chiamano per nome, la sala è sempre in ordine e la domenica mattina trovi la stessa energia del lunedì sera.',
     s2Kicker: 'Chi trovi in sala',
     s2Title: 'Il <span class="o">team</span>',
     s2Note: (addr, city) => `Ti aspettiamo in sala: ${addr}, ${city}. Aperti 7 giorni su 7.`,
@@ -223,7 +223,7 @@ export default {
       ['Porte aperte, sempre', '7 giorni su 7, orario continuato. La costanza è più facile quando la palestra si adatta alla tua vita, non il contrario.'],
     ],
     timeline: [
-      { year: 'L’idea', text: 'Davide e Dominica immaginano una palestra diversa per Torvaianica: seria come un centro di città, accogliente come una casa.' },
+      { year: 'L’idea', text: 'Davide e Dominika immaginano una palestra diversa per Torvaianica: seria come un centro di città, accogliente come una casa.' },
       { year: 'L’apertura', text: 'Nasce Nonsolofitness in Viale Spagna 62, negli spazi di un ex ristorante completamente trasformato. [anno da confermare]' },
       { year: 'La crescita', text: 'Arrivano i corsi: prepugilistica e allenamento funzionale. Il nome diventa un programma.' },
       { year: 'Oggi', text: 'Una community che si allena 7 giorni su 7, 4,5 stelle su Google e la stessa regola del primo giorno: qui nessuno è un numero.' },
@@ -246,7 +246,7 @@ export default {
     title: 'Il <em class="it o">patto</em> di sala',
     intro:
       'Dieci regole in tutto. Non per burocrazia: perché una sala dove tutti rispettano spazi, attrezzi e persone è una sala dove ci si allena meglio.',
-    foot: '<strong>Il resto è una regola sola:</strong> trattare la palestra come casa tua e chi si allena accanto a te come un ospite. Per tutto il resto ci sono Davide e Dominica in reception.',
+    foot: '<strong>Il resto è una regola sola:</strong> trattare la palestra come casa tua e chi si allena accanto a te come un ospite. Per tutto il resto ci sono Davide e Dominika in reception.',
     list: [
       { title: 'Scarpe dedicate', text: 'È obbligatorio usare scarpe riservate esclusivamente alla palestra, non utilizzate all’esterno.' },
       { title: 'Asciugamano obbligatorio', text: 'È obbligatorio stendere un asciugamano sopra i macchinari prima di utilizzarli.' },
@@ -415,7 +415,7 @@ export default {
       'C’è un corso che ti ha conquistato più degli altri?',
       'Com’è l’atmosfera quando ti alleni qui?',
       'Cosa diresti a un amico che cerca una palestra in zona?',
-      'Come ti sei trovato con Davide e Dominica?',
+      'Come ti sei trovato con Davide e Dominika?',
       'Cosa ti fa tornare, invece di cambiare palestra?',
       'C’è un momento della tua settimana in palestra che aspetti?',
       'Cosa è cambiato da quando ti alleni qui?',
