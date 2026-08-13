@@ -208,7 +208,7 @@ export default {
       'The story of Nonsolofitness Torvaianica: Davide and Dominika’s gym in Viale Spagna 62, born to bring Torvaianica a serious training floor with a family feel. Open 7 days a week.',
     kicker: 'Our story',
     ghost: 'FAMILY',
-    title: 'Nobody here is a <em class="it o">number</em>',
+    title: 'One gym, <em class="it o">one family</em>',
     s1Kicker: 'Where we come from',
     s1Title: 'A gym run <span class="o">by a couple</span>, in the best sense',
     s1Body:
@@ -226,11 +226,11 @@ export default {
       { year: 'The idea', text: 'Davide and Dominika picture a different gym for Torvaianica: as serious as a city club, as welcoming as a home.' },
       { year: 'The opening', text: 'Nonsolofitness opens at Viale Spagna 62, in a former restaurant transformed from top to bottom. [year to be confirmed]' },
       { year: 'Growing', text: 'The classes arrive: pre-boxing and functional training. The name becomes a statement.' },
-      { year: 'Today', text: 'A community training 7 days a week, 4.5 stars on Google and the same rule as day one: nobody here is a number.' },
+      { year: 'Today', text: 'A community training 7 days a week, 4.5 stars on Google and the same energy as day one.' },
     ],
     team: {
       davide: { role: 'Owner · Weight room', bio: 'Founder of the gym. On the floor every day: programming, technique and that extra word when you need it.' },
-      dominica: { role: 'Owner · Front desk & classes', bio: 'The soul of the welcome. She runs the classes and sign-ups, and makes sure nobody is ever just a number.' },
+      dominica: { role: 'Owner · Front desk & classes', bio: 'The soul of the welcome. She runs the classes and sign-ups with the same care for everyone.' },
       sala: { name: 'Weight room instructor', role: 'Body building & powerlifting', bio: 'Placeholder: name, qualifications and photo to be added.' },
       boxe: { name: 'Boxing coach', role: 'Pre-boxing training', bio: 'Placeholder: name, qualifications and photo to be added.' },
       corsi: { name: 'Class instructor', role: 'Group classes', bio: 'Placeholder: name, qualifications and photo to be added.' },

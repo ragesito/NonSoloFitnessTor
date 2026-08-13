@@ -208,7 +208,7 @@ export default {
       'La storia di Nonsolofitness Torvaianica: la palestra di Davide e Dominika in Viale Spagna 62, nata per portare a Torvaianica una sala seria e un ambiente di famiglia. Aperta 7 giorni su 7.',
     kicker: 'La nostra storia',
     ghost: 'FAMIGLIA',
-    title: 'Qui nessuno è un <em class="it o">numero</em>',
+    title: 'Una palestra, <em class="it o">una famiglia</em>',
     s1Kicker: 'Da dove veniamo',
     s1Title: 'Una palestra <span class="o">di coppia</span>, nel senso buono',
     s1Body:
@@ -226,11 +226,11 @@ export default {
       { year: 'L’idea', text: 'Davide e Dominika immaginano una palestra diversa per Torvaianica: seria come un centro di città, accogliente come una casa.' },
       { year: 'L’apertura', text: 'Nasce Nonsolofitness in Viale Spagna 62, negli spazi di un ex ristorante completamente trasformato. [anno da confermare]' },
       { year: 'La crescita', text: 'Arrivano i corsi: prepugilistica e allenamento funzionale. Il nome diventa un programma.' },
-      { year: 'Oggi', text: 'Una community che si allena 7 giorni su 7, 4,5 stelle su Google e la stessa regola del primo giorno: qui nessuno è un numero.' },
+      { year: 'Oggi', text: 'Una community che si allena 7 giorni su 7, 4,5 stelle su Google e la stessa energia del primo giorno.' },
     ],
     team: {
       davide: { role: 'Titolare · Sala pesi', bio: 'Fondatore della palestra. In sala tutti i giorni: programmazione, tecnica e quella parola in più quando serve.' },
-      dominica: { role: 'Titolare · Accoglienza & corsi', bio: 'L’anima dell’accoglienza. Gestisce corsi, iscrizioni e fa in modo che nessuno resti mai un numero.' },
+      dominica: { role: 'Titolare · Accoglienza & corsi', bio: 'L’anima dell’accoglienza. Gestisce corsi e iscrizioni con la stessa cura per tutti.' },
       sala: { name: 'Istruttore sala pesi', role: 'Body building & powerlifting', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
       boxe: { name: 'Maestro di boxe', role: 'Prepugilistica', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
       corsi: { name: 'Insegnante corsi', role: 'Corsi di gruppo', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
