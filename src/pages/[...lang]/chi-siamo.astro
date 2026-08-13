@@ -24,22 +24,24 @@ const people = [
   </PageHero>
 
   <section class="section">
-    <div class="container grid-2">
+    {/* about-grid: su desktop la foto vive nella COLONNA SINISTRA sotto il
+        kicker (aree di griglia); su mobile resta in fondo, dopo il testo. */}
+    <div class="container grid-2 about-grid">
       <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">01</span> {A.s1Kicker}</p>
       <div class="stack-lg">
         <h2 class="display display--md" data-split set:html={A.s1Title} />
         <p class="lead muted" data-reveal>{A.s1Body}</p>
-        <figure class="about-photo" data-reveal="scale">
-          <img
-            src="/media/cardio-blu.jpg"
-            width="1100"
-            height="1424"
-            loading="lazy"
-            decoding="async"
-            alt={A.s1PhotoAlt}
-          />
-        </figure>
       </div>
+      <figure class="about-photo" data-reveal="scale">
+        <img
+          src="/media/cardio-blu.jpg"
+          width="1100"
+          height="1424"
+          loading="lazy"
+          decoding="async"
+          alt={A.s1PhotoAlt}
+        />
+      </figure>
     </div>
 
     <div class="container">
@@ -86,7 +88,7 @@ const people = [
   </section>
 
   <section class="section">
-    <div class="container grid-2">
+    <div class="container grid-2 about-grid">
       <p class="eyebrow eyebrow--num" data-reveal="fade"><span class="n">03</span> {A.s3Kicker}</p>
       <div class="values">
         {A.values.map(([title, text], i) => (
@@ -96,12 +98,22 @@ const people = [
           </div>
         ))}
       </div>
+      <figure class="about-photo" data-reveal="scale">
+        <img
+          src="/media/sala-macchine.jpg"
+          width="1100"
+          height="1980"
+          loading="lazy"
+          decoding="async"
+          alt={A.s3PhotoAlt}
+        />
+      </figure>
     </div>
   </section>
 </Base>
 
 <style>
-  /* Foto della zona cardio, stessa carta arrotondata del manifesto in home */
+  /* Foto del gimnasio, stessa carta arrotondata del manifesto in home */
   .about-photo {
     margin: 0;
     border-radius: 1.25rem;
@@ -114,6 +126,22 @@ const people = [
     height: auto;
     display: block;
     filter: saturate(1.05) contrast(1.04);
+  }
+  /* Su desktop la foto sta nella colonna SINISTRA, sotto il kicker; il testo
+     occupa la colonna destra per tutta l'altezza. Su mobile ordine naturale:
+     kicker, testo, foto. */
+  @media (min-width: 60rem) {
+    .about-grid {
+      grid-template-columns: 5fr 7fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        'kick testo'
+        'foto testo';
+    }
+    .about-grid > .eyebrow { grid-area: kick; }
+    .about-grid > .stack-lg,
+    .about-grid > .values { grid-area: testo; }
+    .about-grid > .about-photo { grid-area: foto; align-self: start; }
   }
 
   .timeline {

@@ -217,6 +217,7 @@ export default {
     s1Body:
       'Nonsolofitness nasce dall’idea di Davide e Dominika: portare a Torvaianica una palestra con l’attrezzatura delle grandi catene e l’accoglienza di casa. Il risultato è un posto accogliente, con la sala sempre in ordine e la stessa energia la domenica mattina e il lunedì sera.',
     s1PhotoAlt: 'La zona cardio di Nonsolofitness Torvaianica con tapis roulant e neon rossi e blu',
+    s3PhotoAlt: 'La sala macchine di Nonsolofitness Torvaianica con panche e attrezzi sotto il soffitto industriale',
     s2Kicker: 'Chi trovi in sala',
     s2Title: 'Il <span class="o">team</span>',
     s2Note: (addr, city) => `Ti aspettiamo in sala: ${addr}, ${city}. Aperti 7 giorni su 7.`,

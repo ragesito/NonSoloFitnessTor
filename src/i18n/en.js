@@ -217,6 +217,7 @@ export default {
     s1Body:
       'Nonsolofitness grew out of one idea from Davide and Dominika: bring Torvaianica a gym with the equipment of the big chains and the welcome of a home. The result is a welcoming place where the floor is always in order and Sunday morning has the same energy as Monday night.',
     s1PhotoAlt: 'The cardio area at Nonsolofitness Torvaianica with treadmills under red and blue neon',
+    s3PhotoAlt: 'The machine floor at Nonsolofitness Torvaianica with benches and equipment under the industrial ceiling',
     s2Kicker: 'Who you’ll meet',
     s2Title: 'The <span class="o">team</span>',
     s2Note: (addr, city) => `Come and see us: ${addr}, ${city}. Open 7 days a week.`,
