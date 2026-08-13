@@ -63,7 +63,7 @@ export default {
     s1Kicker: 'La palestra',
     s1Title: 'Il livello di una palestra di città. <span class="o">Sotto casa.</span>',
     s1Body:
-      'Niente catene anonime, niente abbonamenti-trappola. Una sala ampia e pulita, macchinari di ultima generazione e due titolari che ti chiamano per nome dal secondo giorno. A Torvaianica, dove dopo l’allenamento c’è il mare.',
+      'Una sala ampia e pulita, macchinari di ultima generazione e un ambiente che ti fa sentire a casa: qui ti chiamano per nome dal secondo giorno. A Torvaianica, dove dopo l’allenamento c’è il mare.',
     s1Link: 'La nostra storia →',
     s1PhotoAlt: 'La sala pesi di Nonsolofitness Torvaianica illuminata dai neon rossi, con macchinari isotonici e panche',
 

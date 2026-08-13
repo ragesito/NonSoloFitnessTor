@@ -63,7 +63,7 @@ export default {
     s1Kicker: 'The gym',
     s1Title: 'A big-city gym. <span class="o">Around the corner.</span>',
     s1Body:
-      'No faceless chains, no fine-print contracts. A wide, spotless floor, latest-generation equipment and two owners who know your name by day two. In Torvaianica, where the sea is waiting right after your session.',
+      'A wide, spotless floor, latest-generation equipment and a place that feels like home: here they know your name by day two. In Torvaianica, where the sea is waiting right after your session.',
     s1Link: 'Our story →',
     s1PhotoAlt: 'The weight room at Nonsolofitness Torvaianica lit by red neon, with resistance machines and benches',
 
