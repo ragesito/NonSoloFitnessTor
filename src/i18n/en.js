@@ -63,7 +63,7 @@ export default {
     s1Kicker: 'The gym',
     s1Title: 'A big-city gym. <span class="o">Around the corner.</span>',
     s1Body:
-      'A wide, spotless floor, latest-generation equipment and a place that feels like home: here they know your name by day two. In Torvaianica, where the sea is waiting right after your session.',
+      'A wide, spotless floor, latest-generation equipment and a place that feels like home from day one. In Torvaianica, where the sea is waiting right after your session.',
     s1Link: 'Our story →',
     s1PhotoAlt: 'The weight room at Nonsolofitness Torvaianica lit by red neon, with resistance machines and benches',
 
@@ -212,7 +212,7 @@ export default {
     s1Kicker: 'Where we come from',
     s1Title: 'A gym run <span class="o">by a couple</span>, in the best sense',
     s1Body:
-      'Nonsolofitness grew out of one idea from Davide and Dominika: bring Torvaianica a gym with the equipment of the big chains and the welcome of a home. The result is a place where people call you by name, the floor is always in order, and Sunday morning has the same energy as Monday night.',
+      'Nonsolofitness grew out of one idea from Davide and Dominika: bring Torvaianica a gym with the equipment of the big chains and the welcome of a home. The result is a welcoming place where the floor is always in order and Sunday morning has the same energy as Monday night.',
     s2Kicker: 'Who you’ll meet',
     s2Title: 'The <span class="o">team</span>',
     s2Note: (addr, city) => `Come and see us: ${addr}, ${city}. Open 7 days a week.`,

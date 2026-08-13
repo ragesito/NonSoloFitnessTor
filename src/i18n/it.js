@@ -63,7 +63,7 @@ export default {
     s1Kicker: 'La palestra',
     s1Title: 'Il livello di una palestra di città. <span class="o">Sotto casa.</span>',
     s1Body:
-      'Una sala ampia e pulita, macchinari di ultima generazione e un ambiente che ti fa sentire a casa: qui ti chiamano per nome dal secondo giorno. A Torvaianica, dove dopo l’allenamento c’è il mare.',
+      'Una sala ampia e pulita, macchinari di ultima generazione e un ambiente che ti fa sentire subito a casa. A Torvaianica, dove dopo l’allenamento c’è il mare.',
     s1Link: 'La nostra storia →',
     s1PhotoAlt: 'La sala pesi di Nonsolofitness Torvaianica illuminata dai neon rossi, con macchinari isotonici e panche',
 
@@ -212,7 +212,7 @@ export default {
     s1Kicker: 'Da dove veniamo',
     s1Title: 'Una palestra <span class="o">di coppia</span>, nel senso buono',
     s1Body:
-      'Nonsolofitness nasce dall’idea di Davide e Dominika: portare a Torvaianica una palestra con l’attrezzatura delle grandi catene e l’accoglienza di casa. Il risultato è un posto dove ti chiamano per nome, la sala è sempre in ordine e la domenica mattina trovi la stessa energia del lunedì sera.',
+      'Nonsolofitness nasce dall’idea di Davide e Dominika: portare a Torvaianica una palestra con l’attrezzatura delle grandi catene e l’accoglienza di casa. Il risultato è un posto accogliente, con la sala sempre in ordine e la stessa energia la domenica mattina e il lunedì sera.',
     s2Kicker: 'Chi trovi in sala',
     s2Title: 'Il <span class="o">team</span>',
     s2Note: (addr, city) => `Ti aspettiamo in sala: ${addr}, ${city}. Aperti 7 giorni su 7.`,
