@@ -98,6 +98,10 @@ const jsonLd = {
     <link rel="alternate" hreflang="x-default" href={new URL(path(DEFAULT_LANG, bare), Astro.site).href} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* PNG a multipli di 48px: requisito di Google per mostrare il favicon
+        nei risultati di ricerca (senza, appare il globo grigio) */}
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {/* NIENTE theme-color: nessuno dei progetti dove la barra di stato si
         comporta bene lo dichiara. iOS 26 lo ignora per la tinta, ma non è
