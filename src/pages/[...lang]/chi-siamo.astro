@@ -29,6 +29,16 @@ const people = [
       <div class="stack-lg">
         <h2 class="display display--md" data-split set:html={A.s1Title} />
         <p class="lead muted" data-reveal>{A.s1Body}</p>
+        <figure class="about-photo" data-reveal="scale">
+          <img
+            src="/media/cardio-blu.jpg"
+            width="1100"
+            height="1424"
+            loading="lazy"
+            decoding="async"
+            alt={A.s1PhotoAlt}
+          />
+        </figure>
       </div>
     </div>
 
@@ -91,6 +101,21 @@ const people = [
 </Base>
 
 <style>
+  /* Foto della zona cardio, stessa carta arrotondata del manifesto in home */
+  .about-photo {
+    margin: 0;
+    border-radius: 1.25rem;
+    overflow: clip;
+    background: var(--ink-2);
+    max-width: 34rem;
+  }
+  .about-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(1.05) contrast(1.04);
+  }
+
   .timeline {
     display: grid;
     gap: 1.5rem;
