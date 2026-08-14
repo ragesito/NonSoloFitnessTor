@@ -312,6 +312,7 @@ export default {
     socialNote: 'Deals and updates land on social first.',
     privacy: 'Privacy & cookies',
     backTop: 'Back to top ↑',
+    credit: 'Website by',
     backTopLabel: 'Back to the top of the page',
   },
 

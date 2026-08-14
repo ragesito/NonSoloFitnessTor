@@ -110,6 +110,11 @@ const pages = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((k
         © {year} {gym.name} · P.IVA [da inserire] ·
         <a class="footer__legal-link" href={path(lang, '/privacy/')}>{L.footer.privacy}</a>
       </p>
+      {/* Firma dello studio: ogni visitatore è un potenziale cliente */}
+      <p class="footer__credit">
+        {L.footer.credit}
+        <a class="footer__legal-link footer__credit-link" href="https://fentriq.app" target="_blank" rel="noopener">Fentriq</a>
+      </p>
       <a class="footer__top-link" href="#" aria-label={L.footer.backTopLabel}>{L.footer.backTop}</a>
     </div>
   </div>
@@ -215,4 +220,5 @@ const pages = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((k
   .footer__top-link:hover { color: var(--accent); }
   .footer__legal-link { color: inherit; }
   .footer__legal-link:hover { color: var(--accent); }
+  .footer__credit-link { font-weight: 700; }
 </style>

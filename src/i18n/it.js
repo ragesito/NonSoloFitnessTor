@@ -312,6 +312,7 @@ export default {
     socialNote: 'Promo e aggiornamenti passano prima dai social.',
     privacy: 'Privacy & cookie',
     backTop: 'Torna su ↑',
+    credit: 'Sito realizzato da',
     backTopLabel: 'Torna all’inizio della pagina',
   },
 
