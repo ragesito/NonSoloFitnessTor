@@ -1,0 +1,12 @@
+{
+  "name": "Nonsolofitness Torvaianica",
+  "short_name": "Nonsolofitness",
+  "description": "Palestra a Torvaianica: sala pesi, boxe e allenamento funzionale. Aperti 7 giorni su 7.",
+  "theme_color": "#0d0d10",
+  "background_color": "#0d0d10",
+  "display": "browser",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
