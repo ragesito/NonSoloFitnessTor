@@ -36,8 +36,12 @@ writeFileSync('public/icon-512.png', await png(512, 112));
 // Apple arrotonda da se': niente raggio, altrimenti si vedono gli angoli
 writeFileSync('public/apple-touch-icon.png', await png(180, 0));
 
-// favicon.ico: contenitore con dentro i PNG a 16/32/48 (supportato ovunque)
-const sizes = [16, 32, 48];
+// favicon.ico: contenitore con dentro i PNG.
+// ORDINE DECRESCENTE, non crescente: Google richiede un favicon di almeno
+// 48px e alcuni parser leggono la PRIMA voce della directory dell'ICO — se
+// trovavano il 16x16 lo scartavano come troppo piccolo. Col 48 in testa
+// qualunque parser prende una misura valida.
+const sizes = [48, 32, 16];
 const parts = [];
 for (const size of sizes) parts.push({ size, buf: await png(size) });
 await browser.close();

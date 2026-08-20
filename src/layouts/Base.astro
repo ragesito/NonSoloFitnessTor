@@ -97,18 +97,19 @@ const jsonLd = {
     {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
     <link rel="alternate" hreflang="x-default" href={new URL(path(DEFAULT_LANG, bare), Astro.site).href} />
 
-    {/* Ricetta identica a fentriq.app, dove il favicon compare nei risultati
-        di Google dal primo giorno: .ico alla radice (primo posto dove guarda
-        il loro crawler) piu' i PNG a 48/32/16.
-        NIENTE SVG: Google sceglie UN solo favicon per sito con delle
-        euristiche, e il nostro SVG — privo di width/height, quindi senza
-        dimensioni intrinseche — poteva vincere la scelta e poi non essere
-        rasterizzabile. Da li' il globo grigio nei risultati.
-        Si rigenera tutto con: node scripts/make-favicons.mjs */}
+    {/* FAVICON — tutto si rigenera con: node scripts/make-favicons.mjs
+        Regole imparate confrontando i progetti dove compare nei risultati
+        di Google (fentriq.app, aulondetailing.com):
+        · .ico alla radice: primo posto dove guarda il loro crawler;
+        · niente SVG fra i candidati: Google ne sceglie UNO solo con delle
+          euristiche, e il nostro era privo di width/height (quindi senza
+          dimensioni intrinseche) e non rasterizzabile;
+        · fra i <link> solo misure da 48px in su: e' il minimo che Google
+          accetta, sotto scarta e mostra il globo grigio. 16 e 32 restano
+          dentro l'.ico per le schede del browser. */}
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
