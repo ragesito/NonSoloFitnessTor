@@ -7,7 +7,10 @@
 export const gym = {
   name: 'Nonsolofitness Torvaianica',
   shortName: 'Nonsolofitness',
-  legalName: 'Non Solo Fitness Torvaianica', // [DA CONFERMARE] ragione sociale esatta
+  // Ragione sociale (detta dal titolare): l'insegna e' "Non Solo Fitness",
+  // ma l'attivita' e' registrata come California Fitness Torvaianica.
+  // [DA CONFERMARE] la forma esatta (S.r.l. / A.S.D. / ditta individuale)
+  legalName: 'California Fitness Torvaianica',
   foundingYear: 2018, // [DA CONFERMARE] anno di apertura reale
 
   address: {
