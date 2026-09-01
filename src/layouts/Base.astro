@@ -45,7 +45,7 @@ const jsonLd = {
   telephone: gym.phone,
   email: gym.email,
   image: ogImageUrl.href,
-  priceRange: '€65 - €335',
+  ...(gym.showPricing ? { priceRange: '€65 - €335' } : {}),
   foundingDate: String(gym.foundingYear),
   address: {
     '@type': 'PostalAddress',

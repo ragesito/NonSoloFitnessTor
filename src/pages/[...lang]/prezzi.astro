@@ -4,7 +4,9 @@ import PageHero from '../../components/PageHero.astro';
 import { gym, pricing } from '../../data/gym.js';
 import { langPaths, t, path } from '../../i18n/index.js';
 
+// Listino nascosto (gym.showPricing) -> nessun percorso, la pagina non esiste
 export function getStaticPaths() {
+  if (!gym.showPricing) return [];
   return langPaths();
 }
 const { lang } = Astro.props;

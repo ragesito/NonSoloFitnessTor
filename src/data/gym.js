@@ -25,8 +25,20 @@ export const gym = {
 
   phone: '+39 06 9337 7766',
   phoneHref: '+390693377766',
-  // [DA CONFERMARE] numero WhatsApp reale (ora è il fisso della palestra)
-  whatsapp: '390693377766',
+  // WhatsApp reale del titolare, confermato ad agosto 2026.
+  // Formato senza + né spazi, come vuole wa.me.
+  whatsapp: '393477485951',
+  whatsappDisplay: '+39 347 748 5951',
+
+  /**
+   * PREZZI NASCOSTI su richiesta del committente (agosto 2026).
+   * false = la pagina /prezzi/ non viene generata, la voce sparisce da menu
+   * e footer, i rimandi al listino puntano ai contatti e lo schema.org non
+   * dichiara più la fascia di prezzo.
+   * Per rimetterli online basta rimettere true: i dati del listino restano
+   * qui sotto in `pricing`, intatti.
+   */
+  showPricing: false,
   // Email reale fornita dal cliente (luglio 2026)
   email: 'californiafitnesstorvaianica@gmail.com',
 

@@ -209,7 +209,10 @@ const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIC
       </div>
 
       <p class="small muted course-note" data-reveal="fade">
-        {H.s2Note} <a class="link-underline" href={path(lang, '/prezzi/')}>{H.s2NoteLink}</a>
+        {H.s2Note}{' '}
+        <a class="link-underline" href={path(lang, gym.showPricing ? '/prezzi/' : '/contatti/')}>
+          {gym.showPricing ? H.s2NoteLink : L.common.ctaInfo}
+        </a>
       </p>
     </div>
   </section>

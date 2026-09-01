@@ -6,7 +6,9 @@ interface Props { lang?: string; }
 const { lang = DEFAULT_LANG } = Astro.props;
 const L = t(lang);
 
-const nav = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((key) => ({
+const navKeys = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti']
+  .filter((key) => key !== 'prezzi' || gym.showPricing);
+const nav = navKeys.map((key) => ({
   href: path(lang, `/${key}/`),
   label: L.nav[key],
 }));

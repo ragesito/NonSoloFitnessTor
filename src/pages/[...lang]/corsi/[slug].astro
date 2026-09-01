@@ -59,7 +59,12 @@ const breadcrumb = {
             <div><dt>{C.labelLevel}</dt><dd>{data.level}</dd></div>
             <div><dt>{C.labelWhen}</dt><dd>{data.schedule}</dd></div>
             <div><dt>{C.labelWhere}</dt><dd>{gym.address.street}, {gym.address.city}</dd></div>
-            <div><dt>{C.labelIncluded}</dt><dd><a class="link-underline" href={path(lang, '/prezzi/')}>{C.includedIn}</a></dd></div>
+            <div>
+              <dt>{C.labelIncluded}</dt>
+              <dd>{gym.showPricing
+                ? <a class="link-underline" href={path(lang, '/prezzi/')}>{C.includedIn}</a>
+                : C.includedIn}</dd>
+            </div>
           </dl>
           <a class="btn btn--accent" href={waHref} target="_blank" rel="noopener">
             <span class="btn-label">{L.common.ctaInfo}</span>

@@ -11,7 +11,9 @@ const waHref = `https://wa.me/${gym.whatsapp}?text=${encodeURIComponent(L.common
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gym.name} ${gym.address.street} ${gym.address.city}`)}`;
 const hoursJson = JSON.stringify(gym.hours.map(({ dayNums, opens, closes }) => ({ dayNums, opens, closes })));
 
-const pages = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti'].map((key) => ({
+const pages = ['corsi', 'prezzi', 'chi-siamo', 'regolamento', 'contatti']
+  .filter((key) => key !== 'prezzi' || gym.showPricing)
+  .map((key) => ({
   href: path(lang, `/${key}/`),
   label: L.nav[key],
 }));
