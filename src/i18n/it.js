@@ -339,7 +339,7 @@ export default {
         title: 'Titolare del trattamento',
         body: [
           '{{LEGAL}} — {{ADDRESS}}, Italia.',
-          'P.IVA: [DA COMPLETARE] · Legale rappresentante: [DA COMPLETARE].',
+          'P.IVA: [DA COMPLETARE].',
           'Per qualsiasi questione relativa ai tuoi dati puoi scrivere a {{EMAIL}} o telefonare al {{PHONE}}.',
         ],
       },

@@ -339,7 +339,7 @@ export default {
         title: 'Data controller',
         body: [
           '{{LEGAL}} — {{ADDRESS}}, Italy.',
-          'VAT number: [TO BE COMPLETED] · Legal representative: [TO BE COMPLETED].',
+          'VAT number: [TO BE COMPLETED].',
           'For anything concerning your data you can write to {{EMAIL}} or call {{PHONE}}.',
         ],
       },
