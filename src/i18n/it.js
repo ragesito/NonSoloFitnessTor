@@ -51,13 +51,13 @@ export default {
   home: {
     seoTitle: 'Nonsolofitness Torvaianica — Palestra, boxe e corsi a due passi dal mare',
     seoDesc:
-      'Palestra a Torvaianica (Pomezia) in Viale Spagna 62: sala pesi con macchinari di ultima generazione, corsi di boxe e allenamento funzionale. Aperta 7 giorni su 7. ⭐ 4,5 su Google.',
+      'Palestra a Torvaianica (Pomezia) in Viale Spagna 62: sala pesi con macchinari di ultima generazione, corsi di boxe, funzionale, pilates e posturale. Aperta 7 giorni su 7. ⭐ 4,5 su Google.',
     heroEyebrow: 'Viale Spagna 62 · Torvaianica · a 30 m dal mare',
     heroSub: 'Sala pesi di ultima generazione, boxe e corsi che sembrano una festa. La palestra di Davide e Dominika, aperta',
     heroSubStrong: '7 giorni su 7',
     heroSrOnly: '— palestra a Torvaianica, Pomezia',
     stampText: 'PALESTRA A TORVAIANICA · APERTI 7 GIORNI SU 7 ·',
-    marquee: ['Sala pesi', 'Boxe', 'Funzionale', 'Aperti 7 su 7'],
+    marquee: ['Sala pesi', 'Boxe', 'Funzionale', 'Pilates', 'Posturale', 'Aperti 7 su 7'],
     marqueeEnd: ['Prova la palestra', 'Aperti 7 su 7', 'Viale Spagna 62', '4,5 su Google'],
 
     s1Kicker: 'La palestra',
@@ -108,14 +108,14 @@ export default {
   },
 
   courses: {
-    seoTitle: 'Corsi: boxe, funzionale e sala pesi',
+    seoTitle: 'Corsi: boxe, funzionale, pilates, posturale e sala pesi',
     seoDesc:
-      'I corsi della palestra Nonsolofitness a Torvaianica: boxe e prepugilistica, allenamento funzionale e sala pesi. Tutti inclusi nella quota di abbonamento.',
+      'I corsi della palestra Nonsolofitness a Torvaianica: boxe e prepugilistica, allenamento funzionale, pilates, ginnastica posturale e sala pesi. Tutti inclusi nella quota di abbonamento.',
     kicker: 'Corsi & attività',
     ghost: 'CORSI',
     title: 'Un nome, un <em class="it o">programma</em>',
     intro:
-      'Si chiama <strong>Non solo fitness</strong> per un motivo: qui la sala pesi è il punto di partenza, non il punto di arrivo. Tre corsi, un solo abbonamento, zero costi extra.',
+      'Si chiama <strong>Non solo fitness</strong> per un motivo: qui la sala pesi è il punto di partenza, non il punto di arrivo. Quattro corsi più la sala, un solo abbonamento, zero costi extra.',
     discover: 'Scopri →',
     labelBrief: 'In breve',
     labelLevel: 'Livello',
@@ -148,7 +148,7 @@ export default {
       description:
         'Corso di prepugilistica per tutti i livelli: tecnica di base, sacco, colpitori e preparazione atletica da ring, senza contatto obbligatorio. Bruci fino a 800 kcal a lezione e impari a muoverti come un pugile. Il corso più richiesto da chi vuole scaricare la giornata.',
       bullets: ['Tecnica + preparazione atletica', 'Nessun contatto obbligatorio', 'Fino a 800 kcal a lezione', 'Dal principiante all’agonista'],
-      schedule: 'Lun · Mer · Ven, fascia serale [orari da confermare]',
+      schedule: 'Lun · Mer · Ven, 19:00 – 20:00',
       level: 'Tutti i livelli',
     },
     funzionale: {
@@ -158,7 +158,27 @@ export default {
       description:
         'Circuiti ad alta intensità con kettlebell, sbarre, anelli e corpo libero. Forza, resistenza e mobilità in un’unica ora, con progressioni scalabili per ogni livello: il principiante e l’atleta fanno lo stesso workout, a intensità diverse.',
       bullets: ['Circuiti sempre diversi', 'Scalabile su ogni livello', 'Forza + fiato + mobilità', 'Gruppo che spinge forte'],
-      schedule: 'Lun – Ven, più fasce orarie [da confermare]',
+      schedule: 'Mar · Gio, 19:00 – 20:00',
+      level: 'Tutti i livelli',
+    },
+    pilates: {
+      name: 'Pilates',
+      kicker: 'Matwork & controllo',
+      tagline: 'Respiro, controllo e core. L’ora più lenta della settimana è quella che ti raddrizza.',
+      description:
+        'Lezioni di pilates matwork: esercizi lenti e controllati per rinforzare il core, allungare la muscolatura e migliorare equilibrio e postura. Il complemento perfetto alla sala pesi, o il modo più dolce di ricominciare ad allenarsi.',
+      bullets: ['Core più forte e stabile', 'Mobilità e allungamento', 'Ritmo lento, lavoro profondo', 'Perfetto insieme alla sala'],
+      schedule: 'Mar · Gio, 17:00 – 18:00',
+      level: 'Tutti i livelli',
+    },
+    posturale: {
+      name: 'Ginnastica posturale',
+      kicker: 'Schiena & postura',
+      tagline: 'Meno dolori, più mobilità. La ginnastica che ripara le ore passate alla scrivania.',
+      description:
+        'Esercizi mirati di mobilità, allungamento e rinforzo per riequilibrare la postura e alleggerire schiena, collo e spalle. Ritmo dolce e seguiti da vicino: adatta a tutte le età, anche a chi non si allena da tempo.',
+      bullets: ['Schiena, collo e spalle', 'Ritmo dolce, seguiti da vicino', 'Adatta a tutte le età', 'Ideale per chi sta molto seduto'],
+      schedule: 'Lun · Mer · Ven, 17:00 – 18:00',
       level: 'Tutti i livelli',
     },
   },
@@ -229,16 +249,17 @@ export default {
     ],
     timeline: [
       { year: 'L’idea', text: 'Davide e Dominika immaginano una palestra diversa per Torvaianica: seria come un centro di città, accogliente come una casa.' },
-      { year: 'L’apertura', text: 'Nasce Nonsolofitness in Viale Spagna 62, negli spazi di un ex ristorante completamente trasformato. [anno da confermare]' },
-      { year: 'La crescita', text: 'Arrivano i corsi: prepugilistica e allenamento funzionale. Il nome diventa un programma.' },
+      { year: '2021', text: 'Nasce Nonsolofitness in Viale Spagna 62, negli spazi di un ex ristorante completamente trasformato.' },
+      { year: 'La crescita', text: 'Arrivano i corsi: prepugilistica, funzionale, pilates e posturale. Il nome diventa un programma.' },
       { year: 'Oggi', text: 'Una community che si allena 7 giorni su 7, 4,5 stelle su Google e la stessa energia del primo giorno.' },
     ],
     team: {
       davide: { role: 'Titolare · Sala pesi', bio: 'Fondatore della palestra. In sala tutti i giorni: programmazione, tecnica e quella parola in più quando serve.' },
       dominica: { role: 'Titolare · Accoglienza & corsi', bio: 'L’anima dell’accoglienza. Gestisce corsi e iscrizioni con la stessa cura per tutti.' },
-      sala: { name: 'Istruttore sala pesi', role: 'Body building & powerlifting', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
-      boxe: { name: 'Maestro di boxe', role: 'Prepugilistica', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
-      corsi: { name: 'Insegnante corsi', role: 'Corsi di gruppo', bio: 'Segnaposto: nome, qualifica e foto da inserire.' },
+      // [DA CONFERMARE] chi segue cosa: ruolo, qualifica e bio di ognuno
+      alessandro: { role: 'Staff tecnico', bio: 'Ruolo, qualifica e foto in arrivo.' },
+      matia: { role: 'Staff tecnico', bio: 'Ruolo, qualifica e foto in arrivo.' },
+      shon: { role: 'Staff tecnico', bio: 'Ruolo, qualifica e foto in arrivo.' },
     },
   },
 
@@ -339,7 +360,7 @@ export default {
         title: 'Titolare del trattamento',
         body: [
           '{{LEGAL}} — {{ADDRESS}}, Italia.',
-          'P.IVA: [DA COMPLETARE].',
+          'Codice fiscale: [DA COMPLETARE].',
           'Per qualsiasi questione relativa ai tuoi dati puoi scrivere a {{EMAIL}} o telefonare al {{PHONE}}.',
         ],
       },
@@ -437,7 +458,7 @@ export default {
 
   schema: {
     description:
-      'Palestra a Torvaianica (Pomezia): sala pesi con macchinari di ultima generazione, corsi di boxe e allenamento funzionale. Aperta 7 giorni su 7 in Viale Spagna 62.',
+      'Palestra a Torvaianica (Pomezia): sala pesi con macchinari di ultima generazione, corsi di boxe, funzionale, pilates e posturale. Aperta 7 giorni su 7 in Viale Spagna 62.',
     wheelchair: 'Accesso per sedie a rotelle',
     parking: 'Parcheggio accessibile',
     breadcrumbHome: 'Home',

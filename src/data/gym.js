@@ -9,9 +9,13 @@ export const gym = {
   shortName: 'Nonsolofitness',
   // Ragione sociale (detta dal titolare): l'insegna e' "Non Solo Fitness",
   // ma l'attivita' e' registrata come California Fitness Torvaianica.
-  // [DA CONFERMARE] la forma esatta (S.r.l. / A.S.D. / ditta individuale)
-  legalName: 'California Fitness Torvaianica',
-  foundingYear: 2018, // [DA CONFERMARE] anno di apertura reale
+  // Confermato dal titolare (settembre 2026): NON e' un'attivita' commerciale,
+  // e' un'A.S.D. (associazione sportiva dilettantistica). Quindi sul sito non
+  // va la P.IVA ma il CODICE FISCALE dell'associazione.
+  // [DA CHIEDERE a Davide] il C.F. esatto; e se l'ASD ha anche una P.IVA
+  // (ce l'ha solo se fa attivita' commerciale) — in quel caso si mettono entrambi.
+  legalName: 'A.S.D. California Fitness Torvaianica',
+  foundingYear: 2021, // confermato dal titolare (settembre 2026)
 
   address: {
     street: 'Viale Spagna, 62',
@@ -79,8 +83,14 @@ export const gym = {
 
   // Nomi reali; ruoli e bio sono tradotti (i18n → team)
   owners: [{ id: 'davide', name: 'Davide' }, { id: 'dominica', name: 'Dominika' }],
-  // [DA CONFERMARE] staff tecnico reale: nomi, qualifiche, foto
-  staff: [{ id: 'sala', placeholder: true }, { id: 'boxe', placeholder: true }, { id: 'corsi', placeholder: true }],
+  // Nomi reali dello staff, dettati dal titolare (settembre 2026).
+  // [DA CONFERMARE] ruolo/qualifica di ognuno (chi segue sala, boxe, corsi?)
+  // e le foto. placeholder: true = mostra "foto in arrivo".
+  staff: [
+    { id: 'alessandro', name: 'Alessandro', placeholder: true },
+    { id: 'matia', name: 'Matia', placeholder: true },
+    { id: 'shon', name: 'Shon', placeholder: true },
+  ],
 
   // Valori numerici; etichette e suffissi sono tradotti (i18n → stats)
   stats: [
@@ -103,8 +113,11 @@ export const pricing = [
 export const courses = [
   { slug: 'sala-pesi', accent: '#d90429' },
   { slug: 'boxe', accent: '#d90429' },
-  // l'oro passa al funzionale: era del pilates, rimosso (la palestra non lo fa)
   { slug: 'funzionale', accent: '#E8B620' },
+  // Pilates e posturale confermati dal titolare (settembre 2026):
+  // la palestra li fa eccome, con orari fissi.
+  { slug: 'pilates', accent: '#3a86ff' },
+  { slug: 'posturale', accent: '#2a9d8f' },
 ];
 
 /**

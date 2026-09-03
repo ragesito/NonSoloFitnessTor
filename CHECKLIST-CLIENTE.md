@@ -15,11 +15,10 @@ queste informazioni. Puoi rispondere anche a voce o con foto del listino, come t
 - Orari di apertura esatti, giorno per giorno (weekend compreso)
 - Come funzionate nei festivi e ad agosto?
 
-## 3. Corsi — giorni e orari
-- Boxe/prepugilistica: quali giorni e a che ora?
-- Pilates / posturale: giorni e orari
-- Allenamento funzionale: giorni e orari
-- Serve prenotare? Come si prenota?
+## ~~3. Corsi — giorni e orari~~ ✅ RICEVUTI (settembre 2026) — online
+- Prepugilistica: lun/mer/ven 19–20 · Funzionale: mar/gio 19–20
+- Pilates: mar/gio 17–18 · Posturale: lun/mer/ven 17–18 · Sala pesi: tutti i giorni
+- Resta solo da sapere: serve prenotare? Come si prenota?
 
 ## 4. Contatti ⬅️ MANCA IL WHATSAPP
 - **Numero WhatsApp ufficiale** (quello dove volete ricevere i clienti) — è l'unico dato
@@ -28,14 +27,18 @@ queste informazioni. Puoi rispondere anche a voce o con foto del listino, come t
 - ~~Email~~ ✅ californiafitnesstorvaianica@gmail.com (confermi che è quella giusta,
   anche se il nome dice "california"?)
 
-## 5. Dati legali (obbligatori sul sito)
-- Ragione sociale esatta e P.IVA
-- Nome del titolare per la privacy policy
+## 5. Dati legali (obbligatori sul sito) ⬅️ MANCA IL CODICE FISCALE
+- ~~Ragione sociale~~ ✅ A.S.D. California Fitness Torvaianica (è un'associazione
+  sportiva dilettantistica, non un'attività commerciale — confermato settembre 2026)
+- **Codice fiscale dell'ASD** (le ASD ce l'hanno sempre) — al posto della P.IVA
+- Chiedere anche: l'ASD ha ANCHE una P.IVA (solo se fa attività commerciale)?
+  Se sì, si mettono entrambi
 
 ## 6. La vostra storia (per la pagina "Chi siamo")
-- In che anno avete aperto?
+- ~~In che anno avete aperto?~~ ✅ 2021 (confermato settembre 2026)
 - Due righe sulla storia: come è nata l'idea? Cognomi, se volete metterli
-- Chi c'è nello staff oltre a voi due? Nome, ruolo/qualifiche di ognuno
+- ~~Chi c'è nello staff?~~ ✅ Alessandro, Matia, Shon (settembre 2026)
+  — mancano ancora RUOLO/QUALIFICA di ognuno (chi segue sala, boxe, corsi?) e le foto
 
 ## ~~7. Recensioni~~ ✅ ONLINE (4 recensioni Google reali)
 

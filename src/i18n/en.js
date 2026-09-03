@@ -51,13 +51,13 @@ export default {
   home: {
     seoTitle: 'Nonsolofitness Torvaianica — Gym, boxing and classes steps from the sea',
     seoDesc:
-      'Gym in Torvaianica (Pomezia), Viale Spagna 62: weight room with latest-generation equipment, boxing and functional training classes. Open 7 days a week. ⭐ 4.5 on Google.',
+      'Gym in Torvaianica (Pomezia), Viale Spagna 62: weight room with latest-generation equipment, boxing, functional training, pilates and postural classes. Open 7 days a week. ⭐ 4.5 on Google.',
     heroEyebrow: 'Viale Spagna 62 · Torvaianica · 30 m from the beach',
     heroSub: 'A latest-generation weight room, boxing and classes that feel like a party. Davide and Dominika’s gym, open',
     heroSubStrong: '7 days a week',
     heroSrOnly: '— gym in Torvaianica, Pomezia',
     stampText: 'GYM IN TORVAIANICA · OPEN 7 DAYS A WEEK ·',
-    marquee: ['Weight room', 'Boxing', 'Functional', 'Open 7 days'],
+    marquee: ['Weight room', 'Boxing', 'Functional', 'Pilates', 'Posture', 'Open 7 days'],
     marqueeEnd: ['Try the gym', 'Open 7 days', 'Viale Spagna 62', '4.5 on Google'],
 
     s1Kicker: 'The gym',
@@ -108,14 +108,14 @@ export default {
   },
 
   courses: {
-    seoTitle: 'Classes: boxing, functional training and weight room',
+    seoTitle: 'Classes: boxing, functional training, pilates, posture and weight room',
     seoDesc:
-      'Classes at Nonsolofitness gym in Torvaianica: boxing, functional training and the weight room. All included in your membership.',
+      'Classes at Nonsolofitness gym in Torvaianica: boxing, functional training, pilates, postural training and the weight room. All included in your membership.',
     kicker: 'Classes & activities',
     ghost: 'CLASSES',
     title: 'A name that’s a <em class="it o">promise</em>',
     intro:
-      'It’s called <strong>Non solo fitness</strong> — “not only fitness” — for a reason: here the weight room is the starting point, not the finish line. Three classes, one membership, no extra costs.',
+      'It’s called <strong>Non solo fitness</strong> — “not only fitness” — for a reason: here the weight room is the starting point, not the finish line. Four classes plus the floor, one membership, no extra costs.',
     discover: 'Discover →',
     labelBrief: 'At a glance',
     labelLevel: 'Level',
@@ -148,7 +148,7 @@ export default {
       description:
         'Pre-boxing classes for every level: fundamentals, heavy bag, pad work and ring-style conditioning, with no obligatory contact. You can burn up to 800 kcal a session while learning to move like a boxer. The most requested class among people who need to shake off the day.',
       bullets: ['Technique + athletic conditioning', 'No obligatory contact', 'Up to 800 kcal per session', 'From beginner to competitor'],
-      schedule: 'Mon · Wed · Fri, evenings [times to be confirmed]',
+      schedule: 'Mon · Wed · Fri, 19:00 – 20:00',
       level: 'All levels',
     },
     funzionale: {
@@ -158,7 +158,27 @@ export default {
       description:
         'High-intensity circuits with kettlebells, bars, rings and bodyweight. Strength, endurance and mobility in a single hour, with progressions that scale to any level: the beginner and the athlete do the same workout at different intensities.',
       bullets: ['Circuits that never repeat', 'Scalable to any level', 'Strength + cardio + mobility', 'A group that pushes hard'],
-      schedule: 'Mon – Fri, several time slots [to be confirmed]',
+      schedule: 'Tue · Thu, 19:00 – 20:00',
+      level: 'All levels',
+    },
+    pilates: {
+      name: 'Pilates',
+      kicker: 'Matwork & control',
+      tagline: 'Breath, control and core. The slowest hour of your week is the one that straightens you out.',
+      description:
+        'Matwork pilates classes: slow, controlled exercises to strengthen your core, lengthen your muscles and improve balance and posture. The perfect complement to the weight room — or the gentlest way to start training again.',
+      bullets: ['A stronger, steadier core', 'Mobility and stretching', 'Slow pace, deep work', 'Pairs perfectly with the floor'],
+      schedule: 'Tue · Thu, 17:00 – 18:00',
+      level: 'All levels',
+    },
+    posturale: {
+      name: 'Postural training',
+      kicker: 'Back & posture',
+      tagline: 'Less pain, more mobility. The class that undoes all those hours at a desk.',
+      description:
+        'Targeted mobility, stretching and strengthening exercises to rebalance your posture and take the load off your back, neck and shoulders. Gentle pace and close guidance: suitable for every age, even if you haven’t trained in a while.',
+      bullets: ['Back, neck and shoulders', 'Gentle pace, close guidance', 'Suitable for every age', 'Ideal if you sit a lot'],
+      schedule: 'Mon · Wed · Fri, 17:00 – 18:00',
       level: 'All levels',
     },
   },
@@ -229,16 +249,17 @@ export default {
     ],
     timeline: [
       { year: 'The idea', text: 'Davide and Dominika picture a different gym for Torvaianica: as serious as a city club, as welcoming as a home.' },
-      { year: 'The opening', text: 'Nonsolofitness opens at Viale Spagna 62, in a former restaurant transformed from top to bottom. [year to be confirmed]' },
-      { year: 'Growing', text: 'The classes arrive: pre-boxing and functional training. The name becomes a statement.' },
+      { year: '2021', text: 'Nonsolofitness opens at Viale Spagna 62, in a former restaurant transformed from top to bottom.' },
+      { year: 'Growing', text: 'The classes arrive: pre-boxing, functional training, pilates and postural training. The name becomes a statement.' },
       { year: 'Today', text: 'A community training 7 days a week, 4.5 stars on Google and the same energy as day one.' },
     ],
     team: {
       davide: { role: 'Owner · Weight room', bio: 'Founder of the gym. On the floor every day: programming, technique and that extra word when you need it.' },
       dominica: { role: 'Owner · Front desk & classes', bio: 'The soul of the welcome. She runs the classes and sign-ups with the same care for everyone.' },
-      sala: { name: 'Weight room instructor', role: 'Body building & powerlifting', bio: 'Placeholder: name, qualifications and photo to be added.' },
-      boxe: { name: 'Boxing coach', role: 'Pre-boxing training', bio: 'Placeholder: name, qualifications and photo to be added.' },
-      corsi: { name: 'Class instructor', role: 'Group classes', bio: 'Placeholder: name, qualifications and photo to be added.' },
+      // [TO BE CONFIRMED] who runs what: role, qualifications and bio for each
+      alessandro: { role: 'Training staff', bio: 'Role, qualifications and photo coming soon.' },
+      matia: { role: 'Training staff', bio: 'Role, qualifications and photo coming soon.' },
+      shon: { role: 'Training staff', bio: 'Role, qualifications and photo coming soon.' },
     },
   },
 
@@ -339,7 +360,7 @@ export default {
         title: 'Data controller',
         body: [
           '{{LEGAL}} — {{ADDRESS}}, Italy.',
-          'VAT number: [TO BE COMPLETED].',
+          'Tax code (codice fiscale): [TO BE COMPLETED].',
           'For anything concerning your data you can write to {{EMAIL}} or call {{PHONE}}.',
         ],
       },
@@ -437,7 +458,7 @@ export default {
 
   schema: {
     description:
-      'Gym in Torvaianica (Pomezia): weight room with latest-generation equipment, boxing and functional training classes. Open 7 days a week at Viale Spagna 62.',
+      'Gym in Torvaianica (Pomezia): weight room with latest-generation equipment, boxing, functional training, pilates and postural classes. Open 7 days a week at Viale Spagna 62.',
     wheelchair: 'Wheelchair accessible entrance',
     parking: 'Accessible parking',
     breadcrumbHome: 'Home',
